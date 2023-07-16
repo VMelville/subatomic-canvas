@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 135.46667 135.46667"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="Hexagon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="true"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="1.2860505"
+     inkscape:cx="253.87806"
+     inkscape:cy="254.65564"
+     inkscape:window-width="2018"
+     inkscape:window-height="1081"
+     inkscape:window-x="1440"
+     inkscape:window-y="748"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="レイヤー 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path1070"
+       style="fill:#ffffff;fill-opacity:0.997653;stroke-width:53.1018;stroke-linecap:round;stroke-linejoin:round"
+       d="M 128,34.296875 0,256 128,477.70312 H 384 L 512,256 384,34.296875 Z m 16,27.712891 H 368 L 480,256 368,449.99023 H 144 L 32,256 Z"
+       transform="scale(0.26458334)"
+       inkscape:export-filename="D:\projects\geant4\particle-sim-unity\Assets\ParticleSim\Images\Hexagon.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+  </g>
+</svg>

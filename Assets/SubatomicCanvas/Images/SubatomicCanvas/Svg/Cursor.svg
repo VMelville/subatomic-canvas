@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="180"
+   height="180"
+   viewBox="0 0 47.625 47.625"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="D:\projects\unity\subatomic-canvas\Assets\SubatomicCanvas\Images\SubatomicCanvas\Cursor.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="Cursor.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="true"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     width="180px"
+     inkscape:zoom="3.4294679"
+     inkscape:cx="105.99312"
+     inkscape:cy="131.36149"
+     inkscape:window-width="2327"
+     inkscape:window-height="1195"
+     inkscape:window-x="1166"
+     inkscape:window-y="119"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer2" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="レイヤー 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:none">
+    <circle
+       style="fill:#ffffff;stroke-width:6.93053;stroke-linecap:round;stroke-linejoin:round"
+       id="path870"
+       cx="23.8125"
+       cy="23.8125"
+       r="21.166666" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="マスク"
+     style="display:inline">
+    <path
+       id="rect1007"
+       style="fill:#ffffff;stroke-width:24.8354;stroke-linecap:round;stroke-linejoin:round"
+       d="M 50,20 V 133.46484 L 76.404297,123.1543 94.644531,164.17969 117.89258,152.75586 100.54102,113.73047 130,102.22852 Z"
+       transform="scale(0.26458333)" />
+  </g>
+</svg>

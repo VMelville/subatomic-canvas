@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 135.46667 135.46667"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="SubatomicCanvas.svg"
+   inkscape:export-filename="D:\projects\geant4\particle-sim-unity\Assets\ParticleSim\Icons\subatomic_canvas.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="true"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="0.10656738"
+     inkscape:cx="-835.14941"
+     inkscape:cy="-2315.7928"
+     inkscape:window-width="1450"
+     inkscape:window-height="1081"
+     inkscape:window-x="2130"
+     inkscape:window-y="669"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient1520">
+      <stop
+         style="stop-color:#45ad5f;stop-opacity:1"
+         offset="0"
+         id="stop1516" />
+      <stop
+         style="stop-color:#7ba0e8;stop-opacity:1"
+         offset="1"
+         id="stop1518" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1520"
+       id="linearGradient1522"
+       x1="90.630875"
+       y1="129.30054"
+       x2="-21.425831"
+       y2="-64.787361"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     inkscape:label="レイヤー 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="star"
+       style="fill:url(#linearGradient1522);fill-opacity:1;stroke-width:32;stroke-linecap:round;stroke-linejoin:round"
+       id="path918"
+       inkscape:flatsided="true"
+       sodipodi:sides="6"
+       sodipodi:cx="34.60252"
+       sodipodi:cy="32.256584"
+       sodipodi:r1="112.0567"
+       sodipodi:r2="97.043953"
+       sodipodi:arg1="0"
+       sodipodi:arg2="0.52359878"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 146.65922,32.256584 90.630871,129.30053 H -21.425831 l -56.028351,-97.043946 56.028351,-97.04395 112.056702,0 z"
+       transform="matrix(0.59028897,0,0,0.59028938,47.307849,48.692615)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="35.534786"
+       y="64.862617"
+       id="text7720"><tspan
+         sodipodi:role="line"
+         id="tspan7718"
+         style="stroke-width:0.264583"
+         x="35.534786"
+         y="64.862617" /></text>
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke-width:4.24597;stroke-linecap:round;stroke-linejoin:round"
+       id="path9806"
+       cx="88.340378"
+       cy="66.455788"
+       r="7.9375" />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke-width:7.56202;stroke-linecap:round;stroke-linejoin:round"
+       id="path9806-7"
+       cx="81.531586"
+       cy="95.948936"
+       r="14.13657" />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke-width:2.72807;stroke-linecap:round;stroke-linejoin:round"
+       id="path9806-2-5"
+       cx="42.093174"
+       cy="75.344452"
+       r="5.0998864" />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke-width:5.12273;stroke-linecap:round;stroke-linejoin:round"
+       id="path9806-2-5-0"
+       cx="35.730377"
+       cy="63.819454"
+       r="9.5765038" />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke-width:1.86765;stroke-linecap:round;stroke-linejoin:round"
+       id="path9806-2-5-0-4-1"
+       cx="28.251596"
+       cy="45.492683"
+       r="3.4914093" />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke-width:2.40719;stroke-linecap:round;stroke-linejoin:round"
+       id="path9806-2-4"
+       cx="92.361931"
+       cy="56.596371"
+       r="4.5000381" />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke-width:3.36176;stroke-linecap:round;stroke-linejoin:round"
+       id="path9806-2-6-2"
+       cx="98.870781"
+       cy="41.401497"
+       r="6.2845364" />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke-width:2.40719;stroke-linecap:round;stroke-linejoin:round"
+       id="path9806-2-2"
+       cx="56.102802"
+       cy="89.555962"
+       r="4.5000381" />
+  </g>
+</svg>

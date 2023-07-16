@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="180"
+   height="180"
+   viewBox="0 0 47.625 47.625"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="D:\projects\unity\subatomic-canvas\Assets\SubatomicCanvas\Images\SubatomicCanvas\Trashbox.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="Trashbox.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="true"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     width="180px"
+     inkscape:zoom="2.0093583"
+     inkscape:cx="56.485696"
+     inkscape:cy="108.74118"
+     inkscape:window-width="2327"
+     inkscape:window-height="1195"
+     inkscape:window-x="962"
+     inkscape:window-y="776"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer2"
+     inkscape:snap-object-midpoints="true" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="レイヤー 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:none">
+    <circle
+       style="fill:#ffffff;stroke-width:6.93053;stroke-linecap:round;stroke-linejoin:round"
+       id="path870"
+       cx="23.8125"
+       cy="23.8125"
+       r="21.166666" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="マスク"
+     style="display:inline">
+    <path
+       id="rect1458"
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.95347;stroke-linecap:round;stroke-linejoin:round"
+       d="m 11.167359,4.6101111 -3.3563485,7.7674789 2.1513269,8.694873 4.1690986,20.018683 8.162506,3.422187 1.584396,-1.45243 1.452431,1.45243 9.80845,-2.500458 -1.518268,-1.51827 1.518268,-1.518556 L 37.181567,4.8076245 24.075851,4.5561007 Z m 12.908492,-0.05401 2.5511,-0.1482505 L 23.8125,7.2222999 20.99805,4.4078502 Z m -5.818415,2.5923625 2.814451,2.814451 -2.814451,2.8144488 -2.81445,-2.8144488 z m 11.109551,0 2.81445,2.814451 -2.81445,2.8144488 -2.814451,-2.8144488 z M 12.70295,12.70295 15.5174,15.5174 12.70295,18.33185 9.8884994,15.5174 Z m 11.10955,0 2.814451,2.81445 -2.814451,2.81445 -2.81445,-2.81445 z m 11.109551,0 2.81445,2.81445 -2.81445,2.81445 L 32.1076,15.5174 Z m -26.5890857,4.369985 1.6293721,3.999528 0.3457606,2.814452 -0.3457606,-2.814452 z m 9.9244707,1.18508 2.814451,2.814448 -2.814451,2.814452 -2.81445,-2.814452 z m 11.109551,0 2.81445,2.814448 -2.81445,2.814452 -2.814451,-2.814452 z m 9.06858,0 0.641804,1.892719 -0.641804,2.28775 -0.773479,-1.366021 z M 12.70295,23.8125 15.5174,26.626952 12.70295,29.441401 9.8884994,26.626952 Z m 11.10955,0 2.814451,2.814452 -2.814451,2.814449 -2.81445,-2.814449 z m 11.109551,0 2.81445,2.814452 -2.81445,2.814449 -2.814451,-2.814449 z m -16.664615,5.555065 2.814451,2.814449 -2.814451,2.814451 -2.81445,-2.814451 z m 11.109551,0 2.81445,2.814449 -2.81445,2.814451 -2.814451,-2.814451 z m -5.554487,5.554487 2.814451,2.81445 -2.814451,2.81445 -2.81445,-2.81445 z"
+       sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc" />
+    <path
+       id="rect1007-8"
+       style="display:inline;fill:none;stroke:#ffffff;stroke-width:4.889;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       d="m 7.9375,5.2916663 h 31.75 L 34.395833,42.333334 H 13.229167 Z"
+       sodipodi:nodetypes="ccccc" />
+  </g>
+</svg>
