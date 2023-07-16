@@ -1,6 +1,6 @@
-﻿namespace SubatomicCanvas.Entities
+﻿namespace SubatomicCanvas.Model
 {
-    public class Particle
+    public struct Particle
     {
         public string key;
         public string displayName;

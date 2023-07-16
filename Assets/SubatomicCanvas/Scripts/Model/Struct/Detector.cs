@@ -1,6 +1,6 @@
-﻿namespace SubatomicCanvas.Entities
+﻿namespace SubatomicCanvas.Model
 {
-    public class Detector
+    public struct Detector
     {
         public DetectorType type;
 

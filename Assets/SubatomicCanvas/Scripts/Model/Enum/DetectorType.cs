@@ -1,4 +1,4 @@
-﻿namespace SubatomicCanvas.Entities
+﻿namespace SubatomicCanvas.Model
 {
     public enum DetectorType
     {

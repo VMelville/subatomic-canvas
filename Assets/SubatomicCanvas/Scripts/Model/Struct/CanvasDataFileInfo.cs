@@ -1,6 +1,6 @@
-﻿namespace SubatomicCanvas.Entities
+﻿namespace SubatomicCanvas.Model
 {
-    public class CanvasDataFileInfo
+    public struct CanvasDataFileInfo
     {
         public string fileName;
         public string filePath;
