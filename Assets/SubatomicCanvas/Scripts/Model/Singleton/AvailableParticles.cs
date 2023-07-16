@@ -4,6 +4,6 @@ namespace SubatomicCanvas.Model
 {
     public class AvailableParticles
     {
-        public ReactiveDictionary<string, Particle> particleDict;
+        public readonly ReactiveDictionary<string, Particle> particleDict = new ReactiveDictionary<string, Particle>();
     }
 }

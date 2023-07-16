@@ -4,8 +4,8 @@ namespace SubatomicCanvas.Model
 {
     public class PaintToolState
     {
-        public ReactiveProperty<PaintToolType> activePaintToolType;
-        public StringReactiveProperty activeDetectorKey;
-        public BoolReactiveProperty isActiveSymmetry;
+        public ReactiveProperty<PaintToolType> activePaintToolType = new ReactiveProperty<PaintToolType>();
+        public StringReactiveProperty activeDetectorKey = new StringReactiveProperty();
+        public BoolReactiveProperty isActiveSymmetry = new BoolReactiveProperty();
     }
 }

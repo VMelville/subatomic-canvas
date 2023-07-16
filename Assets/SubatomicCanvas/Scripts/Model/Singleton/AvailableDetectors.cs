@@ -4,6 +4,6 @@ namespace SubatomicCanvas.Model
 {
     public class AvailableDetectors
     {
-        public ReactiveDictionary<string, Detector> detectorDict;
+        public readonly ReactiveDictionary<string, Detector> detectorDict = new ReactiveDictionary<string, Detector>();
     }
 }

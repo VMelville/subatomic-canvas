@@ -4,6 +4,6 @@ namespace SubatomicCanvas.Model
 {
     public class AvailableCanvasDataFiles
     {
-        public ReactiveCollection<CanvasDataFileInfo> canvasDataFiles;
+        public readonly ReactiveCollection<CanvasDataFileInfo> canvasDataFiles = new ReactiveCollection<CanvasDataFileInfo>();
     }
 }
