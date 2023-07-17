@@ -81,6 +81,7 @@ namespace SubatomicCanvas.LifetimeScope
             builder.RegisterEntryPoint<SimulationPresenter>();
             builder.RegisterEntryPoint<SnapshotPresenter>();
             builder.RegisterEntryPoint<TimePresenter>();
+            builder.RegisterEntryPoint<VfxVisualizePresenter>();
         }
         
         private static string GetParentPath(string path)
