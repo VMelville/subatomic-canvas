@@ -2,6 +2,7 @@
 {
     public enum PaintToolType
     {
+        None,
         PixelEraser,
         PixelPen
     }

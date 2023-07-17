@@ -14,9 +14,15 @@ namespace SubatomicCanvas.Presenter
         
         public void Start()
         {
-            _paintToolState.activePaintToolType.Subscribe(_paintToolView.SetType);
             _paintToolState.activeDetectorKey.Subscribe(_paintToolView.SetDetectorKey);
             _paintToolState.isActiveSymmetry.Subscribe(_paintToolView.SetActiveSymmetry);
+            
+            _paintToolView.onClickPaintToolButton.AddListener(_paintToolState.ChangePaintTool);
+            _paintToolView.onClickSymmetryModeButton.AddListener(_paintToolState.ToggleSymmetryMode);
+            
+            // ToDo: これは仮です
+            _paintToolState.ChangePaintTool("TrackDetectorV1");
+            _paintToolState.ToggleSymmetryMode();
         }
     }
 }
