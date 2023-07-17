@@ -1,7 +1,6 @@
 ﻿using SubatomicCanvas.Model;
 using SubatomicCanvas.View;
-using UnityEngine;
-using UnityEngine.Android;
+using UniRx;
 using VContainer;
 using VContainer.Unity;
 
@@ -14,8 +13,23 @@ namespace SubatomicCanvas.Presenter
 
         public void Start()
         {
-            Debug.LogWarning("ToDo: Menuの疎結合化");
-            // _menuState.isOpen.Subscribe(_menuView)
+            _menuView.SetOpenCloseStateImmediately(_menuState.isOpen.Value);
+            
+            _menuState.isOpen.Subscribe(_menuView.SetOpenCloseState);
+            _menuState.pageIndex.Subscribe(_menuView.SetPageIndex);
+
+            _menuView.onClickMenuButton.AddListener(OnClickMenuButton);
+            _menuView.onChangePage.AddListener(OnChangePage);
+        }
+
+        private void OnClickMenuButton()
+        {
+            _menuState.isOpen.Value ^= true;
+        }
+
+        private void OnChangePage(int pageIndex)
+        {
+            _menuState.pageIndex.Value = pageIndex;
         }
     }
 }

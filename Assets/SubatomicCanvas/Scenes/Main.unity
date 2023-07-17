@@ -6798,6 +6798,7 @@ MonoBehaviour:
   autoInjectGameObjects: []
   cameraView: {fileID: 330585548}
   canvasView: {fileID: 222026886}
+  lineVisualizeView: {fileID: 817328974}
   menuView: {fileID: 1238993754}
   paintToolView: {fileID: 1821636978}
   particleShelfView: {fileID: 517803545}
@@ -6806,6 +6807,7 @@ MonoBehaviour:
   snapshotButtonView: {fileID: 1843040216}
   timeView: {fileID: 1110532148}
   uiVisibleView: {fileID: 355055627}
+  vfxVisualizeView: {fileID: 1980334825}
 --- !u!4 &969841799
 Transform:
   m_ObjectHideFlags: 0

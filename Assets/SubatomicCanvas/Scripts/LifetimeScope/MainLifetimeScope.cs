@@ -3,7 +3,6 @@ using SubatomicCanvas.Model.UseCase;
 using SubatomicCanvas.Presenter;
 using SubatomicCanvas.View;
 using UnityEngine;
-using UnityEngine.Serialization;
 using VContainer;
 using VContainer.Unity;
 
@@ -15,14 +14,16 @@ namespace SubatomicCanvas.LifetimeScope
         
         [SerializeField] private CameraView cameraView;
         [SerializeField] private CanvasView canvasView;
+        [SerializeField] private LineVisualizeView lineVisualizeView;
         [SerializeField] private MenuView menuView;
         [SerializeField] private PaintToolView paintToolView;
         [SerializeField] private ParticleShelfView particleShelfView;
-        [FormerlySerializedAs("runButtonView")] [SerializeField] private SimulatorView simulatorView;
+        [SerializeField] private SimulatorView simulatorView;
         [SerializeField] private SaveLoadView saveLoadView;
         [SerializeField] private SnapshotButtonView snapshotButtonView;
         [SerializeField] private TimeView timeView;
         [SerializeField] private UiVisibleView uiVisibleView;
+        [SerializeField] private VfxVisualizeView vfxVisualizeView;
         
         protected override void Configure(IContainerBuilder builder)
         {
@@ -46,6 +47,7 @@ namespace SubatomicCanvas.LifetimeScope
             // View
             builder.RegisterComponent(cameraView);
             builder.RegisterComponent(canvasView);
+            builder.RegisterComponent(lineVisualizeView);
             builder.RegisterComponent(menuView);
             builder.RegisterComponent(paintToolView);
             builder.RegisterComponent(particleShelfView);
@@ -54,6 +56,7 @@ namespace SubatomicCanvas.LifetimeScope
             builder.RegisterComponent(snapshotButtonView);
             builder.RegisterComponent(timeView);
             builder.RegisterComponent(uiVisibleView);
+            builder.RegisterComponent(vfxVisualizeView);
             
             // Presenter
             builder.RegisterEntryPoint<CameraPresenter>();

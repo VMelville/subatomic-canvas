@@ -4,7 +4,7 @@ namespace SubatomicCanvas.Model
 {
     public class MenuState
     {
-        public IntReactiveProperty pageIndex = new();
-        public BoolReactiveProperty isOpen = new();
+        public readonly IntReactiveProperty pageIndex = new();
+        public readonly BoolReactiveProperty isOpen = new();
     }
 }

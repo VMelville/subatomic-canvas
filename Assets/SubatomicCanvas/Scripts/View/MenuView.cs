@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using SubatomicCanvas.Utility.Tween;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace SubatomicCanvas.View
@@ -13,14 +14,12 @@ namespace SubatomicCanvas.View
         [SerializeField] private TMP_Dropdown menuDropdown;
         [SerializeField] private List<GameObject> contents;
 
-        private bool _isOpen;
-        private int _nowIndex;
-
-        private void Start()
+        public UnityEvent onClickMenuButton => menuButton.onClick;
+        public UnityEvent<int> onChangePage => menuDropdown.onValueChanged;
+        
+        public void SetOpenCloseStateImmediately(bool isOpen)
         {
-            Debug.LogWarning("ToDo: 【優先度:高】MenuViewが状態を持っているのは良くないです。MVPパターンを用いてください。");
-            
-            if (_isOpen)
+            if (isOpen)
             {
                 Open(true);
             }
@@ -28,29 +27,11 @@ namespace SubatomicCanvas.View
             {
                 Close(true);
             }
-            
-            ChangeContent(_nowIndex);
-            
-            menuDropdown.onValueChanged.AddListener(ChangeContent);
-        
-            menuButton.onClick.AddListener(Toggle);
         }
 
-        private void ChangeContent(int index)
+        public void SetOpenCloseState(bool isOpen)
         {
-            for (var i = 0; i < contents.Count; i++)
-            {
-                contents[i].SetActive(i == index);
-            }
-
-            _nowIndex = index;
-        }
-        
-        private void Toggle()
-        {
-            _isOpen = !_isOpen;
-        
-            if (_isOpen)
+            if (isOpen)
             {
                 Open();
             }
@@ -59,7 +40,16 @@ namespace SubatomicCanvas.View
                 Close();
             }
         }
+
+        public void SetPageIndex(int pageIndex)
+        {
+            for (var i = 0; i < contents.Count; i++)
+            {
+                contents[i].SetActive(i == pageIndex);
+            }
+        }
         
+        // ToDo: ここ、マジックナンバーになってます
         private void Open(bool isImmediate = false)
         {
             var rt = (RectTransform)transform;
@@ -79,6 +69,7 @@ namespace SubatomicCanvas.View
             menuContent.SetActive(true);
         }
 
+        // ToDo: ここ、マジックナンバーになってます
         private void Close(bool isImmediate = false)
         {
             var rt = (RectTransform)transform;
