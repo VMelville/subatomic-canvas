@@ -18,6 +18,8 @@ namespace SubatomicCanvas.View
 
         private void Start()
         {
+            Debug.LogWarning("ToDo: 【優先度:高】MenuViewが状態を持っているのは良くないです。MVPパターンを用いてください。");
+            
             if (_isOpen)
             {
                 Open(true);

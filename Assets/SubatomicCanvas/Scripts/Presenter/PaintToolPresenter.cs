@@ -1,6 +1,7 @@
 ﻿using SubatomicCanvas.Model;
 using SubatomicCanvas.View;
 using UniRx;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -17,12 +18,20 @@ namespace SubatomicCanvas.Presenter
             _paintToolState.activeDetectorKey.Subscribe(_paintToolView.SetDetectorKey);
             _paintToolState.isActiveSymmetry.Subscribe(_paintToolView.SetActiveSymmetry);
             
-            _paintToolView.onClickPaintToolButton.AddListener(_paintToolState.ChangePaintTool);
-            _paintToolView.onClickSymmetryModeButton.AddListener(_paintToolState.ToggleSymmetryMode);
+            _paintToolView.onClickPaintToolButton.AddListener(OnClickPaintTool);
+            _paintToolView.onClickSymmetryModeButton.AddListener(OnClickSymmetryToolButton);
+        }
+
+        private void OnClickPaintTool(string toolKey)
+        {
+            _paintToolState.activeDetectorKey.Value = toolKey;
             
-            // ToDo: これは仮です
-            _paintToolState.ChangePaintTool("TrackDetectorV1");
-            _paintToolState.ToggleSymmetryMode();
+            Debug.LogWarning("ToDo: activePaintToolTypeの更新を行う");
+        }
+
+        private void OnClickSymmetryToolButton()
+        {
+            _paintToolState.isActiveSymmetry.Value ^= true;
         }
     }
 }

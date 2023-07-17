@@ -1,6 +1,7 @@
 ﻿using SubatomicCanvas.Model;
 using SubatomicCanvas.View;
 using UniRx;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -13,6 +14,8 @@ namespace SubatomicCanvas.Presenter
         
         public void Start()
         {
+            Debug.LogWarning("ToDo: カメラ操作");
+            
             _cameraState.position.Subscribe(_cameraView.SetPosition);
             _cameraState.rotation.Subscribe(_cameraView.SetRotation);
             _cameraState.orthographic.Subscribe(_cameraView.SetOrthographic);

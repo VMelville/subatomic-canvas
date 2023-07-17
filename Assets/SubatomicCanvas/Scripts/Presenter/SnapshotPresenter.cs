@@ -1,6 +1,6 @@
 ﻿using System;
 using SubatomicCanvas.Model;
-using SubatomicCanvas.Utility.Snapshot;
+using SubatomicCanvas.Model.UseCase;
 using SubatomicCanvas.View;
 using UniRx;
 using UnityEngine;

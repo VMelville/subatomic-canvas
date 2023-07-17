@@ -1,19 +1,25 @@
-﻿using UnityEngine;
+﻿using SubatomicCanvas.Model;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace SubatomicCanvas.View
 {
     public class TimeView : MonoBehaviour
     {
-        // ToDo: TimeにまつわるUIを設置する
-        
+        [SerializeField] private SpeedSliderView speedSliderView;
+        [SerializeField] private TMP_Text timeText;
+
+        public UnityEvent<float> onSpeedChanged => speedSliderView.onValueChanged;
+
         public void SetTime(float time)
         {
-            Debug.LogWarning("ToDo: 時間表記の実装");
+            timeText.text = time.ToString("F2") + " ns";
         }
-        
+
         public void SetSpeed(float speed)
         {
-            Debug.LogWarning("ToDo: スライダーに速度を反映");
+            speedSliderView.SetSpeed(speed);
         }
     }
 }

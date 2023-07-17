@@ -8,9 +8,9 @@ namespace SubatomicCanvas.Utility.Tween
 {
     // もうちょっといい感じにできそうな気がします。
     
-    public static class TweeningExtensions
+    public static class TweenExtensions
     {
-        private static readonly Dictionary<string, Coroutine> tweeningCoroutines = new Dictionary<string, Coroutine>();
+        private static readonly Dictionary<string, Coroutine> TweenCoroutines = new Dictionary<string, Coroutine>();
 
         public static void TweenScale(this Transform transform, Vector3 target, float duration, MonoBehaviour monoBehaviour)
         {
@@ -76,15 +76,15 @@ namespace SubatomicCanvas.Utility.Tween
         {
             var key = behaviour.GetInstanceID() + suffix;
             
-            if (tweeningCoroutines.TryGetValue(key, out var currentCoroutine))
+            if (TweenCoroutines.TryGetValue(key, out var currentCoroutine))
             {
                 behaviour.StopCoroutine(currentCoroutine); 
-                tweeningCoroutines.Remove(key);
+                TweenCoroutines.Remove(key);
             }
             
             var newCoroutine = behaviour.StartCoroutine(TweenCoroutine(valueFunction, applyValueAction, duration, key));
             
-            tweeningCoroutines.Add(key, newCoroutine);
+            TweenCoroutines.Add(key, newCoroutine);
         }
 
         private static IEnumerator TweenCoroutine<T>(Func<float, T> valueFunction, Action<T> applyValueAction, float duration, string key)
@@ -105,7 +105,7 @@ namespace SubatomicCanvas.Utility.Tween
 
             applyValueAction(valueFunction(1f));
 
-            tweeningCoroutines.Remove(key);
+            TweenCoroutines.Remove(key);
         }
     }
 }

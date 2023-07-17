@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace SubatomicCanvas.Utility.Snapshot
+namespace SubatomicCanvas.Model.UseCase
 {
     public class SnapshotUseCase
     {

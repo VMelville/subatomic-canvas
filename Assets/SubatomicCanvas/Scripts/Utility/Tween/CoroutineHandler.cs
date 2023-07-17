@@ -6,17 +6,17 @@ namespace SubatomicCanvas.Utility.Tween
     {
         private class CoroutineHolder : MonoBehaviour { }
 
-        private static CoroutineHolder holder;
+        private static CoroutineHolder _holder;
 
         public static MonoBehaviour GetCoroutineHolder()
         {
-            if (holder != null) return holder;
+            if (_holder != null) return _holder;
             
             var go = new GameObject("Static Coroutine Holder");
-            GameObject.DontDestroyOnLoad(go);
-            holder = go.AddComponent<CoroutineHolder>();
+            Object.DontDestroyOnLoad(go);
+            _holder = go.AddComponent<CoroutineHolder>();
 
-            return holder;
+            return _holder;
         }
     }
 }

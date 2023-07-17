@@ -20,8 +20,8 @@ namespace SubatomicCanvas.Presenter
             _availableCanvasDataFiles.canvasDataFiles.ObserveRemove().Subscribe(OnRemoveCanvasDataFiles);
             _availableCanvasDataFiles.canvasDataFiles.ObserveReplace().Subscribe(OnReplaceCanvasDataFiles);
             
-            Debug.LogWarning("ToDo: UIの入力を受けてキャンバスデータをセーブする。");
-            Debug.LogWarning("ToDo: UIの入力を受けてキャンバスデータをロードする。");
+            Debug.LogWarning("ToDo: UIの入力を受けてキャンバスデータをセーブする");
+            Debug.LogWarning("ToDo: UIの入力を受けてキャンバスデータをロードする");
         }
 
         private void OnAddCanvasDataFiles(CollectionAddEvent<CanvasDataFileInfo> addEvent)

@@ -6,8 +6,8 @@ namespace SubatomicCanvas.View
 {
     public class SnapshotButtonView : MonoBehaviour
     {
-        [SerializeField] private Button captureButton;
+        [SerializeField] private Button button;
 
-        public UnityEvent onClick => captureButton.onClick;
+        public UnityEvent onClick => button.onClick;
     }
 }
