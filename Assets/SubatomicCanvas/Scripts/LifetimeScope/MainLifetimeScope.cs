@@ -1,3 +1,5 @@
+using System.IO;
+using System.Runtime.InteropServices;
 using SubatomicCanvas.Model;
 using SubatomicCanvas.Model.UseCase;
 using SubatomicCanvas.Presenter;
@@ -25,18 +27,27 @@ namespace SubatomicCanvas.LifetimeScope
         [SerializeField] private UiVisibleView uiVisibleView;
         [SerializeField] private VfxVisualizeView vfxVisualizeView;
         
+        // ToDo: どのクラスよりも真っ先に実行されてほしいのでLifetimeScopeに書いちゃってるけど、もっと適切な書き方ありそう。
+        [DllImport("ucrtbase", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        static extern int _wputenv_s(string var, string value);
+        
         protected override void Configure(IContainerBuilder builder)
         {
+            var datasetPath = Path.Combine(GetParentPath(UnityEngine.Application.dataPath), "Geant4_Dataset");
+            _wputenv_s("GEANT4_DATA_DIR", datasetPath);
+
+            ParticleSim.Simulator.Init();
+            
             // Model - ReactiveEntity
             builder.Register<AvailableCanvasDataFiles>(Lifetime.Singleton);
             builder.Register<AvailableDetectors>(Lifetime.Singleton);
             builder.Register<AvailableParticles>(Lifetime.Singleton);
             builder.Register<CameraState>(Lifetime.Singleton);
             builder.Register<CanvasState>(Lifetime.Singleton);
+            builder.Register<LastSimulationCondition>(Lifetime.Singleton);
             builder.Register<MenuState>(Lifetime.Singleton);
             builder.Register<ModeState>(Lifetime.Singleton);
             builder.Register<PaintToolState>(Lifetime.Singleton);
-            builder.Register<SimulationResult>(Lifetime.Singleton);
             builder.Register<SnapshotState>(Lifetime.Singleton);
             builder.Register<TimeState>(Lifetime.Singleton);
             
@@ -62,6 +73,7 @@ namespace SubatomicCanvas.LifetimeScope
             builder.RegisterEntryPoint<CameraPresenter>();
             builder.RegisterEntryPoint<CanvasPresenter>();
             builder.RegisterEntryPoint<DefaultSettingsPresenter>();
+            builder.RegisterEntryPoint<LineVisualizePresenter>();
             builder.RegisterEntryPoint<MenuPresenter>();
             builder.RegisterEntryPoint<PaintToolPresenter>();
             builder.RegisterEntryPoint<ParticleShelfPresenter>();
@@ -69,6 +81,11 @@ namespace SubatomicCanvas.LifetimeScope
             builder.RegisterEntryPoint<SimulationPresenter>();
             builder.RegisterEntryPoint<SnapshotPresenter>();
             builder.RegisterEntryPoint<TimePresenter>();
+        }
+        
+        private static string GetParentPath(string path)
+        {
+            return new DirectoryInfo(path).Parent?.FullName;
         }
     }
 }

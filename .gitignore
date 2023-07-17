@@ -107,6 +107,8 @@ _UpgradeReport_Files/
 [Aa]ssets/Snapshots/*
 [Aa]ssets/Snapshots.meta
 
+Geant4_Dataset/*
+
 Thumbs.db
 Desktop.ini
 .DS_Store
