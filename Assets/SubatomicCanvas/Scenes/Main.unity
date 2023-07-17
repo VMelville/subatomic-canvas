@@ -3142,6 +3142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362b07c376f84ae1b090be67bdfc36c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridUnitPrefab: {fileID: 8107515680795176839, guid: 685dfefc781393049acbd3fbf8a0eeda,
+    type: 3}
 --- !u!1 &470474182
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,10 @@ namespace SubatomicCanvas.Presenter
 {
     public class CanvasPresenter : IStartable
     {
+        // Model
         [Inject] private CanvasState _canvasState;
+        
+        // View
         [Inject] private CanvasView _canvasView;
 
         public void Start()
@@ -18,7 +21,8 @@ namespace SubatomicCanvas.Presenter
 
         private void OnChangeCanvasState(CanvasData data)
         {
-            _canvasView.ReloadCanvas();
+            _canvasView.ClearCanvas();
+            _canvasView.ReloadCanvas(data.canvasSize);
         }
     }
 }

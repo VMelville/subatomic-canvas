@@ -5,10 +5,15 @@ namespace SubatomicCanvas.View
     public class CanvasView : MonoBehaviour
     {
         [SerializeField] private HoneycombGridView honeycombGridView;
-        
-        public void ReloadCanvas()
+
+        public void ClearCanvas()
         {
-            Debug.LogWarning("ToDo: キャンバスの描画");
+            honeycombGridView.ClearGrid();
+        }
+        
+        public void ReloadCanvas(int canvasSize)
+        {
+            honeycombGridView.DrawGrid(canvasSize);
         }
     }
 }
