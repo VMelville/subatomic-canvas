@@ -26,9 +26,6 @@ namespace SubatomicCanvas.Presenter
         public void Start()
         {
             _simulatorView.onClick.AddListener(OnClickRunButton);
-
-            Debug.LogWarning("ToDo: シミュレーション結果の可視化を行う");
-            Debug.LogWarning("ToDo: simulatorViewのテキストの変更を行う");
         }
 
         private void OnClickRunButton()
@@ -37,6 +34,7 @@ namespace SubatomicCanvas.Presenter
 
             _lastSimulationCondition.result.Value = result;
             _lastSimulationCondition.canvasData.Value = _canvasState.canvasData.Value;
+            Debug.LogWarning("ToDo: simulatorViewのテキストの変更を行う");
         }
     }
 }

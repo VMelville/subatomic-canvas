@@ -20,8 +20,10 @@ namespace SubatomicCanvas.LifetimeScope
         [SerializeField] private MenuView menuView;
         [SerializeField] private PaintToolView paintToolView;
         [SerializeField] private ParticleShelfView particleShelfView;
+        [SerializeField] private RaycastTargetView raycastTargetView;
         [SerializeField] private SimulatorView simulatorView;
         [SerializeField] private SaveLoadView saveLoadView;
+        [SerializeField] private ScreenView screenView;
         [SerializeField] private SnapshotButtonView snapshotButtonView;
         [SerializeField] private TimeView timeView;
         [SerializeField] private UiVisibleView uiVisibleView;
@@ -33,7 +35,7 @@ namespace SubatomicCanvas.LifetimeScope
         
         protected override void Configure(IContainerBuilder builder)
         {
-            var datasetPath = Path.Combine(GetParentPath(UnityEngine.Application.dataPath), "Geant4_Dataset");
+            var datasetPath = Path.Combine(GetParentPath(Application.dataPath), "Geant4_Dataset");
             _wputenv_s("GEANT4_DATA_DIR", datasetPath);
 
             ParticleSim.Simulator.Init();
@@ -62,8 +64,10 @@ namespace SubatomicCanvas.LifetimeScope
             builder.RegisterComponent(menuView);
             builder.RegisterComponent(paintToolView);
             builder.RegisterComponent(particleShelfView);
+            builder.RegisterComponent(raycastTargetView);
             builder.RegisterComponent(simulatorView);
             builder.RegisterComponent(saveLoadView);
+            builder.RegisterComponent(screenView);
             builder.RegisterComponent(snapshotButtonView);
             builder.RegisterComponent(timeView);
             builder.RegisterComponent(uiVisibleView);

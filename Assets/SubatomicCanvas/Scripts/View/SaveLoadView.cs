@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SubatomicCanvas.View
 {
@@ -7,7 +6,7 @@ namespace SubatomicCanvas.View
     {
         private void Start()
         {
-            Debug.Log("ToDo: セーブロードにまつわるUIの制御を行う");
+            Debug.LogWarning("ToDo: セーブロードにまつわるUIの制御を行う");
         }
     }
 }
