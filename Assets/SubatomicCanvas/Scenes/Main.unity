@@ -1442,6 +1442,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   honeycombGridView: {fileID: 443168021}
+  cellPrefab: {fileID: 7252803267033171507, guid: acf7851ef1308c645b121b493c5541f0,
+    type: 3}
 --- !u!114 &222026887
 MonoBehaviour:
   m_ObjectHideFlags: 0
