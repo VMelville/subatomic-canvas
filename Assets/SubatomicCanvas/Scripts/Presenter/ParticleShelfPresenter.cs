@@ -24,8 +24,7 @@ namespace SubatomicCanvas.Presenter
         
         public void Start()
         {
-            Debug.LogWarning("ToDo: パーティクル選択画面の実装");
-            
+            Debug.LogWarning("ToDo: 一旦テストでPresenterに直接粒子リストを記載しているので適切な場所に書く");
             var testParticleList = new List<string> { "gamma", "e-", "mu-", "pi0", "pi+", "kaon0S", "Upsilon", "lambda_b" };
 
             foreach (var particle in testParticleList)
