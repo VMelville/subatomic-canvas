@@ -13,7 +13,7 @@ namespace SubatomicCanvas.Model.UseCase
         private const double MeV = 1.0;
         private const double KeV = 0.001;
         
-        public ParticleSim.Result.SimulationResult RunSimulation(CanvasData canvasData)
+        public ParticleSim.Result.SimulationResult RunSimulation()
         {
             var particleGun = PickupParticleGun();
             

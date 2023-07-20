@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using SubatomicCanvas.Utility;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,6 +10,7 @@ namespace SubatomicCanvas.View
     {
         [SerializeField] private HoneycombGridView honeycombGridView;
         [SerializeField] private CellView cellPrefab;
+        [SerializeField] private List<DetectorViewBase> detectorPrefabs;
 
         private Dictionary<(int, int), CellView> _cellTable = new();
 
@@ -46,6 +47,19 @@ namespace SubatomicCanvas.View
             ((RectTransform)cell.transform).anchoredPosition = HoneycombCoordinate.GetPosition(position) * 1000f;
             
             onAddCellView.Invoke(position, cell);
+        }
+
+        public void PutDetector((int, int) position, string key)
+        {
+            foreach (var detectorPrefab in detectorPrefabs.Where(detectorPrefab => key == detectorPrefab.DetectorKey))
+            {
+                _cellTable[position].PutDetector(detectorPrefab);
+            }
+        }
+
+        public void RemoveDetector((int, int) position)
+        {
+            _cellTable[position].RemoveDetector();
         }
     }
 }

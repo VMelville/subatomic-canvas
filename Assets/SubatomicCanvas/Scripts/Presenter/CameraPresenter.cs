@@ -65,11 +65,5 @@ namespace SubatomicCanvas.Presenter
         {
             _cameraState.zoomLevel.Value *= 1f + zoom * 0.1f;
         }
-
-        private void OnChangeCanvasState(CanvasData data)
-        {
-            _canvasView.ClearCanvas();
-            _canvasView.ReloadCanvas(data.canvasSize);
-        }
     }
 }

@@ -11,6 +11,7 @@ namespace SubatomicCanvas.View
     public class CellView : MonoBehaviour
     {
         [SerializeField] private List<Image> rayCastTargets;
+        [SerializeField] private Transform detectorParent;
 
         public UnityEvent<PointerEventData> onMiddleDrag;
         public UnityEvent<PointerEventData> onPointerDown;
@@ -33,6 +34,19 @@ namespace SubatomicCanvas.View
         public void DoDestroy()
         {
             Destroy(this);
+        }
+
+        public void PutDetector(DetectorViewBase detectorPrefab)
+        {
+            Instantiate(detectorPrefab, detectorParent);
+        }
+
+        public void RemoveDetector()
+        {
+            foreach (Transform child in detectorParent)
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 }

@@ -245,6 +245,7 @@ MonoBehaviour:
   - {fileID: 7328270512593855664}
   - {fileID: 3877083249897523499}
   - {fileID: 8799482993871165210}
+  detectorParent: {fileID: 109369664567227506}
   onMiddleDrag:
     m_PersistentCalls:
       m_Calls: []

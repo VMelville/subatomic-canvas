@@ -1444,6 +1444,10 @@ MonoBehaviour:
   honeycombGridView: {fileID: 443168021}
   cellPrefab: {fileID: 7252803267033171507, guid: acf7851ef1308c645b121b493c5541f0,
     type: 3}
+  detectorPrefabs:
+  - {fileID: 207858113463272731, guid: d76622aee1384a1419082a9fe9490464, type: 3}
+  - {fileID: -2985181888182537072, guid: 2e10baa0f65aeeb4e8fd4e83619c8b07, type: 3}
+  - {fileID: 6188496182379585944, guid: 1889202be4106c945bffabbfc39430a7, type: 3}
   onAddCellView:
     m_PersistentCalls:
       m_Calls: []

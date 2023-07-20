@@ -30,10 +30,10 @@ namespace SubatomicCanvas.Presenter
 
         private void OnClickRunButton()
         {
-            var result = _simulationUseCase.RunSimulation(_canvasState.canvasData.Value);
+            var result = _simulationUseCase.RunSimulation();
 
             _lastSimulationCondition.result.Value = result;
-            _lastSimulationCondition.canvasData.Value = _canvasState.canvasData.Value;
+            Debug.LogWarning("ToDo: 直近に行ったシミュレーションの前提データは残しておく");
             Debug.LogWarning("ToDo: simulatorViewのテキストの変更を行う");
         }
     }
