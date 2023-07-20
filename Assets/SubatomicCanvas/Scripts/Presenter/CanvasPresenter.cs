@@ -37,8 +37,6 @@ namespace SubatomicCanvas.Presenter
 
         private void ListenCellEvent((int, int) position, CellView cellView)
         {
-            cellView.onMiddleDrag.AddListener(eventData => OnCellDrag(position, eventData));
-            cellView.onScroll.AddListener(eventData => OnScroll(position, eventData));
             cellView.onPointerDown.AddListener(eventData => OnPointerDown(position, eventData));
             cellView.onPointerEnter.AddListener(eventData => OnPointerEnter(position, eventData));
         }
@@ -49,28 +47,14 @@ namespace SubatomicCanvas.Presenter
             _canvasView.ReloadCanvas(data.canvasSize);
         }
 
-        private void OnCellDrag((int, int) position, PointerEventData eventData)
-        {
-            var (x, y) = position;
-            Debug.Log("Drag! (" + x + ", " + y + ")");
-        }
-        
-        private void OnScroll((int, int) position, PointerEventData eventData)
-        {
-            var (x, y) = position;
-            Debug.Log("Scroll! (" + x + ", " + y + ")");
-        }
-        
         private void OnPointerDown((int, int) position, PointerEventData eventData)
         {
             var (x, y) = position;
-            Debug.Log("PointerDown! (" + x + ", " + y + ")");
         }
         
         private void  OnPointerEnter((int, int) position, PointerEventData eventData)
         {
             var (x, y) = position;
-            Debug.Log("PointerEnter! (" + x + ", " + y + ")");
         }
     }
 }

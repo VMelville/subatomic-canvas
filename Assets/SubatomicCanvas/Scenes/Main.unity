@@ -1444,6 +1444,9 @@ MonoBehaviour:
   honeycombGridView: {fileID: 443168021}
   cellPrefab: {fileID: 7252803267033171507, guid: acf7851ef1308c645b121b493c5541f0,
     type: 3}
+  onAddCellView:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &222026887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6072,10 +6075,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02c474c962da43b8b189829d06d9aab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onGrab:
+  onMiddleDrag:
     m_PersistentCalls:
       m_Calls: []
-  onZoom:
+  onScroll:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &858563837
@@ -6809,6 +6812,7 @@ MonoBehaviour:
   autoInjectGameObjects: []
   cameraView: {fileID: 1205454372}
   canvasView: {fileID: 222026886}
+  cursorView: {fileID: 1847831923}
   lineVisualizeView: {fileID: 817328974}
   menuView: {fileID: 1238993754}
   paintToolView: {fileID: 1821636978}
@@ -10725,6 +10729,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1847831922}
+  - component: {fileID: 1847831923}
   m_Layer: 5
   m_Name: CursorParent
   m_TagString: Untagged
@@ -10758,6 +10763,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1847831923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847831921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd94544ad95341059469a51267437e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorParent: {fileID: 1847831921}
+  mainCursor: {fileID: 701293387}
+  subCursor:
+  - {fileID: 576166891}
+  - {fileID: 1559374645}
+  - {fileID: 832608790}
+  - {fileID: 1391766621}
+  - {fileID: 232681649}
 --- !u!1 &1870071710
 GameObject:
   m_ObjectHideFlags: 0

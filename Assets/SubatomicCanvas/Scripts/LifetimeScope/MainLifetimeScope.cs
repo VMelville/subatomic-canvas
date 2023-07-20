@@ -16,6 +16,7 @@ namespace SubatomicCanvas.LifetimeScope
         
         [SerializeField] private CameraView cameraView;
         [SerializeField] private CanvasView canvasView;
+        [SerializeField] private CursorView cursorView;
         [SerializeField] private LineVisualizeView lineVisualizeView;
         [SerializeField] private MenuView menuView;
         [SerializeField] private PaintToolView paintToolView;
@@ -60,6 +61,7 @@ namespace SubatomicCanvas.LifetimeScope
             // View
             builder.RegisterComponent(cameraView);
             builder.RegisterComponent(canvasView);
+            builder.RegisterComponent(cursorView);
             builder.RegisterComponent(lineVisualizeView);
             builder.RegisterComponent(menuView);
             builder.RegisterComponent(paintToolView);
@@ -76,6 +78,7 @@ namespace SubatomicCanvas.LifetimeScope
             // Presenter
             builder.RegisterEntryPoint<CameraPresenter>();
             builder.RegisterEntryPoint<CanvasPresenter>();
+            builder.RegisterEntryPoint<CursorPresenter>();
             builder.RegisterEntryPoint<DefaultSettingsPresenter>();
             builder.RegisterEntryPoint<LineVisualizePresenter>();
             builder.RegisterEntryPoint<MenuPresenter>();
