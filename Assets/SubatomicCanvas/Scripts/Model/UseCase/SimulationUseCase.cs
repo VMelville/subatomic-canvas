@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using ParticleSim;
 using ParticleSim.CSGSolid;
+using ParticleSim.Result;
 using ParticleSim.Volume;
 using SubatomicCanvas.Utility;
 using UniRx;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace SubatomicCanvas.Model.UseCase
 {
@@ -16,10 +16,8 @@ namespace SubatomicCanvas.Model.UseCase
         private const double MeV = 1.0;
         private const double KeV = 0.001;
         
-        public ParticleSim.Result.SimulationResult RunSimulation(ReactiveDictionary<(int, int), string> installedDetectors, Dictionary<string, LogicalVolume> logicalVolumes)
+        public SimulationResult RunSimulation(ReactiveDictionary<(int, int), string> installedDetectors, Dictionary<string, LogicalVolume> logicalVolumes, ParticleGun particleGun)
         {
-            var particleGun = PickupParticleGun();
-            
             var worldLv = new LogicalVolume
             (
                 Box.CreateBoxFromUnityCubeScale("World", new Vector3(8f, 8f, 5f)),
@@ -59,12 +57,6 @@ namespace SubatomicCanvas.Model.UseCase
             }
             
             return Simulator.RunSimulation(particleGun, worldPvp);
-        }
-
-        private ParticleGun PickupParticleGun()
-        {
-            Debug.LogWarning("ToDo: 一旦仮でKs中間子を設定しています。選択機構を実装してください");
-            return new ParticleGun("kaon0S", Random.Range(100f, 300f) * MeV);
         }
     }
 }

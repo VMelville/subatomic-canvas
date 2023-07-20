@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using ParticleSim;
 using ParticleSim.CSGSolid;
 using ParticleSim.Volume;
 using SubatomicCanvas.Model;
@@ -55,11 +57,22 @@ namespace SubatomicCanvas.Presenter
                 )
             };
 
-            var result = _simulationUseCase.RunSimulation(_canvasState.installedDetectorPositionAndKeys, test);
+            var particleDict = _availableParticles.particleDict;
+            var particleCount = particleDict.Count;
+            if (particleCount == 0)
+            {
+                _simulatorView.SetText("Please select at least one particle.");
+                return;
+            }
+            
+            var randomParticleKey = particleDict.Keys.ElementAt(Random.Range(0, particleCount));
+            var particleGun = new ParticleGun(randomParticleKey, Random.Range(100f, 300f)); // 単位はMeV
+            _simulatorView.SetText(randomParticleKey);
+            
+            var result = _simulationUseCase.RunSimulation(_canvasState.installedDetectorPositionAndKeys, test, particleGun);
 
             _lastSimulationCondition.result.Value = result;
             Debug.LogWarning("ToDo: 直近に行ったシミュレーションの前提データは残しておく");
-            Debug.LogWarning("ToDo: simulatorViewのテキストの変更を行う");
 
             _timeState.time.Value = 0.0f;
         }

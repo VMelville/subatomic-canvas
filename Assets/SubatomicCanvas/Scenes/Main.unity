@@ -3608,6 +3608,11 @@ MonoBehaviour:
   allOnButton: {fileID: 677414098}
   allOffButton: {fileID: 1483688225}
   contentTransform: {fileID: 1594517320}
+  togglePrefab: {fileID: 7385939861191051075, guid: 4c341512e46020740b31cf3d6196ee9a,
+    type: 3}
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &565426316
 GameObject:
   m_ObjectHideFlags: 0

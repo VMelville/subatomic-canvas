@@ -1,4 +1,6 @@
-﻿using SubatomicCanvas.Model;
+﻿using System.Collections.Generic;
+using ParticleSim;
+using SubatomicCanvas.Model;
 using SubatomicCanvas.View;
 using UnityEngine;
 using VContainer;
@@ -6,7 +8,7 @@ using VContainer.Unity;
 
 namespace SubatomicCanvas.Presenter
 {
-    public class ParticleShelfPresenter : IStartable
+    public class ParticleShelfPresenter : IInitializable, IStartable
     {
         // Model
         [Inject] private AvailableParticles _availableParticles;
@@ -15,9 +17,33 @@ namespace SubatomicCanvas.Presenter
         // View
         [Inject] private ParticleShelfView _particleShelfView;
 
+        public void Initialize()
+        {
+            _particleShelfView.onValueChanged.AddListener(OnValueChanged);
+        }
+        
         public void Start()
         {
             Debug.LogWarning("ToDo: パーティクル選択画面の実装");
+            
+            var testParticleList = new List<string> { "gamma", "e-", "mu-", "pi0", "pi+", "kaon0S", "Upsilon", "lambda_b" };
+
+            foreach (var particle in testParticleList)
+            {
+                _particleShelfView.AddNewToggle(particle, (float)PDG.GetPDGMass(particle));
+            }
+        }
+
+        private void OnValueChanged(string particle, bool isOn)
+        {
+            if (isOn)
+            {
+                _availableParticles.particleDict[particle] = new Particle();
+            }
+            else
+            {
+                _availableParticles.particleDict.Remove(particle);
+            }
         }
     }
 }
