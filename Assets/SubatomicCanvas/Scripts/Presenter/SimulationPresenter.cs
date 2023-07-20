@@ -6,6 +6,7 @@ using ParticleSim.Volume;
 using SubatomicCanvas.Model;
 using SubatomicCanvas.Model.UseCase;
 using SubatomicCanvas.View;
+using UniRx;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -35,6 +36,7 @@ namespace SubatomicCanvas.Presenter
 
         private void OnClickRunButton()
         {
+            // Detector
             // 一旦仮にここで定義
             Debug.LogWarning("ToDo: 一旦LogicalVolumeの定義をOnClickRunButton内でやっています。専用のクラスから引っ張ってくるようにしてください。");
             var standardTubsSize = new Vector3(0.08f, 3.0f, 0.08f);
@@ -57,6 +59,7 @@ namespace SubatomicCanvas.Presenter
                 )
             };
 
+            // Particle
             var particleDict = _availableParticles.particleDict;
             var particleCount = particleDict.Count;
             if (particleCount == 0)
@@ -69,11 +72,21 @@ namespace SubatomicCanvas.Presenter
             var particleGun = new ParticleGun(randomParticleKey, Random.Range(100f, 300f)); // 単位はMeV
             _simulatorView.SetText(randomParticleKey);
             
+            // シミュレーション実行
             var result = _simulationUseCase.RunSimulation(_canvasState.installedDetectorPositionAndKeys, test, particleGun);
 
+            // 結果を記録
             _lastSimulationCondition.result.Value = result;
-            Debug.LogWarning("ToDo: 直近に行ったシミュレーションの前提データは残しておく");
+            _lastSimulationCondition.particleKey.Value = randomParticleKey;
+            
+            // ToDo: ここ、もうちょっとシンプルなコピー方法ありませんか？
+            _lastSimulationCondition.detectorKeyDict.Clear();
+            foreach (var (position, detector) in _canvasState.installedDetectorPositionAndKeys)
+            {
+                _lastSimulationCondition.detectorKeyDict[position] = detector;
+            }
 
+            // 時刻をリセット
             _timeState.time.Value = 0.0f;
         }
     }

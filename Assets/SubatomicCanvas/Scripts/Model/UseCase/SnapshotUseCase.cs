@@ -12,25 +12,19 @@ namespace SubatomicCanvas.Model.UseCase
         
         public readonly UnityEvent onTookSnapshot = new();
         
-        public async void TakeSnapshot()
+        public async void TakeSnapshot(string particleName, float timeValue)
         {
-            await CaptureSnapshotAsync();
+            await CaptureSnapshotAsync(particleName, timeValue);
         }
         
-        private async UniTask CaptureSnapshotAsync()
+        private async UniTask CaptureSnapshotAsync(string particleName, float timeValue)
         {
             await UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate);
 
-            var latestParticle = "XXXX";
-            Debug.LogWarning("ToDo: Particleの名前をファイル名に組み込む");
-
-            var nowTime = 3.141592f;
-            Debug.LogWarning("ToDo: 時刻をファイル名に組み込む");
-
             var snapshotFilename = "snapshot_" +
                                    DateTime.Now.ToString("yyyyMMdd_HHmmss_") +
-                                   latestParticle + "_" +
-                                   nowTime.ToString("F2") + "ns.png";
+                                   particleName + "_" +
+                                   timeValue.ToString("F2") + "ns.png";
 
             var picturesFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
             var snapshotFolderPath = Path.Combine(picturesFolderPath, SnapshotDirectory);

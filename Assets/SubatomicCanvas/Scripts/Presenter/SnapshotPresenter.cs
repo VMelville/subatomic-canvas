@@ -12,9 +12,16 @@ namespace SubatomicCanvas.Presenter
     // ToDo: もっとシンプルに制御できるような気もします。。。
     public class SnapshotPresenter : IStartable
     {
+        // Model - ReactiveEntity
         [Inject] private SnapshotState _snapshotState;
-        [Inject] private UiVisibleView _uiVisibleView;
+        [Inject] private LastSimulationCondition _lastSimulationCondition;
+        [Inject] private TimeState _timeState;
+        
+        // Model - UseCase
         [Inject] private SnapshotUseCase _snapshotUseCase;
+        
+        // View
+        [Inject] private UiVisibleView _uiVisibleView;
         [Inject] private SnapshotButtonView _snapshotButtonView;
         
         public void Start()
@@ -22,6 +29,7 @@ namespace SubatomicCanvas.Presenter
             // Model
             _snapshotState.state.Subscribe(OnChangeState);
             
+            // View
             _snapshotButtonView.onClick.AddListener(OnClickSnapshotButton);
             _uiVisibleView.onSetActive.AddListener(OnSetActiveUi);
             _snapshotUseCase.onTookSnapshot.AddListener(OnTookSnapshot);
@@ -37,7 +45,7 @@ namespace SubatomicCanvas.Presenter
                     _uiVisibleView.SetIsVisible(false);
                     break;
                 case SnapshotStateType.Standby:
-                    _snapshotUseCase.TakeSnapshot();
+                    _snapshotUseCase.TakeSnapshot(_lastSimulationCondition.particleKey.Value, _timeState.time.Value);
                     break;
                 case SnapshotStateType.Took:
                     _uiVisibleView.SetIsVisible(true);
