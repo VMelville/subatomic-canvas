@@ -1,7 +1,6 @@
 ﻿using SubatomicCanvas.Model;
 using SubatomicCanvas.View;
 using UniRx;
-using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -25,8 +24,6 @@ namespace SubatomicCanvas.Presenter
         private void OnClickPaintTool(string toolKey)
         {
             _paintToolState.activeDetectorKey.Value = toolKey;
-            
-            Debug.LogWarning("ToDo: activePaintToolTypeの更新を行う");
         }
 
         private void OnClickSymmetryToolButton()
