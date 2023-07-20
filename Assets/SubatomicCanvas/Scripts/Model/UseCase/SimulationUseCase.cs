@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using ParticleSim;
 using ParticleSim.CSGSolid;
 using ParticleSim.Volume;
+using SubatomicCanvas.Utility;
+using UniRx;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,7 +16,7 @@ namespace SubatomicCanvas.Model.UseCase
         private const double MeV = 1.0;
         private const double KeV = 0.001;
         
-        public ParticleSim.Result.SimulationResult RunSimulation()
+        public ParticleSim.Result.SimulationResult RunSimulation(ReactiveDictionary<(int, int), string> installedDetectors, Dictionary<string, LogicalVolume> logicalVolumes)
         {
             var particleGun = PickupParticleGun();
             
@@ -35,32 +38,27 @@ namespace SubatomicCanvas.Model.UseCase
                 0
             );
 
-            Debug.LogWarning("ToDo: 現状シミュレーションには一切ジオメトリを反映していません。");
-            // _cellsVisualizer.PvPlacements(worldPvp, 2);
+            var copyNo = 1;
 
-            // foreach (var cell in _dataStoreManager.GetCellStatus())
-            // {
-            //     if (cell.cellType == 0) continue;
-            //     
-            //     var logicalVolume = _availableDetectorLogicalVolumeList.GetLogicalVolume(cell.cellType);
-            //
-            //     var rotation = cell.GetRotation();
-            //     var position = cell.GetPosition();
-            //
-            //     _ = new PVPlacement
-            //     (
-            //         RotationMatrix.RotationToG4Mat(rotation),
-            //         ThreeVector.PositionToG4Vec(position),
-            //         logicalVolume.GetName(),
-            //         logicalVolume.GetPointer(),
-            //         worldPvp.GetPointer(),
-            //         cell.id
-            //     );
-            // }
+            foreach (var detector in installedDetectors)
+            {
+                var (position, detectorKey) = detector;
+                var logicalVolume = logicalVolumes[detectorKey];
+                
+                _ = new PVPlacement
+                (
+                    RotationMatrix.RotationToG4Mat(Quaternion.identity),
+                    ThreeVector.PositionToG4Vec(HoneycombCoordinate.GetPosition(position)), 
+                    logicalVolume.GetName(),
+                    logicalVolume.GetPointer(),
+                    worldPvp.GetPointer(),
+                    copyNo
+                );
 
+                copyNo++;
+            }
+            
             return Simulator.RunSimulation(particleGun, worldPvp);
-
-            // _simulationCompletePublisher.Publish(new SimulationCompleteMessage(result));
         }
 
         private ParticleGun PickupParticleGun()

@@ -1,4 +1,6 @@
-﻿using ParticleSim.Result;
+﻿using System.Collections.Generic;
+using ParticleSim.CSGSolid;
+using ParticleSim.Volume;
 using SubatomicCanvas.Model;
 using SubatomicCanvas.Model.UseCase;
 using SubatomicCanvas.View;
@@ -30,7 +32,29 @@ namespace SubatomicCanvas.Presenter
 
         private void OnClickRunButton()
         {
-            var result = _simulationUseCase.RunSimulation();
+            // 一旦仮にここで定義
+            Debug.LogWarning("ToDo: 一旦LogicalVolumeの定義をOnClickRunButton内でやっています。専用のクラスから引っ張ってくるようにしてください。");
+            var standardTubsSize = new Vector3(0.08f, 3.0f, 0.08f);
+            var test = new Dictionary<string, LogicalVolume>
+            {
+                ["TrackDetectorV1"] = new(
+                    new Tubs("TrackDetectorV1", standardTubsSize),
+                    "TrackDetectorV1",
+                    "G4_ETHANE"
+                ),
+                ["CalorimeterV1"] = new(
+                    new Tubs("CalorimeterV1", standardTubsSize),
+                    "CalorimeterV1",
+                    "G4_CESIUM_IODIDE"
+                ),
+                ["AbsorberV1"] = new(
+                    new Tubs("AbsorberV1", standardTubsSize),
+                    "AbsorberV1",
+                    "G4_Fe"
+                )
+            };
+
+            var result = _simulationUseCase.RunSimulation(_canvasState.installedDetectorPositionAndKeys, test);
 
             _lastSimulationCondition.result.Value = result;
             Debug.LogWarning("ToDo: 直近に行ったシミュレーションの前提データは残しておく");
