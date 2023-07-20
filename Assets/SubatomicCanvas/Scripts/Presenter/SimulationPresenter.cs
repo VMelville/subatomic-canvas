@@ -6,7 +6,6 @@ using ParticleSim.Volume;
 using SubatomicCanvas.Model;
 using SubatomicCanvas.Model.UseCase;
 using SubatomicCanvas.View;
-using UniRx;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -73,10 +72,10 @@ namespace SubatomicCanvas.Presenter
             _simulatorView.SetText(randomParticleKey);
             
             // シミュレーション実行
-            var result = _simulationUseCase.RunSimulation(_canvasState.installedDetectorPositionAndKeys, test, particleGun);
+            var (result, positionPathDict) = _simulationUseCase.RunSimulation(_canvasState.installedDetectorPositionAndKeys, test, particleGun);
 
             // 結果を記録
-            _lastSimulationCondition.result.Value = result;
+            _lastSimulationCondition.result.Value = (result, new Dictionary<string, (int, int)>(positionPathDict));
             _lastSimulationCondition.particleKey.Value = randomParticleKey;
             
             // ToDo: ここ、もうちょっとシンプルなコピー方法ありませんか？

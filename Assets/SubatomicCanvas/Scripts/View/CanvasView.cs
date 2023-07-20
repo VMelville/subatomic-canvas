@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ParticleSim.Result;
 using SubatomicCanvas.Utility;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,7 +13,7 @@ namespace SubatomicCanvas.View
         [SerializeField] private CellView cellPrefab;
         [SerializeField] private List<DetectorViewBase> detectorPrefabs;
 
-        private Dictionary<(int, int), CellView> _cellTable = new();
+        private readonly Dictionary<(int, int), CellView> _cellTable = new();
 
         public UnityEvent<(int, int), CellView> onAddCellView = new();
 
@@ -60,6 +61,45 @@ namespace SubatomicCanvas.View
         public void RemoveDetector((int, int) position)
         {
             _cellTable[position].RemoveDetector();
+        }
+        
+        public void ApplySimulationResult(SimulationResult result, Dictionary<string, (int, int)> pathPositionTable)
+        {
+            if (result == null) return;
+            
+            foreach (var cell in _cellTable.Values)
+            {
+                cell.ClearSense();
+            }
+
+            foreach (var trajectory in result.Trajectories)
+            {
+                for (var i = 1; i < trajectory.Points.Count; i++)
+                {
+                    var point = trajectory.Points[i];
+
+                    if (!pathPositionTable.ContainsKey(point.PreStepVolumePath)) continue;
+
+                    var position = pathPositionTable[point.PreStepVolumePath];
+
+                    var cell = _cellTable[position];
+
+                    cell.AddSense(point);
+                }
+            }
+        
+            foreach (var cell in _cellTable.Values)
+            {
+                cell.ReadySense();
+            }
+        }
+
+        public void SeekTime(float time)
+        {
+            foreach (var cell in _cellTable.Values)
+            {
+                cell.SeekTime(time);
+            }
         }
     }
 }

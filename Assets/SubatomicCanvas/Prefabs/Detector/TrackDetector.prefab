@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11dc152fc3241e98042716b2f8e477f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropletPrefab: {fileID: 8864486379386473116, guid: cdba1a735fc44d44188acbd82d79e01a,
+    type: 3}
 --- !u!222 &8282285544942553575
 CanvasRenderer:
   m_ObjectHideFlags: 0

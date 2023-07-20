@@ -1,4 +1,5 @@
-﻿using ParticleSim.Result;
+﻿using System.Collections.Generic;
+using ParticleSim.Result;
 using SubatomicCanvas.Model;
 using SubatomicCanvas.View;
 using UniRx;
@@ -19,11 +20,13 @@ namespace SubatomicCanvas.Presenter
             _timeState.time.Subscribe(_vfxVisualizeView.OnPassesTime);
         }
         
-        private void OnCompletedSimulation(SimulationResult result)
+        private void OnCompletedSimulation((SimulationResult, Dictionary<string, (int, int)>) result)
         {
-            if (result == null) return;
+            var (simulationResult, _) = result;
+            
+            if (simulationResult == null) return;
 
-            _vfxVisualizeView.PlayVfx(result.LinearTrajectory);
+            _vfxVisualizeView.PlayVfx(simulationResult.LinearTrajectory);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ParticleSim.Result;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -13,11 +14,13 @@ namespace SubatomicCanvas.View
         [SerializeField] private List<Image> rayCastTargets;
         [SerializeField] private Transform detectorParent;
 
+        private DetectorViewBase _detector;
+        
         public UnityEvent<PointerEventData> onMiddleDrag;
         public UnityEvent<PointerEventData> onPointerDown;
         public UnityEvent<PointerEventData> onPointerEnter;
         public UnityEvent<PointerEventData> onScroll;
-
+        
         private void Start()
         {
             foreach (var target in rayCastTargets)
@@ -38,7 +41,7 @@ namespace SubatomicCanvas.View
 
         public void PutDetector(DetectorViewBase detectorPrefab)
         {
-            Instantiate(detectorPrefab, detectorParent);
+            _detector = Instantiate(detectorPrefab, detectorParent);
         }
 
         public void RemoveDetector()
@@ -47,6 +50,30 @@ namespace SubatomicCanvas.View
             {
                 Destroy(child.gameObject);
             }
+        }
+
+        public void ClearSense()
+        {
+            if (_detector == null) return;
+            _detector.ClearSense();
+        }
+
+        public void AddSense(TrajectoryPoint trajectoryPoint)
+        {
+            if (_detector == null) return;
+            _detector.AddSense(trajectoryPoint);
+        }
+
+        public void ReadySense()
+        {
+            if (_detector == null) return;
+            _detector.ReadySense();
+        }
+
+        public void SeekTime(float time)
+        {
+            if (_detector == null) return;
+            _detector.SeekTime(time);
         }
     }
 }

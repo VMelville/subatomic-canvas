@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using ParticleSim.Result;
 using SubatomicCanvas.Model;
 using SubatomicCanvas.Utility;
 using SubatomicCanvas.View;
@@ -15,7 +17,9 @@ namespace SubatomicCanvas.Presenter
         // Model
         [Inject] private CanvasState _canvasState;
         [Inject] private PaintToolState _paintToolState;
-        
+        [Inject] private LastSimulationCondition _lastSimulationCondition;
+        [Inject] private TimeState _timeState;
+
         // View
         [Inject] private CanvasView _canvasView;
 
@@ -25,9 +29,11 @@ namespace SubatomicCanvas.Presenter
             _canvasState.installedDetectorPositionAndKeys.ObserveAdd().Subscribe(OnAddDetector);
             _canvasState.installedDetectorPositionAndKeys.ObserveReplace().Subscribe(OnReplaceDetector);
             _canvasState.installedDetectorPositionAndKeys.ObserveRemove().Subscribe(OnRemoveDetector);
+            _lastSimulationCondition.result.Subscribe(OnSimulationCompleted);
+            _timeState.time.Subscribe(_canvasView.SeekTime);
             
             _canvasView.onAddCellView.AddListener(ListenCellEvent);
-
+            
             _canvasState.canvasSize.Value = 10;
         }
 
@@ -129,6 +135,12 @@ namespace SubatomicCanvas.Presenter
             {
                 _canvasState.installedDetectorPositionAndKeys.Remove(subPosition);
             }
+        }
+
+        private void OnSimulationCompleted((SimulationResult, Dictionary<string, (int, int)>) result)
+        {
+            var (simulationResult, pathPositionTable) = result;
+            _canvasView.ApplySimulationResult(simulationResult, pathPositionTable);
         }
     }
 }
