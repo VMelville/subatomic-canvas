@@ -41,7 +41,7 @@ namespace SubatomicCanvas.Presenter
 
         private void UpdateCameraView()
         {
-            _cameraView.SetPosition(-_cameraState.position.Value);
+            _cameraView.SetPosition(new Vector3(0.0f, 0.0f, -10.0f) - (Vector3)_cameraState.position.Value);
             _cameraView.SetRotation(new Quaternion()); // 一旦 Rotation はいじらない
             _cameraView.SetOrthographic(_cameraState.is2dView.Value);
             _cameraView.SetOrthographicSize(Screen.height / 2f / _cameraState.zoomLevel.Value * 0.001f);
