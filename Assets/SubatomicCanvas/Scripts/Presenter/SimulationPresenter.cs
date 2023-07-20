@@ -18,6 +18,7 @@ namespace SubatomicCanvas.Presenter
         [Inject] private CanvasState _canvasState;
         [Inject] private LastSimulationCondition _lastSimulationCondition;
         [Inject] private ModeState _modeState;
+        [Inject] private TimeState _timeState;
         
         // Model - UseCase
         [Inject] private SimulationUseCase _simulationUseCase;
@@ -59,6 +60,8 @@ namespace SubatomicCanvas.Presenter
             _lastSimulationCondition.result.Value = result;
             Debug.LogWarning("ToDo: 直近に行ったシミュレーションの前提データは残しておく");
             Debug.LogWarning("ToDo: simulatorViewのテキストの変更を行う");
+
+            _timeState.time.Value = 0.0f;
         }
     }
 }
