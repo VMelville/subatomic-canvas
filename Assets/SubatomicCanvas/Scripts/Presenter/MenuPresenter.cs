@@ -13,23 +13,19 @@ namespace SubatomicCanvas.Presenter
 
         public void Start()
         {
-            _menuView.SetOpenCloseStateImmediately(_menuState.isOpen.Value);
-            
-            _menuState.isOpen.Subscribe(_menuView.SetOpenCloseState);
+            _menuState.isOpen.Subscribe(SetOpenClose);
             _menuState.pageIndex.Subscribe(_menuView.SetPageIndex);
 
             _menuView.onClickMenuButton.AddListener(OnClickMenuButton);
             _menuView.onChangePage.AddListener(OnChangePage);
+
+            _menuState.easingDuration.Value = 0.3f;
         }
 
-        private void OnClickMenuButton()
-        {
-            _menuState.isOpen.Value ^= true;
-        }
+        private void SetOpenClose(bool isOpen) => _menuView.SetOpenCloseState(isOpen, _menuState.easingDuration.Value);
 
-        private void OnChangePage(int pageIndex)
-        {
-            _menuState.pageIndex.Value = pageIndex;
-        }
+        private void OnClickMenuButton() => _menuState.isOpen.Value ^= true;
+
+        private void OnChangePage(int pageIndex) => _menuState.pageIndex.Value = pageIndex;
     }
 }

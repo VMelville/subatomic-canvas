@@ -10,9 +10,9 @@ namespace SubatomicCanvas.Utility.Tween
     
     public static class TweenExtensions
     {
-        private static readonly Dictionary<string, Coroutine> TweenCoroutines = new Dictionary<string, Coroutine>();
+        private static readonly Dictionary<string, Coroutine> TweenCoroutines = new();
 
-        public static void TweenScale(this Transform transform, Vector3 target, float duration, MonoBehaviour monoBehaviour)
+        public static void TweenScale(this Transform transform, Vector3 target, float duration)
         {
             var initial = transform.localScale;
             
@@ -27,7 +27,7 @@ namespace SubatomicCanvas.Utility.Tween
             );
         }
         
-        public static void TweenAnchorPosition(this RectTransform rectTransform, Vector2 target, float duration, MonoBehaviour monoBehaviour)
+        public static void TweenAnchorPosition(this RectTransform rectTransform, Vector2 target, float duration)
         {
             var initial = rectTransform.anchoredPosition;
                 
@@ -42,7 +42,7 @@ namespace SubatomicCanvas.Utility.Tween
             );
         }
         
-        public static void TweenSizeDelta(this RectTransform rectTransform, Vector2 target, float duration, MonoBehaviour monoBehaviour)
+        public static void TweenSizeDelta(this RectTransform rectTransform, Vector2 target, float duration)
         {
             var initial = rectTransform.sizeDelta;
                 

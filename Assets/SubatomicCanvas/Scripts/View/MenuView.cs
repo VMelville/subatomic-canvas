@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using SubatomicCanvas.Utility.Tween;
 using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.UIElements.Experimental;
 
 namespace SubatomicCanvas.View
 {
@@ -17,27 +19,15 @@ namespace SubatomicCanvas.View
         public UnityEvent onClickMenuButton => menuButton.onClick;
         public UnityEvent<int> onChangePage => menuDropdown.onValueChanged;
         
-        public void SetOpenCloseStateImmediately(bool isOpen)
+        public void SetOpenCloseState(bool isOpen, float duration)
         {
             if (isOpen)
             {
-                Open(true);
+                Open(duration);
             }
             else
             {
-                Close(true);
-            }
-        }
-
-        public void SetOpenCloseState(bool isOpen)
-        {
-            if (isOpen)
-            {
-                Open();
-            }
-            else
-            {
-                Close();
+                Close(duration);
             }
         }
 
@@ -50,40 +40,40 @@ namespace SubatomicCanvas.View
         }
         
         // ToDo: ここ、マジックナンバーになってます
-        private void Open(bool isImmediate = false)
+        private void Open(float easingDuration)
         {
             var rt = (RectTransform)transform;
             rt.anchorMin = Vector2.right;
             rt.anchorMax = Vector2.one;
 
-            if (isImmediate)
+            if (easingDuration == 0.0f)
             {
                 rt.sizeDelta = new Vector2(240f, -124f);
             }
             else
             {
                 rt.sizeDelta = new Vector2(32f, 32f - Screen.height);
-                rt.TweenSizeDelta(new Vector2(240f, -124f), 0.3f, this);
+                rt.TweenSizeDelta(new Vector2(240f, -124f), easingDuration);
             }
         
             menuContent.SetActive(true);
         }
 
         // ToDo: ここ、マジックナンバーになってます
-        private void Close(bool isImmediate = false)
+        private void Close(float easingDuration)
         {
             var rt = (RectTransform)transform;
             rt.anchorMin = Vector2.one;
             rt.anchorMax = Vector2.one;
 
-            if (isImmediate)
+            if (easingDuration == 0.0f)
             {
                 rt.sizeDelta = new Vector2(32f, 32f);
             }
             else
             {
                 rt.sizeDelta = new Vector2(240f, Screen.height - 124f);
-                rt.TweenSizeDelta(new Vector2(32f, 32f), 0.3f, this);
+                rt.TweenSizeDelta(new Vector2(32f, 32f), easingDuration);
             }
             
             menuContent.SetActive(false);

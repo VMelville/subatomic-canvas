@@ -13,13 +13,13 @@ namespace SubatomicCanvas.View
 
         public void SetPosition((int, int) position)
         {
-            mainCursor.TweenAnchorPosition(HoneycombCoordinate.GetPosition(position) * 1000f, 0.2f, this);
+            mainCursor.TweenAnchorPosition(HoneycombCoordinate.GetPosition(position) * 1000f, 0.2f);
 
             var subCursorPos = HoneycombCoordinate.MakeSubCursorPosition(position);
             
             for (var k = 0; k < 5; k++)
             {
-                subCursor[k].TweenAnchorPosition(HoneycombCoordinate.GetPosition(subCursorPos[k]) * 1000f, 0.2f, this);
+                subCursor[k].TweenAnchorPosition(HoneycombCoordinate.GetPosition(subCursorPos[k]) * 1000f, 0.2f);
             }
         }
 
