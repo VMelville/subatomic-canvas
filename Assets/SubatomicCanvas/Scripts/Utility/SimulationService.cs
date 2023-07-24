@@ -11,9 +11,6 @@ namespace SubatomicCanvas.Utility
 {
     public class SimulationService
     {
-        private const double GeV = 1000.0;
-        private const double MeV = 1.0;
-        private const double KeV = 0.001;
         private const string WorldName = "World";
         private const int WorldCopyNo = 0;
 
@@ -21,16 +18,17 @@ namespace SubatomicCanvas.Utility
         (
             ReactiveDictionary<(int, int), string> installedDetectors,
             Dictionary<string, LogicalVolume> logicalVolumes,
-            ParticleGun particleGun
+            ParticleGun particleGun,
+            Vector3 worldScale,
+            Vector3 magneticField
         )
         {
-            
             var worldLv = new LogicalVolume
             (
-                Box.CreateBoxFromUnityCubeScale("World", new Vector3(8f, 8f, 5f)),
+                Box.CreateBoxFromUnityCubeScale("World", worldScale),
                 WorldName,
                 "G4_AIR",
-                ThreeVector.MagFieldToG4Vec(new Vector3(0f, 0f, 0.5f))
+                ThreeVector.MagFieldToG4Vec(magneticField)
             ).GetPointer();
 
             var worldPvp = new PVPlacement

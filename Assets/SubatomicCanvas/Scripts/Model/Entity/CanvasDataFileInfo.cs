@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using SubatomicCanvas.Utility;
+using UniRx;
+using Vector3 = UnityEngine.Vector3;
 
 namespace SubatomicCanvas.Model
 {
@@ -18,9 +20,12 @@ namespace SubatomicCanvas.Model
 
         public List<string> usingParticleKeys;
         public Dictionary<string, string> installedDetectorPositionAndKeys;
-        public Vector3 magneticFieldVector;
+        public SerializableVector3 magneticFieldVector;
+        public SerializableVector3 simulationWorldScale;
         public int canvasSize;
         public float cellSize;
+        public float particleEnergyMin;
+        public float particleEnergyMax;
         
         public CanvasDataFileInfo(string title, CanvasState canvasState)
         {
@@ -37,9 +42,12 @@ namespace SubatomicCanvas.Model
                     kvp => kvp.Key.ToString(),
                     kvp => kvp.Value
                     );
-            magneticFieldVector = canvasState.magneticFieldVector.Value;
+            magneticFieldVector = new SerializableVector3(canvasState.magneticFieldVector.Value);
+            simulationWorldScale = new SerializableVector3(canvasState.simulationWorldScale.Value);
             canvasSize = canvasState.canvasSize.Value;
             cellSize = canvasState.cellSize.Value;
+            particleEnergyMin = canvasState.particleEnergyMin.Value;
+            particleEnergyMax = canvasState.particleEnergyMax.Value;
         }
     }
 }

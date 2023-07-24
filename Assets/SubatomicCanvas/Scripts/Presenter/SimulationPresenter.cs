@@ -68,11 +68,18 @@ namespace SubatomicCanvas.Presenter
             }
             
             var randomParticleKey = particleDict.ElementAt(Random.Range(0, particleCount));
-            var particleGun = new ParticleGun(randomParticleKey, Random.Range(100f, 300f)); // 単位はMeV
+            var randomEnergy = Random.Range(_canvasState.particleEnergyMin.Value, _canvasState.particleEnergyMax.Value);
+            var particleGun = new ParticleGun(randomParticleKey, randomEnergy);
             _simulatorView.SetText(randomParticleKey);
             
             // シミュレーション実行
-            var (result, positionPathDict) = _simulationService.RunSimulation(_canvasState.installedDetectorPositionAndKeys, test, particleGun);
+            var (result, positionPathDict) = _simulationService.RunSimulation(
+                _canvasState.installedDetectorPositionAndKeys,
+                test,
+                particleGun,
+                _canvasState.simulationWorldScale.Value,
+                _canvasState.magneticFieldVector.Value
+                );
 
             // 結果を記録
             _lastSimulationCondition.result.Value = (result, new Dictionary<string, (int, int)>(positionPathDict));

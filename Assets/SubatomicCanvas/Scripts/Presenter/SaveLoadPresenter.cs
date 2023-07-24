@@ -123,9 +123,6 @@ namespace SubatomicCanvas.Presenter
         {
             Debug.LogWarning("ToDo: ロードしたCanvasSizeを反映する");
             Debug.LogWarning("ToDo: ロードしたCellSizeを反映する");
-            Debug.LogWarning("ToDo: ロードしたMagneticFieldVectorを反映する");
-            Debug.LogWarning("ToDo: ParticleGunのエネルギーを選択できるようにする");
-            Debug.LogWarning("ToDo: 初期粒子の運動方向を選択できるようにする");
             
             var data = FileIOUtil.ReadSceneData<CanvasDataFileInfo>(filePath);
             
@@ -141,9 +138,12 @@ namespace SubatomicCanvas.Presenter
                 _canvasState.installedDetectorPositionAndKeys[key.ToTuple()]= value;
             }
 
-            _canvasState.magneticFieldVector.Value = data.magneticFieldVector;
+            _canvasState.magneticFieldVector.Value = data.magneticFieldVector.ToVector3();
+            _canvasState.simulationWorldScale.Value = data.simulationWorldScale.ToVector3();
             _canvasState.cellSize.Value = data.cellSize;
             _canvasState.canvasSize.Value = data.canvasSize;
+            _canvasState.particleEnergyMin.Value = data.particleEnergyMin;
+            _canvasState.particleEnergyMax.Value = data.particleEnergyMax;
         }
         
         private void OnClickTrashFileButton(string filePath)
