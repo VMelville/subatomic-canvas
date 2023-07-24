@@ -54,7 +54,7 @@ namespace SubatomicCanvas.LifetimeScope
             builder.Register<SnapshotState>(Lifetime.Singleton);
             builder.Register<TimeState>(Lifetime.Singleton);
             
-            // Model - UseCase
+            // Util
             builder.Register<SimulationService>(Lifetime.Singleton);
             builder.Register<SnapshotService>(Lifetime.Singleton);
             
