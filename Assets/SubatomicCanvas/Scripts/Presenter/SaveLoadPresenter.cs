@@ -22,6 +22,7 @@ namespace SubatomicCanvas.Presenter
         {
             _saveLoadState.canvasDataFiles.ObserveAdd().Subscribe(OnAddCanvasDataFiles);
             _saveLoadState.canvasDataFiles.ObserveReset().Subscribe(OnResetCanvasDataFiles);
+            _saveLoadState.isDisplayTrashButton.Subscribe(DisplayTrashButton);
             
             _saveLoadView.onClickDisplayTrashButton.AddListener(OnClickDisplayTrashButton);
             _saveLoadView.onClickReloadButton.AddListener(ReloadFiles);
@@ -114,6 +115,11 @@ namespace SubatomicCanvas.Presenter
         {
             FileIOUtil.DeleteJsonFile(filePath);
             ReloadFiles();
+        }
+
+        private void DisplayTrashButton(bool isDisplay)
+        {
+            _saveLoadView.DisplayTrashButton(isDisplay);
         }
     }
 }

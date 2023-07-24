@@ -51,6 +51,14 @@ namespace SubatomicCanvas.View
             _dataContents.Add(view);
         }
 
+        public void DisplayTrashButton(bool isDisplay)
+        {
+            foreach (var view in _dataContents)
+            {
+                view.DisplayTrashButton(isDisplay);
+            }
+        }
+
         public void ClearDataContent()
         {
             var childCount = dataShelf.childCount;
