@@ -17,7 +17,7 @@ namespace SubatomicCanvas.Presenter
         [Inject] private LastSimulationCondition _lastSimulationCondition;
         [Inject] private TimeState _timeState;
         
-        // Model - UseCase
+        // Model - Service
         [Inject] private SnapshotService _snapshotService;
         
         // View
