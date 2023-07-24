@@ -1,9 +1,11 @@
-﻿namespace SubatomicCanvas.Model
+﻿using System;
+
+namespace SubatomicCanvas.Model
 {
+    [Serializable]
     public struct Particle
     {
-        public string key;
-        public string displayName;
         public string pdgName;
+        public string displayName;
     }
 }

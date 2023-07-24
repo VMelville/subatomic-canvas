@@ -1,5 +1,4 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -8,7 +7,7 @@ namespace SubatomicCanvas.View
     public class SimulatorView : MonoBehaviour
     {
         [SerializeField] private Button button;
-        [SerializeField] private TMP_Text simulatorText;
+        [SerializeField] private Text simulatorText;
 
         public UnityEvent onClick => button.onClick;
 

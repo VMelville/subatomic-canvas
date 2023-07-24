@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using ParticleSim;
+using SubatomicCanvas.Model;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -22,15 +24,15 @@ namespace SubatomicCanvas.View
             allOffButton.onClick.AddListener(AllOff);
         }
         
-        public void AddNewToggle(string particleName, float particleEnergy)
+        public void AddNewToggle(Particle particle)
         {
             var toggle = Instantiate(togglePrefab, contentTransform);
-            toggle.onValueChanged.AddListener(isOn => onValueChanged.Invoke(particleName, isOn));
-            toggle.SetMainText(particleName);
-            toggle.SetSubText(particleEnergy.ToString("F2") + " MeV");
-            onValueChanged.Invoke(particleName, toggle.GetIsOn());
+            toggle.onValueChanged.AddListener(isOn => onValueChanged.Invoke(particle.pdgName, isOn));
+            toggle.SetMainText(particle.displayName);
+            toggle.SetSubText(PDG.GetPDGMass(particle.pdgName).ToString("F2") + " MeV");
+            onValueChanged.Invoke(particle.pdgName, toggle.GetIsOn());
             
-            _toggles[particleName] = toggle;
+            _toggles[particle.pdgName] = toggle;
         }
 
         public void SetIsOn(string particleName, bool isOn)

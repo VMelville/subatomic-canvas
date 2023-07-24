@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace SubatomicCanvas.Utility
 {
-    [System.Serializable]
+    [Serializable]
     public class SerializableVector3
     {
         public float x;

@@ -16,7 +16,7 @@ namespace SubatomicCanvas.Presenter
     {
         // Model - ReactiveEntity
         [Inject] private AvailableDetectors _availableDetectors;
-        // [Inject] private AvailableParticles _availableParticles;
+        [Inject] private AvailableParticles _availableParticles;
         [Inject] private CanvasState _canvasState;
         [Inject] private LastSimulationCondition _lastSimulationCondition;
         [Inject] private ModeState _modeState;
@@ -70,7 +70,8 @@ namespace SubatomicCanvas.Presenter
             var randomParticleKey = particleDict.ElementAt(Random.Range(0, particleCount));
             var randomEnergy = Random.Range(_canvasState.particleEnergyMin.Value, _canvasState.particleEnergyMax.Value);
             var particleGun = new ParticleGun(randomParticleKey, randomEnergy);
-            _simulatorView.SetText(randomParticleKey);
+            var particleName = _availableParticles.particleDict[randomParticleKey].displayName;
+            _simulatorView.SetText(particleName);
             
             // シミュレーション実行
             var (result, positionPathDict) = _simulationService.RunSimulation(

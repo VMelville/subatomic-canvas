@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using ParticleSim;
 using SubatomicCanvas.Model;
 using SubatomicCanvas.View;
 using UniRx;
-using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -25,12 +23,9 @@ namespace SubatomicCanvas.Presenter
         
         public void Start()
         {
-            Debug.LogWarning("ToDo: 一旦テストでPresenterに直接粒子リストを記載しているので適切な場所に書く");
-            var testParticleList = new List<string> { "gamma", "e-", "mu-", "pi0", "pi+", "kaon0S", "Upsilon", "lambda_b" };
-
-            foreach (var particle in testParticleList)
+            foreach (var particle in _availableParticles.particleDict.Values)
             {
-                _particleShelfView.AddNewToggle(particle, (float)PDG.GetPDGMass(particle));
+                _particleShelfView.AddNewToggle(particle);
             }
 
             _canvasState.usingParticleKeys.ObserveAdd()
