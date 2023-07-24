@@ -42,7 +42,7 @@ namespace SubatomicCanvas.LifetimeScope
             ParticleSim.Simulator.Init();
             
             // Model - ReactiveEntity
-            builder.Register<AvailableCanvasDataFiles>(Lifetime.Singleton);
+            builder.Register<SaveLoadState>(Lifetime.Singleton);
             builder.Register<AvailableDetectors>(Lifetime.Singleton);
             builder.Register<AvailableParticles>(Lifetime.Singleton);
             builder.Register<CameraState>(Lifetime.Singleton);

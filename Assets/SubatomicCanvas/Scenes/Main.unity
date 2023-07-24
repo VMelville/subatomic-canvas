@@ -1813,6 +1813,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40f54501d39944c88cb94c6df5b53d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayTrashButton: {fileID: 277146172}
+  reloadButton: {fileID: 475270620}
+  saveButton: {fileID: 1145558200}
+  dataNameInputField: {fileID: 2107924998}
+  dataShelf: {fileID: 1673686185}
+  dataContentPrefab: {fileID: 6811587574447028125, guid: a07a6cdec24f37f45b2f0d69ebccbb8d,
+    type: 3}
+  onClickLoadFileButton:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickTrashFileButton:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &277146170
 GameObject:
   m_ObjectHideFlags: 0
@@ -7257,7 +7270,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1145558201}
   m_OnClick:
     m_PersistentCalls:
