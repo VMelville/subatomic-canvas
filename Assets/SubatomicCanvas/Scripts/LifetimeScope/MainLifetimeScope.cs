@@ -1,8 +1,8 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using SubatomicCanvas.Model;
-using SubatomicCanvas.Model.UseCase;
 using SubatomicCanvas.Presenter;
+using SubatomicCanvas.Utility;
 using SubatomicCanvas.View;
 using UnityEngine;
 using VContainer;
@@ -55,8 +55,8 @@ namespace SubatomicCanvas.LifetimeScope
             builder.Register<TimeState>(Lifetime.Singleton);
             
             // Model - UseCase
-            builder.Register<SimulationUseCase>(Lifetime.Singleton);
-            builder.Register<SnapshotUseCase>(Lifetime.Singleton);
+            builder.Register<SimulationService>(Lifetime.Singleton);
+            builder.Register<SnapshotService>(Lifetime.Singleton);
             
             // View
             builder.RegisterComponent(cameraView);

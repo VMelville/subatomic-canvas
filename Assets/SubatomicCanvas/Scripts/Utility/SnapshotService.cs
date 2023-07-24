@@ -4,9 +4,9 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace SubatomicCanvas.Model.UseCase
+namespace SubatomicCanvas.Utility
 {
-    public class SnapshotUseCase
+    public class SnapshotService
     {
         private const string SnapshotDirectory = "SubatomicCanvas";
         

@@ -1,6 +1,6 @@
 ﻿using System;
 using SubatomicCanvas.Model;
-using SubatomicCanvas.Model.UseCase;
+using SubatomicCanvas.Utility;
 using SubatomicCanvas.View;
 using UniRx;
 using UnityEngine;
@@ -18,7 +18,7 @@ namespace SubatomicCanvas.Presenter
         [Inject] private TimeState _timeState;
         
         // Model - UseCase
-        [Inject] private SnapshotUseCase _snapshotUseCase;
+        [Inject] private SnapshotService _snapshotService;
         
         // View
         [Inject] private UiVisibleView _uiVisibleView;
@@ -32,7 +32,7 @@ namespace SubatomicCanvas.Presenter
             // View
             _snapshotButtonView.onClick.AddListener(OnClickSnapshotButton);
             _uiVisibleView.onSetActive.AddListener(OnSetActiveUi);
-            _snapshotUseCase.onTookSnapshot.AddListener(OnTookSnapshot);
+            _snapshotService.onTookSnapshot.AddListener(OnTookSnapshot);
         }
 
         private void OnChangeState(SnapshotStateType state)
@@ -45,7 +45,7 @@ namespace SubatomicCanvas.Presenter
                     _uiVisibleView.SetIsVisible(false);
                     break;
                 case SnapshotStateType.Standby:
-                    _snapshotUseCase.TakeSnapshot(_lastSimulationCondition.particleKey.Value, _timeState.time.Value);
+                    _snapshotService.TakeSnapshot(_lastSimulationCondition.particleKey.Value, _timeState.time.Value);
                     break;
                 case SnapshotStateType.Took:
                     _uiVisibleView.SetIsVisible(true);

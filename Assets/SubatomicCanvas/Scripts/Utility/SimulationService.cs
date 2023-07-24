@@ -4,13 +4,12 @@ using ParticleSim;
 using ParticleSim.CSGSolid;
 using ParticleSim.Result;
 using ParticleSim.Volume;
-using SubatomicCanvas.Utility;
 using UniRx;
 using UnityEngine;
 
-namespace SubatomicCanvas.Model.UseCase
+namespace SubatomicCanvas.Utility
 {
-    public class SimulationUseCase
+    public class SimulationService
     {
         private const double GeV = 1000.0;
         private const double MeV = 1.0;

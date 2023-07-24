@@ -4,7 +4,7 @@ using ParticleSim;
 using ParticleSim.CSGSolid;
 using ParticleSim.Volume;
 using SubatomicCanvas.Model;
-using SubatomicCanvas.Model.UseCase;
+using SubatomicCanvas.Utility;
 using SubatomicCanvas.View;
 using UnityEngine;
 using VContainer;
@@ -23,7 +23,7 @@ namespace SubatomicCanvas.Presenter
         [Inject] private TimeState _timeState;
         
         // Model - UseCase
-        [Inject] private SimulationUseCase _simulationUseCase;
+        [Inject] private SimulationService _simulationService;
         
         // View
         [Inject] private SimulatorView _simulatorView;
@@ -72,7 +72,7 @@ namespace SubatomicCanvas.Presenter
             _simulatorView.SetText(randomParticleKey);
             
             // シミュレーション実行
-            var (result, positionPathDict) = _simulationUseCase.RunSimulation(_canvasState.installedDetectorPositionAndKeys, test, particleGun);
+            var (result, positionPathDict) = _simulationService.RunSimulation(_canvasState.installedDetectorPositionAndKeys, test, particleGun);
 
             // 結果を記録
             _lastSimulationCondition.result.Value = (result, new Dictionary<string, (int, int)>(positionPathDict));
