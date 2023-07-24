@@ -63,6 +63,14 @@ namespace SubatomicCanvas.View
             _cellTable[position].RemoveDetector();
         }
         
+        public void RemoveDetectorAll()
+        {
+            foreach (var view in _cellTable.Values)
+            {
+                view.RemoveDetector();
+            }
+        }
+        
         public void ApplySimulationResult(SimulationResult result, Dictionary<string, (int, int)> pathPositionTable)
         {
             if (result == null) return;

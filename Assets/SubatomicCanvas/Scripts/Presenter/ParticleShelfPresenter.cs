@@ -2,6 +2,7 @@
 using ParticleSim;
 using SubatomicCanvas.Model;
 using SubatomicCanvas.View;
+using UniRx;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -31,17 +32,29 @@ namespace SubatomicCanvas.Presenter
             {
                 _particleShelfView.AddNewToggle(particle, (float)PDG.GetPDGMass(particle));
             }
+
+            _canvasState.usingParticleKeys.ObserveAdd()
+                .Subscribe(addEvent => _particleShelfView.SetIsOn(addEvent.Value, true));
+            
+            _canvasState.usingParticleKeys.ObserveRemove()
+                .Subscribe(removeEvent => _particleShelfView.SetIsOn(removeEvent.Value, false));
+
+            _canvasState.usingParticleKeys.ObserveReset()
+                .Subscribe(_ => _particleShelfView.SetOnParticles(new List<string>(_canvasState.usingParticleKeys)));
         }
 
         private void OnValueChanged(string particle, bool isOn)
         {
             if (isOn)
             {
-                _availableParticles.particleDict[particle] = new Particle();
+                if (!_canvasState.usingParticleKeys.Contains(particle))
+                {
+                    _canvasState.usingParticleKeys.Add(particle);
+                }
             }
             else
             {
-                _availableParticles.particleDict.Remove(particle);
+                _canvasState.usingParticleKeys.Remove(particle);
             }
         }
     }

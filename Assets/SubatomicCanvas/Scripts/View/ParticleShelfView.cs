@@ -14,7 +14,7 @@ namespace SubatomicCanvas.View
 
         public UnityEvent<string, bool> onValueChanged;
 
-        private readonly List<ParticleToggleView> _toggles = new ();
+        private readonly Dictionary<string, ParticleToggleView> _toggles = new ();
 
         private void Start()
         {
@@ -30,20 +30,34 @@ namespace SubatomicCanvas.View
             toggle.SetSubText(particleEnergy.ToString("F2") + " MeV");
             onValueChanged.Invoke(particleName, toggle.GetIsOn());
             
-            _toggles.Add(toggle);
+            _toggles[particleName] = toggle;
+        }
+
+        public void SetIsOn(string particleName, bool isOn)
+        {
+            _toggles[particleName].SetIsOn(isOn);
+        }
+
+        public void SetOnParticles(List<string> particleNames)
+        {
+            AllOff();
+            foreach (var particleName in particleNames)
+            {
+                _toggles[particleName].SetIsOn(true);
+            }
         }
 
         private void AllOn()
         {
-            foreach (var toggle in _toggles)
+            foreach (var toggle in _toggles.Values)
             {
                 toggle.SetIsOn(true);
             }
         }
-        
+
         private void AllOff()
         {
-            foreach (var toggle in _toggles)
+            foreach (var toggle in _toggles.Values)
             {
                 toggle.SetIsOn(false);
             }

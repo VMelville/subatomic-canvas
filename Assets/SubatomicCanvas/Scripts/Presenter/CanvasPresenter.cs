@@ -29,6 +29,7 @@ namespace SubatomicCanvas.Presenter
             _canvasState.installedDetectorPositionAndKeys.ObserveAdd().Subscribe(OnAddDetector);
             _canvasState.installedDetectorPositionAndKeys.ObserveReplace().Subscribe(OnReplaceDetector);
             _canvasState.installedDetectorPositionAndKeys.ObserveRemove().Subscribe(OnRemoveDetector);
+            _canvasState.installedDetectorPositionAndKeys.ObserveReset().Subscribe(OnResetDetector);
             _lastSimulationCondition.result.Subscribe(OnSimulationCompleted);
             _timeState.time.Subscribe(_canvasView.SeekTime);
             
@@ -73,6 +74,11 @@ namespace SubatomicCanvas.Presenter
         private void OnRemoveDetector(DictionaryRemoveEvent<(int, int), string> removeEvent)
         {
             _canvasView.RemoveDetector(removeEvent.Key);
+        }
+
+        private void OnResetDetector(Unit _)
+        {
+            _canvasView.RemoveDetectorAll();
         }
 
         private void OnPointerDown((int, int) position, PointerEventData eventData)

@@ -16,7 +16,7 @@ namespace SubatomicCanvas.Presenter
     {
         // Model - ReactiveEntity
         [Inject] private AvailableDetectors _availableDetectors;
-        [Inject] private AvailableParticles _availableParticles;
+        // [Inject] private AvailableParticles _availableParticles;
         [Inject] private CanvasState _canvasState;
         [Inject] private LastSimulationCondition _lastSimulationCondition;
         [Inject] private ModeState _modeState;
@@ -59,7 +59,7 @@ namespace SubatomicCanvas.Presenter
             };
 
             // Particle
-            var particleDict = _availableParticles.particleDict;
+            var particleDict = _canvasState.usingParticleKeys;
             var particleCount = particleDict.Count;
             if (particleCount == 0)
             {
@@ -67,7 +67,7 @@ namespace SubatomicCanvas.Presenter
                 return;
             }
             
-            var randomParticleKey = particleDict.Keys.ElementAt(Random.Range(0, particleCount));
+            var randomParticleKey = particleDict.ElementAt(Random.Range(0, particleCount));
             var particleGun = new ParticleGun(randomParticleKey, Random.Range(100f, 300f)); // 単位はMeV
             _simulatorView.SetText(randomParticleKey);
             

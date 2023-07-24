@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using SubatomicCanvas.Model;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -19,10 +21,11 @@ namespace SubatomicCanvas.View
         [SerializeField] private DataContentView dataContentPrefab;
         
         // Member
-        private List<DataContentView> _dataContents = new();
+        private Dictionary<string, DataContentView> _dataContents = new();
 
         public UnityEvent<string> onClickLoadFileButton;
         public UnityEvent<string> onClickTrashFileButton;
+        public UnityEvent<string> onClickView;
         
         public UnityEvent onClickDisplayTrashButton => displayTrashButton.onClick;
         public UnityEvent onClickReloadButton => reloadButton.onClick;
@@ -37,23 +40,41 @@ namespace SubatomicCanvas.View
 
             view.onClickTrashButton.AddListener(() => onClickTrashFileButton.Invoke(filePath));
             view.onClickLoadButton.AddListener(() => onClickLoadFileButton.Invoke(filePath));
+            view.onClickView.Subscribe(_ => onClickView.Invoke(filePath));
             
             view.SetTitleText(info.title);
             view.SetDateText(info.saveDate);
             view.SetActiveColor(isActive);
             view.DisplayTrashButton(isDisplayTrashButton, true);
 
-            if (isActive)
-            {
-                view.PlaySaveEffect();
-            }
+            _dataContents[filePath] = view;
+        }
 
-            _dataContents.Add(view);
+        public void ReplaceDataContent(string filePath, CanvasDataFileInfo info)
+        {
+            var view = _dataContents[filePath];
+
+            view.SetDateText(info.saveDate);
+        }
+
+        public void PlaySaveEffect(string filePath)
+        {
+            _dataContents[filePath].PlaySaveEffect();
+        }
+        
+        public void ChangeActiveFilePath(string filePath)
+        {
+            dataNameInputField.text = Path.GetFileNameWithoutExtension(filePath);
+            
+            foreach (var (path, view) in _dataContents)
+            {
+                view.SetActiveColor(path == filePath);
+            }
         }
 
         public void DisplayTrashButton(bool isDisplay)
         {
-            foreach (var view in _dataContents)
+            foreach (var view in _dataContents.Values)
             {
                 view.DisplayTrashButton(isDisplay);
             }

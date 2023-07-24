@@ -10,9 +10,9 @@ namespace SubatomicCanvas.Utility
     {
         public static bool CouldSaveTitle(string title)
         {
-            // 空文字列なら false を返す
-            if (title == "") return false;
-
+            // null か空文字列なら false を返す
+            if (title is null or "") return false;
+            
             // ファイル名に使用不可能な文字があれば false を返す
             var invalidChars = Path.GetInvalidFileNameChars();
             if (title.Any(c => invalidChars.Contains(c))) return false;
