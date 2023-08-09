@@ -25,6 +25,7 @@ namespace SubatomicCanvas.LifetimeScope
         [SerializeField] private SimulatorView simulatorView;
         [SerializeField] private SaveLoadView saveLoadView;
         [SerializeField] private ScreenView screenView;
+        [SerializeField] private SettingView settingView;
         [SerializeField] private SnapshotButtonView snapshotButtonView;
         [SerializeField] private TimeView timeView;
         [SerializeField] private UiVisibleView uiVisibleView;
@@ -47,6 +48,7 @@ namespace SubatomicCanvas.LifetimeScope
             builder.Register<AvailableParticles>(Lifetime.Singleton);
             builder.Register<CameraState>(Lifetime.Singleton);
             builder.Register<CanvasState>(Lifetime.Singleton);
+            builder.Register<GlobalSettingState>(Lifetime.Singleton);
             builder.Register<LastSimulationCondition>(Lifetime.Singleton);
             builder.Register<MenuState>(Lifetime.Singleton);
             builder.Register<ModeState>(Lifetime.Singleton);
@@ -69,6 +71,7 @@ namespace SubatomicCanvas.LifetimeScope
             builder.RegisterComponent(raycastTargetView);
             builder.RegisterComponent(simulatorView);
             builder.RegisterComponent(saveLoadView);
+            builder.RegisterComponent(settingView);
             builder.RegisterComponent(screenView);
             builder.RegisterComponent(snapshotButtonView);
             builder.RegisterComponent(timeView);
@@ -85,6 +88,7 @@ namespace SubatomicCanvas.LifetimeScope
             builder.RegisterEntryPoint<PaintToolPresenter>();
             builder.RegisterEntryPoint<ParticleShelfPresenter>();
             builder.RegisterEntryPoint<SaveLoadPresenter>();
+            builder.RegisterEntryPoint<SettingPresenter>();
             builder.RegisterEntryPoint<SimulationPresenter>();
             builder.RegisterEntryPoint<SnapshotPresenter>();
             builder.RegisterEntryPoint<TimePresenter>();

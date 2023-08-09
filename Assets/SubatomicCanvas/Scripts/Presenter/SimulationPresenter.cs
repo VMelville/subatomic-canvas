@@ -6,6 +6,7 @@ using ParticleSim.Volume;
 using SubatomicCanvas.Model;
 using SubatomicCanvas.Utility;
 using SubatomicCanvas.View;
+using UniRx;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -18,6 +19,7 @@ namespace SubatomicCanvas.Presenter
         [Inject] private AvailableDetectors _availableDetectors;
         [Inject] private AvailableParticles _availableParticles;
         [Inject] private CanvasState _canvasState;
+        [Inject] private GlobalSettingState _globalSettingState;
         [Inject] private LastSimulationCondition _lastSimulationCondition;
         [Inject] private ModeState _modeState;
         [Inject] private TimeState _timeState;
@@ -31,6 +33,7 @@ namespace SubatomicCanvas.Presenter
         public void Start()
         {
             _simulatorView.onClick.AddListener(OnClickRunButton);
+            _globalSettingState.isDisplayParticleName.Subscribe(_simulatorView.SetDisplayParticleName);
         }
 
         private void OnClickRunButton()

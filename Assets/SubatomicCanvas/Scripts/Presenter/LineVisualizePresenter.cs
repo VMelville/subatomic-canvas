@@ -12,10 +12,12 @@ namespace SubatomicCanvas.Presenter
     {
         [Inject] private LastSimulationCondition _lastSimulationCondition;
         [Inject] private LineVisualizeView _lineVisualizeView;
+        [Inject] private GlobalSettingState _globalSettingState;
         
         public void Start()
         {
             _lastSimulationCondition.result.Subscribe(OnCompletedSimulation);
+            _globalSettingState.isDisplayLineVisualizer.Subscribe(_lineVisualizeView.gameObject.SetActive);
         }
         
         private void OnCompletedSimulation((SimulationResult, Dictionary<string, (int, int)>) result)

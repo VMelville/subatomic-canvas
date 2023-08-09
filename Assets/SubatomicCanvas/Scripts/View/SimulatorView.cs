@@ -15,5 +15,10 @@ namespace SubatomicCanvas.View
         {
             simulatorText.text = text;
         }
+
+        public void SetDisplayParticleName(bool isDisplayParticleName)
+        {
+            simulatorText.gameObject.SetActive(isDisplayParticleName);
+        }
     }
 }
