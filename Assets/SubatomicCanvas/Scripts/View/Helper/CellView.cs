@@ -37,7 +37,7 @@ namespace SubatomicCanvas.View
 
         public void DoDestroy()
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
 
         public void SetSize(float size)

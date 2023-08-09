@@ -66,6 +66,7 @@ namespace SubatomicCanvas.Presenter
         private void BuildCanvas(int canvasSize, float cellSize)
         {
             _canvasView.ClearCanvas();
+            _canvasState.installedDetectorPositionAndKeys.Clear();
             _canvasView.ReloadCanvas(canvasSize, cellSize);
             
             for (var i = 1 - canvasSize; i < canvasSize; i++)

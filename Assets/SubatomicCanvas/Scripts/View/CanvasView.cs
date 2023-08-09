@@ -20,20 +20,17 @@ namespace SubatomicCanvas.View
         public void ClearCanvas()
         {
             honeycombGridView.ClearGrid();
-        }
-        
-        public void ReloadCanvas(int canvasSize, float cellSize)
-        {
-            honeycombGridView.DrawGrid(canvasSize, cellSize);
-        }
-
-        public void ClearCellTable()
-        {
+            
             foreach (var (_, cell) in _cellTable)
             {
                 cell.DoDestroy();
             }
             _cellTable.Clear();
+        }
+        
+        public void ReloadCanvas(int canvasSize, float cellSize)
+        {
+            honeycombGridView.DrawGrid(canvasSize, cellSize);
         }
         
         public void AddCell((int, int) position, float cellSize)

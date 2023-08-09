@@ -121,10 +121,14 @@ namespace SubatomicCanvas.Presenter
         
         private void OnClickLoadFileButton(string filePath)
         {
-            Debug.LogWarning("ToDo: ロードしたCanvasSizeを反映する");
-            Debug.LogWarning("ToDo: ロードしたCellSizeを反映する");
-            
             var data = FileIOUtil.ReadSceneData<CanvasDataFileInfo>(filePath);
+            
+            _canvasState.cellSize.Value = data.cellSize;
+            _canvasState.canvasSize.Value = data.canvasSize;
+            _canvasState.simulationWorldDepth.Value = data.simulationWorldDepth;
+            _canvasState.particleEnergyMin.Value = data.particleEnergyMin;
+            _canvasState.particleEnergyMax.Value = data.particleEnergyMax;
+            _canvasState.magneticFieldVector.Value = data.magneticFieldVector.ToVector3();
             
             _canvasState.usingParticleKeys.Clear();
             foreach(var key in data.usingParticleKeys)
@@ -137,13 +141,6 @@ namespace SubatomicCanvas.Presenter
             {
                 _canvasState.installedDetectorPositionAndKeys[key.ToTuple()]= value;
             }
-
-            _canvasState.magneticFieldVector.Value = data.magneticFieldVector.ToVector3();
-            _canvasState.simulationWorldDepth.Value = data.simulationWorldDepth;
-            _canvasState.cellSize.Value = data.cellSize;
-            _canvasState.canvasSize.Value = data.canvasSize;
-            _canvasState.particleEnergyMin.Value = data.particleEnergyMin;
-            _canvasState.particleEnergyMax.Value = data.particleEnergyMax;
         }
         
         private void OnClickTrashFileButton(string filePath)
