@@ -1,7 +1,6 @@
-﻿using SubatomicCanvas.Model;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace SubatomicCanvas.View
 {
@@ -10,7 +9,7 @@ namespace SubatomicCanvas.View
         [SerializeField] private SpeedSliderView speedSliderView;
         [SerializeField] private TMP_Text timeText;
 
-        public UnityEvent<float> onSpeedChanged => speedSliderView.onValueChanged;
+        public Slider.SliderEvent OnSpeedChanged => speedSliderView.OnValueChanged;
 
         public void SetTime(float time)
         {

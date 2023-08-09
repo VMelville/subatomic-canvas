@@ -14,7 +14,7 @@ namespace SubatomicCanvas.View
         [SerializeField] private Transform contentTransform;
         [SerializeField] private ParticleToggleView togglePrefab;
 
-        public UnityEvent<string, bool> onValueChanged;
+        public UnityEvent<string, bool> OnValueChanged;
 
         private readonly Dictionary<string, ParticleToggleView> _toggles = new ();
 
@@ -27,10 +27,10 @@ namespace SubatomicCanvas.View
         public void AddNewToggle(Particle particle)
         {
             var toggle = Instantiate(togglePrefab, contentTransform);
-            toggle.onValueChanged.AddListener(isOn => onValueChanged.Invoke(particle.pdgName, isOn));
+            toggle.OnValueChanged.AddListener(isOn => OnValueChanged.Invoke(particle.pdgName, isOn));
             toggle.SetMainText(particle.displayName);
             toggle.SetSubText(PDG.GetPDGMass(particle.pdgName).ToString("F2") + " MeV");
-            onValueChanged.Invoke(particle.pdgName, toggle.GetIsOn());
+            OnValueChanged.Invoke(particle.pdgName, toggle.GetIsOn());
             
             _toggles[particle.pdgName] = toggle;
         }

@@ -1,10 +1,8 @@
 ﻿using System;
 using SubatomicCanvas.Utility.Tween;
 using TMPro;
-using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -28,9 +26,9 @@ namespace SubatomicCanvas.View
         private static readonly Color InactiveColor = new(0.4f, 0.4f, 0.4f);
         private static readonly Color SaveEffectColor = new(1.0f, 0.0f, 0.0f, 0.5f);
 
-        public UnityEvent onClickTrashButton => trashButton.onClick;
-        public UnityEvent onClickLoadButton => loadButton.onClick;
-        public IObservable<PointerEventData> onClickView => backgroundImage.OnPointerClickAsObservable();
+        public Button.ButtonClickedEvent OnClickTrashButton => trashButton.onClick;
+        public Button.ButtonClickedEvent OnClickLoadButton => loadButton.onClick;
+        public IObservable<PointerEventData> OnClickView => backgroundImage.OnPointerClickAsObservable();
 
         public void SetTitleText(string text) => titleText.text = text;
         public void SetDateText(string text) => dateText.text = text;

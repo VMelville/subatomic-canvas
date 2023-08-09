@@ -15,7 +15,7 @@ namespace SubatomicCanvas.View
 
         private readonly Dictionary<(int, int), CellView> _cellTable = new();
 
-        public UnityEvent<(int, int), CellView> onAddCellView = new();
+        public UnityEvent<(int, int), CellView> OnAddCellView = new();
 
         public void ClearCanvas()
         {
@@ -48,7 +48,7 @@ namespace SubatomicCanvas.View
             cell.SetSize(cellSize);
             ((RectTransform)cell.transform).anchoredPosition = HoneycombCoordinate.GetPosition(position, cellSize) * 1000f;
             
-            onAddCellView.Invoke(position, cell);
+            OnAddCellView.Invoke(position, cell);
         }
 
         public void PutDetector((int, int) position, string key, float cellSize)

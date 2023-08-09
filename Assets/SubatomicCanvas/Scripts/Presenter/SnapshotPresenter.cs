@@ -30,7 +30,7 @@ namespace SubatomicCanvas.Presenter
             _snapshotState.state.Subscribe(OnChangeState);
             
             // View
-            _snapshotButtonView.onClick.AddListener(OnClickSnapshotButton);
+            _snapshotButtonView.OnClick.AddListener(OnClickSnapshotButton);
             _uiVisibleView.onSetActive.AddListener(OnSetActiveUi);
             _snapshotService.onTookSnapshot.AddListener(OnTookSnapshot);
         }

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace SubatomicCanvas.View
@@ -10,7 +9,7 @@ namespace SubatomicCanvas.View
         [SerializeField] private GameObject symmetryIcon;
         [SerializeField] private GameObject asymmetryIcon;
 
-        public UnityEvent onclick => button.onClick;
+        public Button.ButtonClickedEvent Onclick => button.onClick;
 
         public void SwitchSymmetryIcon(bool isSymmetry)
         {

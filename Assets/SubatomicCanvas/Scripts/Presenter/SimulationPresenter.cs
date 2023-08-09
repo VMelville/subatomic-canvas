@@ -32,7 +32,7 @@ namespace SubatomicCanvas.Presenter
         
         public void Start()
         {
-            _simulatorView.onClick.AddListener(OnClickRunButton);
+            _simulatorView.OnClick.AddListener(OnClickRunButton);
             _globalSettingState.isDisplayParticleName.Subscribe(_simulatorView.SetDisplayParticleName);
         }
 

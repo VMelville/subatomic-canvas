@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace SubatomicCanvas.View
@@ -10,7 +9,7 @@ namespace SubatomicCanvas.View
         [SerializeField] private Text mainText;
         [SerializeField] private Text subText;
 
-        public UnityEvent<bool> onValueChanged => toggle.onValueChanged;
+        public Toggle.ToggleEvent OnValueChanged => toggle.onValueChanged;
 
         public void SetIsOn(bool isOn)
         {

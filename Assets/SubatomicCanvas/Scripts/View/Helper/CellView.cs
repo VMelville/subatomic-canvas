@@ -17,10 +17,10 @@ namespace SubatomicCanvas.View
 
         private DetectorViewBase _detector;
         
-        public UnityEvent<PointerEventData> onMiddleDrag;
-        public UnityEvent<PointerEventData> onPointerDown;
-        public UnityEvent<PointerEventData> onPointerEnter;
-        public UnityEvent<PointerEventData> onScroll;
+        public UnityEvent<PointerEventData> OnMiddleDrag;
+        public UnityEvent<PointerEventData> OnPointerDown;
+        public UnityEvent<PointerEventData> OnPointerEnter;
+        public UnityEvent<PointerEventData> OnScroll;
         
         private void Start()
         {
@@ -28,10 +28,10 @@ namespace SubatomicCanvas.View
             {
                 target.OnDragAsObservable()
                     .Where(e=>e.button == PointerEventData.InputButton.Middle)
-                    .Subscribe(onMiddleDrag.Invoke);
-                target.OnPointerDownAsObservable().Subscribe(onPointerDown.Invoke);
-                target.OnPointerEnterAsObservable().Subscribe(onPointerEnter.Invoke);
-                target.OnScrollAsObservable().Subscribe(onScroll.Invoke);
+                    .Subscribe(OnMiddleDrag.Invoke);
+                target.OnPointerDownAsObservable().Subscribe(OnPointerDown.Invoke);
+                target.OnPointerEnterAsObservable().Subscribe(OnPointerEnter.Invoke);
+                target.OnScrollAsObservable().Subscribe(OnScroll.Invoke);
             }
         }
 

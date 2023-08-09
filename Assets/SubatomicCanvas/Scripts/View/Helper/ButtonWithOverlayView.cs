@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace SubatomicCanvas.View
@@ -10,7 +9,7 @@ namespace SubatomicCanvas.View
         [SerializeField] private Button button;
         [SerializeField] private GameObject overlay;
     
-        public UnityEvent onClick => button.onClick;
+        public Button.ButtonClickedEvent OnClick => button.onClick;
 
         public string GetDetectorKey()
         {

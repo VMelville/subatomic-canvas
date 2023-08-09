@@ -25,10 +25,10 @@ namespace SubatomicCanvas.Presenter
             _cameraState.zoomLevel.Subscribe(OnChangeZoomLevel);
             _cameraState.is2dView.Subscribe(_cameraView.SetOrthographic);
             
-            _raycastTargetView.onMiddleDrag.AddListener(OnGrab);
-            _raycastTargetView.onScroll.AddListener(OnZoom);
+            _raycastTargetView.OnMiddleDrag.AddListener(OnGrab);
+            _raycastTargetView.OnScrollView.AddListener(OnZoom);
             
-            _canvasView.onAddCellView.AddListener(ListenCellEvent);
+            _canvasView.OnAddCellView.AddListener(ListenCellEvent);
         }
 
         private void OnChangePosition(Vector2 _) => UpdateCameraView();
@@ -52,8 +52,8 @@ namespace SubatomicCanvas.Presenter
         
         private void ListenCellEvent((int, int) position, CellView cellView)
         {
-            cellView.onMiddleDrag.AddListener(eventData => OnCellMiddleDrag(position, eventData));
-            cellView.onScroll.AddListener(eventData => OnCellScroll(position, eventData));
+            cellView.OnMiddleDrag.AddListener(eventData => OnCellMiddleDrag(position, eventData));
+            cellView.OnScroll.AddListener(eventData => OnCellScroll(position, eventData));
         }
 
         private void OnGrab(Vector2 delta)

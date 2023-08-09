@@ -6,19 +6,19 @@ namespace SubatomicCanvas.View
 {
     public class RaycastTargetView : MonoBehaviour, IDragHandler, IScrollHandler
     {
-        public UnityEvent<Vector2> onMiddleDrag = new();
-        public UnityEvent<float> onScroll = new();
+        public UnityEvent<Vector2> OnMiddleDrag = new();
+        public UnityEvent<float> OnScrollView = new();
         
         public void OnDrag(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Middle) return;
 
-            onMiddleDrag.Invoke(eventData.delta);
+            OnMiddleDrag.Invoke(eventData.delta);
         }
 
         public void OnScroll(PointerEventData eventData)
         {
-            onScroll.Invoke(eventData.scrollDelta.y);
+            OnScrollView.Invoke(eventData.scrollDelta.y);
         }
     }
 }

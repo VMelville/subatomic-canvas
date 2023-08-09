@@ -34,15 +34,15 @@ namespace SubatomicCanvas.Presenter
             _lastSimulationCondition.result.Subscribe(OnSimulationCompleted);
             _timeState.time.Subscribe(_canvasView.SeekTime);
             
-            _canvasView.onAddCellView.AddListener(ListenCellEvent);
+            _canvasView.OnAddCellView.AddListener(ListenCellEvent);
             
             _canvasState.canvasSize.Value = 10;
         }
 
         private void ListenCellEvent((int, int) position, CellView cellView)
         {
-            cellView.onPointerDown.AddListener(eventData => OnPointerDown(position, eventData));
-            cellView.onPointerEnter.AddListener(eventData => OnPointerEnter(position, eventData));
+            cellView.OnPointerDown.AddListener(eventData => OnPointerDown(position, eventData));
+            cellView.OnPointerEnter.AddListener(eventData => OnPointerEnter(position, eventData));
         }
 
         private void OnChangeCellSize(float cellSize)

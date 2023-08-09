@@ -16,8 +16,8 @@ namespace SubatomicCanvas.Presenter
             _menuState.isOpen.Subscribe(SetOpenClose);
             _menuState.pageIndex.Subscribe(_menuView.SetPageIndex);
 
-            _menuView.onClickMenuButton.AddListener(OnClickMenuButton);
-            _menuView.onChangePage.AddListener(OnChangePage);
+            _menuView.OnClickMenuButton.AddListener(OnClickMenuButton);
+            _menuView.OnChangePage.AddListener(OnChangePage);
 
             _menuState.easingDuration.Value = 0.3f;
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace SubatomicCanvas.View
 {
@@ -10,14 +11,14 @@ namespace SubatomicCanvas.View
         [SerializeField] private List<ButtonWithOverlayView> detectorButtons;
         [SerializeField] private SymmetryToolButtonView symmetryModeButton;
 
-        public UnityEvent<string> onClickPaintToolButton;
-        public UnityEvent onClickSymmetryModeButton => symmetryModeButton.onclick;
+        public UnityEvent<string> OnClickPaintToolButton;
+        public Button.ButtonClickedEvent OnClickSymmetryModeButton => symmetryModeButton.Onclick;
 
         private void Start()
         {
             foreach (var button in detectorButtons)
             {
-                button.onClick.AddListener(() => onClickPaintToolButton.Invoke(button.GetDetectorKey()));
+                button.OnClick.AddListener(() => OnClickPaintToolButton.Invoke(button.GetDetectorKey()));
             }
         }
 

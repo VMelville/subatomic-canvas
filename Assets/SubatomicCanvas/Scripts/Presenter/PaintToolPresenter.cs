@@ -17,8 +17,8 @@ namespace SubatomicCanvas.Presenter
             _paintToolState.activeDetectorKey.Subscribe(_paintToolView.SetDetectorKey);
             _paintToolState.isActiveSymmetry.Subscribe(_paintToolView.SetActiveSymmetry);
             
-            _paintToolView.onClickPaintToolButton.AddListener(OnClickPaintTool);
-            _paintToolView.onClickSymmetryModeButton.AddListener(OnClickSymmetryToolButton);
+            _paintToolView.OnClickPaintToolButton.AddListener(OnClickPaintTool);
+            _paintToolView.OnClickSymmetryModeButton.AddListener(OnClickSymmetryToolButton);
         }
 
         private void OnClickPaintTool(string toolKey)

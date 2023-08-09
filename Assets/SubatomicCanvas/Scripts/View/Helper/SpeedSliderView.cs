@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace SubatomicCanvas.View
@@ -16,7 +15,7 @@ namespace SubatomicCanvas.View
         [SerializeField] private Sprite reverseSprite;
         [SerializeField] private Sprite fastRewindSprite;
 
-        public UnityEvent<float> onValueChanged => slider.onValueChanged;
+        public Slider.SliderEvent OnValueChanged => slider.onValueChanged;
         
         private const float Threshold = 1.5f;
         

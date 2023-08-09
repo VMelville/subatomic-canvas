@@ -18,7 +18,7 @@ namespace SubatomicCanvas.Presenter
 
         public void Initialize()
         {
-            _particleShelfView.onValueChanged.AddListener(OnValueChanged);
+            _particleShelfView.OnValueChanged.AddListener(OnValueChanged);
         }
         
         public void Start()

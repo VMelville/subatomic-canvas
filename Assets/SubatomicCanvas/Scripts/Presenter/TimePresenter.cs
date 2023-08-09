@@ -17,7 +17,7 @@ namespace SubatomicCanvas.Presenter
             _timeState.time.Subscribe(_timeView.SetTime);
             _timeState.speed.Subscribe(_timeView.SetSpeed);
 
-            _timeView.onSpeedChanged.AddListener(OnSpeedChanged);
+            _timeView.OnSpeedChanged.AddListener(OnSpeedChanged);
         }
 
         private void OnSpeedChanged(float speed)

@@ -23,14 +23,14 @@ namespace SubatomicCanvas.View
         // Member
         private Dictionary<string, DataContentView> _dataContents = new();
 
-        public UnityEvent<string> onClickLoadFileButton;
-        public UnityEvent<string> onClickTrashFileButton;
-        public UnityEvent<string> onClickView;
+        public UnityEvent<string> OnClickLoadFileButton;
+        public UnityEvent<string> OnClickTrashFileButton;
+        public UnityEvent<string> OnClickView;
         
-        public UnityEvent onClickDisplayTrashButton => displayTrashButton.onClick;
-        public UnityEvent onClickReloadButton => reloadButton.onClick;
-        public UnityEvent onClickSaveButton => saveButton.onClick;
-        public UnityEvent<string> onChangeFileName => dataNameInputField.onValueChanged;
+        public Button.ButtonClickedEvent OnClickDisplayTrashButton => displayTrashButton.onClick;
+        public Button.ButtonClickedEvent OnClickReloadButton => reloadButton.onClick;
+        public Button.ButtonClickedEvent OnClickSaveButton => saveButton.onClick;
+        public InputField.OnChangeEvent OnChangeFileName => dataNameInputField.onValueChanged;
 
         public void SetSaveButtonInteractable(bool interactable) => saveButton.interactable = interactable;
         
@@ -38,9 +38,9 @@ namespace SubatomicCanvas.View
         {
             var view = Instantiate(dataContentPrefab, dataShelf);
 
-            view.onClickTrashButton.AddListener(() => onClickTrashFileButton.Invoke(filePath));
-            view.onClickLoadButton.AddListener(() => onClickLoadFileButton.Invoke(filePath));
-            view.onClickView.Subscribe(_ => onClickView.Invoke(filePath));
+            view.OnClickTrashButton.AddListener(() => OnClickTrashFileButton.Invoke(filePath));
+            view.OnClickLoadButton.AddListener(() => OnClickLoadFileButton.Invoke(filePath));
+            view.OnClickView.Subscribe(_ => OnClickView.Invoke(filePath));
             
             view.SetTitleText(info.title);
             view.SetDateText(info.saveDate);

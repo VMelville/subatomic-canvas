@@ -25,12 +25,12 @@ namespace SubatomicCanvas.Presenter
 
             _canvasState.cellSize.Subscribe(_cursorView.SetCellSize);
             
-            _canvasView.onAddCellView.AddListener(ListenCellEvent);
+            _canvasView.OnAddCellView.AddListener(ListenCellEvent);
         }
 
         private void ListenCellEvent((int, int) position, CellView cellView)
         {
-            cellView.onPointerEnter.AddListener(_ => _cursorView.SetPosition(position));
+            cellView.OnPointerEnter.AddListener(_ => _cursorView.SetPosition(position));
         }
     }
 }

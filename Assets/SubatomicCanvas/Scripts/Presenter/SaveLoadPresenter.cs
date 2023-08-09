@@ -26,13 +26,13 @@ namespace SubatomicCanvas.Presenter
             _saveLoadState.isDisplayTrashButton.Subscribe(DisplayTrashButton);
             _saveLoadState.fileNameCandidate.Subscribe(OnChangeFileNameCandidate);
             
-            _saveLoadView.onClickDisplayTrashButton.AddListener(OnClickDisplayTrashButton);
-            _saveLoadView.onClickReloadButton.AddListener(ReloadFiles);
-            _saveLoadView.onClickSaveButton.AddListener(OnClickSaveButton);
-            _saveLoadView.onChangeFileName.AddListener(OnChangeFileName);
-            _saveLoadView.onClickLoadFileButton.AddListener(OnClickLoadFileButton);
-            _saveLoadView.onClickTrashFileButton.AddListener(OnClickTrashFileButton);
-            _saveLoadView.onClickView.AddListener(OnClickView);
+            _saveLoadView.OnClickDisplayTrashButton.AddListener(OnClickDisplayTrashButton);
+            _saveLoadView.OnClickReloadButton.AddListener(ReloadFiles);
+            _saveLoadView.OnClickSaveButton.AddListener(OnClickSaveButton);
+            _saveLoadView.OnChangeFileName.AddListener(OnChangeFileName);
+            _saveLoadView.OnClickLoadFileButton.AddListener(OnClickLoadFileButton);
+            _saveLoadView.OnClickTrashFileButton.AddListener(OnClickTrashFileButton);
+            _saveLoadView.OnClickView.AddListener(OnClickView);
             
             ReloadFiles();
         }
