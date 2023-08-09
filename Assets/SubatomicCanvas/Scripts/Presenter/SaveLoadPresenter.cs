@@ -23,6 +23,7 @@ namespace SubatomicCanvas.Presenter
             _saveLoadState.canvasDataFiles.ObserveAdd().Subscribe(OnAddCanvasDataFiles);
             _saveLoadState.canvasDataFiles.ObserveReplace().Subscribe(OnReplaceCanvasDataFiles);
             _saveLoadState.canvasDataFiles.ObserveReset().Subscribe(OnResetCanvasDataFiles);
+            _saveLoadState.canvasDataFiles.ObserveRemove().Subscribe(OnRemoveCanvasDataFiles);
             _saveLoadState.isDisplayTrashButton.Subscribe(DisplayTrashButton);
             _saveLoadState.fileNameCandidate.Subscribe(OnChangeFileNameCandidate);
             
@@ -57,6 +58,8 @@ namespace SubatomicCanvas.Presenter
         }
 
         private void OnResetCanvasDataFiles(Unit _) => _saveLoadView.ClearDataContent();
+
+        private void OnRemoveCanvasDataFiles(DictionaryRemoveEvent<string, CanvasDataFileInfo> removeEvent) => _saveLoadView.RemoveDataContent(removeEvent.Key, removeEvent.Value);
         
         private void DisplayTrashButton(bool isDisplay) => _saveLoadView.DisplayTrashButton(isDisplay);
         

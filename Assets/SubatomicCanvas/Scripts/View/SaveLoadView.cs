@@ -57,6 +57,11 @@ namespace SubatomicCanvas.View
             view.SetDateText(info.saveDate);
         }
 
+        public void RemoveDataContent(string filePath, CanvasDataFileInfo info)
+        {
+            _dataContents.Remove(filePath);
+        }
+
         public void PlaySaveEffect(string filePath)
         {
             _dataContents[filePath].PlaySaveEffect();
@@ -88,6 +93,8 @@ namespace SubatomicCanvas.View
             {
                 Destroy(dataShelf.GetChild(i).gameObject);
             }
+            
+            _dataContents.Clear();
         }
     }
 }
