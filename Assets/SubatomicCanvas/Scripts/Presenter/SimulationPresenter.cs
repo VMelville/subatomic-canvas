@@ -38,7 +38,9 @@ namespace SubatomicCanvas.Presenter
             // Detector
             // 一旦仮にここで定義
             Debug.LogWarning("ToDo: 一旦LogicalVolumeの定義をOnClickRunButton内でやっています。専用のクラスから引っ張ってくるようにしてください。");
-            var standardTubsSize = new Vector3(0.08f, 3.0f, 0.08f);
+            var cellSize = _canvasState.cellSize.Value;
+            var diameter = 0.8f * cellSize; // memo: 六角形に内接するには、0.866、つまり √3 / 2 をかけるとぴったりですが、それより若干内側にしています。なんとなくそうしているだけで、ピッタリでも問題ありません。
+            var standardTubsSize = new Vector3(diameter, _canvasState.simulationWorldDepth.Value * 0.5f, diameter); // Yが円柱の高さの半分の長さ。XとZは直径。単位は m
             var test = new Dictionary<string, LogicalVolume>
             {
                 ["TrackDetectorV1"] = new(
@@ -78,8 +80,10 @@ namespace SubatomicCanvas.Presenter
                 _canvasState.installedDetectorPositionAndKeys,
                 test,
                 particleGun,
-                _canvasState.simulationWorldScale.Value,
-                _canvasState.magneticFieldVector.Value
+                _canvasState.simulationWorldDepth.Value,
+                _canvasState.magneticFieldVector.Value,
+                _canvasState.canvasSize.Value,
+                cellSize
                 );
 
             // 結果を記録
@@ -95,6 +99,12 @@ namespace SubatomicCanvas.Presenter
 
             // 時刻をリセット
             _timeState.time.Value = 0.0f;
+            
+            // 速度が0以下であれば、強制的に0.1に変更する
+            if (_timeState.speed.Value <= 0)
+            {
+                _timeState.speed.Value = 0.1f;
+            }
         }
     }
 }

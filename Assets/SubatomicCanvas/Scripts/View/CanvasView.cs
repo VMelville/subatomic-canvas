@@ -22,9 +22,9 @@ namespace SubatomicCanvas.View
             honeycombGridView.ClearGrid();
         }
         
-        public void ReloadCanvas(int canvasSize)
+        public void ReloadCanvas(int canvasSize, float cellSize)
         {
-            honeycombGridView.DrawGrid(canvasSize);
+            honeycombGridView.DrawGrid(canvasSize, cellSize);
         }
 
         public void ClearCellTable()
@@ -36,7 +36,7 @@ namespace SubatomicCanvas.View
             _cellTable.Clear();
         }
         
-        public void AddCell((int, int) position)
+        public void AddCell((int, int) position, float cellSize)
         {
             if (_cellTable.ContainsKey(position))
             {
@@ -45,16 +45,18 @@ namespace SubatomicCanvas.View
 
             var cell = Instantiate(cellPrefab, transform);
             _cellTable[position] = cell;
-            ((RectTransform)cell.transform).anchoredPosition = HoneycombCoordinate.GetPosition(position) * 1000f;
+            cell.SetSize(cellSize);
+            ((RectTransform)cell.transform).anchoredPosition = HoneycombCoordinate.GetPosition(position, cellSize) * 1000f;
             
             onAddCellView.Invoke(position, cell);
         }
 
-        public void PutDetector((int, int) position, string key)
+        public void PutDetector((int, int) position, string key, float cellSize)
         {
             foreach (var detectorPrefab in detectorPrefabs.Where(detectorPrefab => key == detectorPrefab.DetectorKey))
             {
-                _cellTable[position].PutDetector(detectorPrefab);
+                var detector = _cellTable[position].PutDetector(detectorPrefab);
+                detector.SetSize(cellSize);
             }
         }
 

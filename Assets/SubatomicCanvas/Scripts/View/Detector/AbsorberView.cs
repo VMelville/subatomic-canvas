@@ -10,7 +10,12 @@ namespace SubatomicCanvas.View
         {
             // Absorberはただの置物なので、シミュレーション結果から反映するものはありません。
         }
-        
+
+        public override void SetSize(float size)
+        {
+            // Absorberはただの置物なので、シミュレーション結果から反映するものはありません。
+        }
+
         public override void AddSense(TrajectoryPoint trajectoryPoint)
         {
             // Absorberはただの置物なので、シミュレーション結果から反映するものはありません。

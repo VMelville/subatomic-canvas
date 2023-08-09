@@ -31,6 +31,10 @@ namespace SubatomicCanvas.View
             }
         }
 
+        public override void SetSize(float size)
+        {
+        }
+
         public override void AddSense(TrajectoryPoint point)
         {
             var stepVector = point.UnityScalePostPosition - point.UnityScalePrePosition;

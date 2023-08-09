@@ -21,7 +21,7 @@ namespace SubatomicCanvas.Model
         public List<string> usingParticleKeys;
         public Dictionary<string, string> installedDetectorPositionAndKeys;
         public SerializableVector3 magneticFieldVector;
-        public SerializableVector3 simulationWorldScale;
+        public float simulationWorldDepth;
         public int canvasSize;
         public float cellSize;
         public float particleEnergyMin;
@@ -43,7 +43,7 @@ namespace SubatomicCanvas.Model
                     kvp => kvp.Value
                     );
             magneticFieldVector = new SerializableVector3(canvasState.magneticFieldVector.Value);
-            simulationWorldScale = new SerializableVector3(canvasState.simulationWorldScale.Value);
+            simulationWorldDepth = canvasState.simulationWorldDepth.Value;
             canvasSize = canvasState.canvasSize.Value;
             cellSize = canvasState.cellSize.Value;
             particleEnergyMin = canvasState.particleEnergyMin.Value;

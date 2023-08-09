@@ -10,6 +10,7 @@ namespace SubatomicCanvas.Presenter
     {
         // Model
         [Inject] private PaintToolState _paintToolState;
+        [Inject] private CanvasState _canvasState;
         
         // View
         [Inject] private CanvasView _canvasView;
@@ -21,6 +22,8 @@ namespace SubatomicCanvas.Presenter
             // ToDo: key!="ViewMode" は暫定的な対処です。変更になる可能性が高いと思われます。
             _paintToolState.activeDetectorKey.Select(key => key!="ViewMode").Subscribe(_cursorView.SetActiveCursor);
             _paintToolState.isActiveSymmetry.Subscribe(_cursorView.SetActiveSubCursor);
+
+            _canvasState.cellSize.Subscribe(_cursorView.SetCellSize);
             
             _canvasView.onAddCellView.AddListener(ListenCellEvent);
         }

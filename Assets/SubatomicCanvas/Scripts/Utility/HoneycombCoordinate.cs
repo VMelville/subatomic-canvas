@@ -5,18 +5,16 @@ namespace SubatomicCanvas.Utility
 {
     public static class HoneycombCoordinate
     {
-        private const float Distance = 0.05f;
-    
-        public static Vector2 GetPosition((int, int) position)
+        public static Vector2 GetPosition((int, int) position, float cellSize)
         {
             var (x, y) = position;
-            return new Vector2(x * 1.5f, (x * 0.5f - y) * Mathf.Sqrt(3.0f)) * Distance;
+            return new Vector2(x * 1.5f, (x * 0.5f - y) * Mathf.Sqrt(3.0f)) * 0.5f * cellSize;
         }
         
         // ToDo: これintかfloatかで分けてるけど、なんとなく微妙じゃない？
-        public static Vector2 GetPosition(float x, float y)
+        public static Vector2 GetPosition(float x, float y, float cellSize)
         {
-            return new Vector2(x * 1.5f, (x * 0.5f - y) * Mathf.Sqrt(3.0f)) * Distance;
+            return new Vector2(x * 1.5f, (x * 0.5f - y) * Mathf.Sqrt(3.0f)) * 0.5f * cellSize;
         }
 
         public static List<(int, int)> MakeSubCursorPosition((int, int) position)

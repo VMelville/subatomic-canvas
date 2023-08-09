@@ -139,7 +139,7 @@ namespace SubatomicCanvas.Presenter
             }
 
             _canvasState.magneticFieldVector.Value = data.magneticFieldVector.ToVector3();
-            _canvasState.simulationWorldScale.Value = data.simulationWorldScale.ToVector3();
+            _canvasState.simulationWorldDepth.Value = data.simulationWorldDepth;
             _canvasState.cellSize.Value = data.cellSize;
             _canvasState.canvasSize.Value = data.canvasSize;
             _canvasState.particleEnergyMin.Value = data.particleEnergyMin;

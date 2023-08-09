@@ -26,6 +26,7 @@ namespace SubatomicCanvas.Presenter
         public void Start()
         {
             _canvasState.canvasSize.Subscribe(OnChangeCanvasSize);
+            _canvasState.cellSize.Subscribe(OnChangeCellSize);
             _canvasState.installedDetectorPositionAndKeys.ObserveAdd().Subscribe(OnAddDetector);
             _canvasState.installedDetectorPositionAndKeys.ObserveReplace().Subscribe(OnReplaceDetector);
             _canvasState.installedDetectorPositionAndKeys.ObserveRemove().Subscribe(OnRemoveDetector);
@@ -44,10 +45,28 @@ namespace SubatomicCanvas.Presenter
             cellView.onPointerEnter.AddListener(eventData => OnPointerEnter(position, eventData));
         }
 
+        private void OnChangeCellSize(float cellSize)
+        {
+            Debug.LogWarning("CellSize変更とCanvasSize変更で2回セルの設定が行われてしまう。");
+            
+            var canvasSize = _canvasState.canvasSize.Value;
+            
+            BuildCanvas(canvasSize, cellSize);
+        }
+
         private void OnChangeCanvasSize(int canvasSize)
         {
+            Debug.LogWarning("CellSize変更とCanvasSize変更で2回セルの設定が行われてしまう。");
+            
+            var cellSize = _canvasState.cellSize.Value;
+            
+            BuildCanvas(canvasSize, cellSize);
+        }
+
+        private void BuildCanvas(int canvasSize, float cellSize)
+        {
             _canvasView.ClearCanvas();
-            _canvasView.ReloadCanvas(canvasSize);
+            _canvasView.ReloadCanvas(canvasSize, cellSize);
             
             for (var i = 1 - canvasSize; i < canvasSize; i++)
             {
@@ -55,20 +74,20 @@ namespace SubatomicCanvas.Presenter
                 {
                     var position = (j, i);
 
-                    _canvasView.AddCell(position);
+                    _canvasView.AddCell(position, cellSize);
                 }
             }
         }
 
         private void OnAddDetector(DictionaryAddEvent<(int, int), string> addEvent)
         {
-            _canvasView.PutDetector(addEvent.Key, addEvent.Value);
+            _canvasView.PutDetector(addEvent.Key, addEvent.Value, _canvasState.cellSize.Value);
         }
         
         private void OnReplaceDetector(DictionaryReplaceEvent<(int, int), string> replaceEvent)
         {
             _canvasView.RemoveDetector(replaceEvent.Key);
-            _canvasView.PutDetector(replaceEvent.Key, replaceEvent.NewValue);
+            _canvasView.PutDetector(replaceEvent.Key, replaceEvent.NewValue, _canvasState.cellSize.Value);
         }
         
         private void OnRemoveDetector(DictionaryRemoveEvent<(int, int), string> removeEvent)

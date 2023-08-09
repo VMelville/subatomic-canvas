@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ParticleSim.Result;
 using UniRx;
 using UniRx.Triggers;
@@ -39,9 +40,22 @@ namespace SubatomicCanvas.View
             Destroy(this);
         }
 
-        public void PutDetector(DetectorViewBase detectorPrefab)
+        public void SetSize(float size)
         {
-            _detector = Instantiate(detectorPrefab, detectorParent);
+            // transform.localScale = Vector3.one * size;
+            
+            foreach (var rt in rayCastTargets.Select(target => (RectTransform)target.transform))
+            {
+                rt.sizeDelta = new Vector2(500f, 500f * Mathf.Sqrt(3.0f)) * size;
+            }
+            
+            var thisRt = (RectTransform)transform;
+            thisRt.sizeDelta = new Vector2(800f, 800f) * size;
+        }
+
+        public DetectorViewBase PutDetector(DetectorViewBase detectorPrefab)
+        {
+            return _detector = Instantiate(detectorPrefab, detectorParent);
         }
 
         public void RemoveDetector()

@@ -19,13 +19,18 @@ namespace SubatomicCanvas.Utility
             ReactiveDictionary<(int, int), string> installedDetectors,
             Dictionary<string, LogicalVolume> logicalVolumes,
             ParticleGun particleGun,
-            Vector3 worldScale,
-            Vector3 magneticField
+            float worldDepth,
+            Vector3 magneticField,
+            int canvasSize,
+            float cellSize
         )
         {
+            var worldDiameter = cellSize * canvasSize * Mathf.Sqrt(3.0f) * 2.0f;
+            
             var worldLv = new LogicalVolume
             (
-                Box.CreateBoxFromUnityCubeScale("World", worldScale),
+                Tubs.CreateTubsFromUnityCylinderScale("World", new Vector3(worldDiameter, worldDepth * 0.5f,worldDiameter)),
+                // Box.CreateBoxFromUnityCubeScale("World", new Vector3()),
                 WorldName,
                 "G4_AIR",
                 ThreeVector.MagFieldToG4Vec(magneticField)
@@ -52,7 +57,7 @@ namespace SubatomicCanvas.Utility
                 _ = new PVPlacement
                 (
                     RotationMatrix.RotationToG4Mat(Quaternion.identity),
-                    ThreeVector.PositionToG4Vec(HoneycombCoordinate.GetPosition(position)),
+                    ThreeVector.PositionToG4Vec(HoneycombCoordinate.GetPosition(position, cellSize)),
                     logicalVolume.GetName(),
                     logicalVolume.GetPointer(),
                     worldPvp.GetPointer(),

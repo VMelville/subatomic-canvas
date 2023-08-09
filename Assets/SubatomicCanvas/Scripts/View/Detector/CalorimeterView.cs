@@ -10,6 +10,7 @@ namespace SubatomicCanvas.View
     {
         [SerializeField] private TMP_Text calorieText;
         [SerializeField] private RectTransform meterRectTransform;
+        [SerializeField] private Transform scaleTransform;
         
         // ToDo: Viewが状態を持ってしまっている…
         private List<(float, float, float)> _calorieKeyframes = new();
@@ -23,6 +24,11 @@ namespace SubatomicCanvas.View
             _calorieKeyframes.Add((0f, 0f, 0f));
             _calorieKeyframeIndex = 0;
             UpdateVisualizer();
+        }
+
+        public override void SetSize(float size)
+        {
+            scaleTransform.localScale = Vector3.one * size;
         }
 
         public override void AddSense(TrajectoryPoint point)
@@ -73,11 +79,10 @@ namespace SubatomicCanvas.View
             {
                 meterRectTransform.sizeDelta = Vector2.zero;
                 calorieText.text = "";
-            
             }
         
             var (_, energy, duration) = _calorieKeyframes[_calorieKeyframeIndex];
-            meterRectTransform.sizeDelta = Vector2.one * Mathf.Pow(energy, 1f / 3f) * 10f;
+            meterRectTransform.sizeDelta = Vector2.one * Mathf.Pow(energy, 1f / 3f) * 100f;
             calorieText.text = energy > 0 ? energy.ToString("F1") + " MeV" : "";
         }
     }

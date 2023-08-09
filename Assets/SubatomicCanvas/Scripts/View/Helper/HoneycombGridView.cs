@@ -13,7 +13,7 @@ namespace SubatomicCanvas.View
             children.ForEach(Destroy);
         }
         
-        public void DrawGrid(int canvasSize)
+        public void DrawGrid(int canvasSize, float cellSize)
         {
             for (var i = -canvasSize; i < canvasSize; i++)
             {
@@ -24,7 +24,8 @@ namespace SubatomicCanvas.View
                     
                     var view = Instantiate(gridUnitPrefab, transform);
                     view.SetActive(isActive);
-                    view.SetPosition(position);
+                    view.SetSize(cellSize);
+                    view.SetPosition(position, cellSize);
                 }
             }
         }
