@@ -31,12 +31,18 @@ namespace SubatomicCanvas.Model
 
         public void SetCanvasSize(int canvasSize)
         {
-            _canvasSize.SetValueAndForceNotify(canvasSize);
-            
-            foreach (var (position, _) in _detectorPlacements)
+            foreach (var (x, y) in _detectorPlacements.Keys.ToList())
             {
-                _detectorPlacements.Remove(position);
+                if (x <= -canvasSize || 
+                    x >= canvasSize || 
+                    y <= Mathf.Max(x, 0) - canvasSize || 
+                    y >= Mathf.Min(x, 0) + canvasSize)
+                {
+                    _detectorPlacements.Remove((x, y));
+                }
             }
+            
+            _canvasSize.SetValueAndForceNotify(canvasSize);
         }
 
         public void SetSimulationWorldDepth(float simulationWorldDepth) => _simulationWorldDepth.SetValueAndForceNotify(simulationWorldDepth);
