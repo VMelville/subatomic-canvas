@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace SubatomicCanvas.Presenter
 {
-    public class MenuViewFacade : IInitializable
+    public class MenuViewFacade : ControllerBase, IInitializable
     {
         [Inject] private MenuView _view;
         
@@ -14,8 +14,13 @@ namespace SubatomicCanvas.Presenter
 
         public void Initialize()
         {
-            _menuManager.IsOpen.Subscribe(isOpen => _view.SetOpenCloseState(isOpen, _menuManager.EasingDuration.Value));
-            _menuManager.PageIndex.Subscribe(_view.SetPageIndex);
+            _menuManager.IsOpen
+                .Subscribe(isOpen => _view.SetOpenCloseState(isOpen, _menuManager.EasingDuration.Value))
+                .AddTo(this);
+            
+            _menuManager.PageIndex
+                .Subscribe(_view.SetPageIndex)
+                .AddTo(this);
         }
     }
 }

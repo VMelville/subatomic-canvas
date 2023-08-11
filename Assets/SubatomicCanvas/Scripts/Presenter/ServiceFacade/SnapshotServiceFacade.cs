@@ -5,17 +5,20 @@ using VContainer.Unity;
 
 namespace SubatomicCanvas.Presenter
 {
-    public class SnapshotServiceFacade : IStartable
+    public class SnapshotServiceFacade : ControllerBase, IStartable
     {
         [Inject] private SnapshotService _service;
         
         [Inject] private SnapshotManager _snapshotManager;
         [Inject] private LastSimulationConditionManager _lastSimulationConditionManager;
         [Inject] private TimeManager _timeManager;
-        
-        public void Start() => 
+
+        public void Start()
+        {
             _snapshotManager.State
-                .Where(state => state==SnapshotStateType.Standby)
-                .Subscribe(state => _service.TakeSnapshot(_lastSimulationConditionManager.ParticleKey.Value, _timeManager.NowTime.Value));
+                .Where(state => state == SnapshotStateType.Standby)
+                .Subscribe(_ => _service.TakeSnapshot(_lastSimulationConditionManager.ParticleKey.Value, _timeManager.NowTime.Value))
+                .AddTo(this);
+        }
     }
 }

@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace SubatomicCanvas.Presenter
 {
-    public class CursorViewFacade : IInitializable
+    public class CursorViewFacade : ControllerBase, IInitializable
     {
         [Inject] private CursorView _view;
         
@@ -17,10 +17,17 @@ namespace SubatomicCanvas.Presenter
         public void Initialize()
         {
             // ToDo: key!="ViewMode" は暫定的な対処です。変更になる可能性が高いと思われます。
-            _paintToolManager.ActiveDetectorKey.Select(key => key!="ViewMode").Subscribe(_view.SetActiveCursor);
-            _paintToolManager.IsActiveSymmetry.Subscribe(_view.SetActiveSubCursor);
+            _paintToolManager.ActiveDetectorKey.Select(key => key!="ViewMode")
+                .Subscribe(_view.SetActiveCursor)
+                .AddTo(this);
+            
+            _paintToolManager.IsActiveSymmetry
+                .Subscribe(_view.SetActiveSubCursor)
+                .AddTo(this);
 
-            _canvasManager.CellSize.Subscribe(_view.SetCellSize);
+            _canvasManager.CellSize
+                .Subscribe(_view.SetCellSize)
+                .AddTo(this);
             
             _canvasView.OnAddCellView.AddListener((position, view) => view.OnPointerEnter.AddListener(_ => _view.SetPosition(position)));
         }

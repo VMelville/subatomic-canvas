@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace SubatomicCanvas.Presenter
 {
-    public class TimeViewFacade : IStartable
+    public class TimeViewFacade : ControllerBase, IStartable
     {
         [Inject] private TimeView _view;
         
@@ -14,8 +14,13 @@ namespace SubatomicCanvas.Presenter
         
         public void Start()
         {
-            _timeManager.NowTime.Subscribe(_view.SetTime);
-            _timeManager.Speed.Subscribe(_view.SetSpeed);
+            _timeManager.NowTime
+                .Subscribe(_view.SetTime)
+                .AddTo(this);
+            
+            _timeManager.Speed
+                .Subscribe(_view.SetSpeed)
+                .AddTo(this);
         }
     }
 }

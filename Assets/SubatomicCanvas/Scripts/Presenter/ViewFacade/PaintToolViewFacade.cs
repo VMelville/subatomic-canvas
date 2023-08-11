@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace SubatomicCanvas.Presenter
 {
-    public class PaintToolViewFacade : IInitializable
+    public class PaintToolViewFacade : ControllerBase, IInitializable
     {
         [Inject] private PaintToolView _view;
         
@@ -14,8 +14,13 @@ namespace SubatomicCanvas.Presenter
         
         public void Initialize()
         {
-            _paintToolManager.ActiveDetectorKey.Subscribe(_view.SetDetectorKey);
-            _paintToolManager.IsActiveSymmetry.Subscribe(_view.SetActiveSymmetry);
+            _paintToolManager.ActiveDetectorKey
+                .Subscribe(_view.SetDetectorKey)
+                .AddTo(this);
+            
+            _paintToolManager.IsActiveSymmetry
+                .Subscribe(_view.SetActiveSymmetry)
+                .AddTo(this);
         }
     }
 }

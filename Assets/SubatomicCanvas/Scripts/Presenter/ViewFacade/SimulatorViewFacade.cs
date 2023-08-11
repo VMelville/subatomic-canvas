@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace SubatomicCanvas.Presenter
 {
-    public class SimulatorViewFacade : IStartable
+    public class SimulatorViewFacade : ControllerBase, IStartable
     {
         [Inject] private SimulatorView _view;
 
@@ -19,9 +19,12 @@ namespace SubatomicCanvas.Presenter
             _lastSimulationConditionManager.ParticleKey
                 .Where(key => key!="")
                 .Select(key=>_availableParticlesManager.ParticleDict[key].displayName)
-                .Subscribe(_view.SetText);
-            
-            _globalSettingManager.IsDisplayParticleName.Subscribe(_view.SetDisplayParticleName);
+                .Subscribe(_view.SetText)
+                .AddTo(this);
+
+            _globalSettingManager.IsDisplayParticleName
+                .Subscribe(_view.SetDisplayParticleName)
+                .AddTo(this);
         }
     }
 }

@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace SubatomicCanvas.Presenter
 {
-    public class LineVisualizeViewFacade : IInitializable
+    public class LineVisualizeViewFacade : ControllerBase, IInitializable
     {
         [Inject] private LineVisualizeView _view;
         
@@ -22,9 +22,12 @@ namespace SubatomicCanvas.Presenter
                 {
                     _view.ClearLine();
                     _view.DrawLine(result.Trajectories);
-                });
+                })
+                .AddTo(this);
             
-            _globalSettingManager.IsDisplayLineVisualizer.Subscribe(_view.gameObject.SetActive);
+            _globalSettingManager.IsDisplayLineVisualizer
+                .Subscribe(_view.gameObject.SetActive)
+                .AddTo(this);
         }
     }
 }

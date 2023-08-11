@@ -16,10 +16,8 @@ namespace SubatomicCanvas.Presenter
         {
             _simulatorView.OnClick.AddListener(() =>
             {
-                // Detector
                 var detectorTable = SampleDetectors.GetDetectorLogicalVolumeTable(_canvasManager.CellSize.Value, _canvasManager.SimulationWorldDepth.Value);
 
-                // Particle - Name
                 var randomParticleKey = ParticleUtil.GetPickedUpParticleKey(_canvasManager.UsingParticleKeys);
 
                 if (randomParticleKey == "") return;
@@ -28,7 +26,6 @@ namespace SubatomicCanvas.Presenter
 
                 var particleGun = ParticleUtil.MakeParticleGun(randomParticleKey, randomEnergy);
                 
-                // シミュレーション実行
                 _service.RunSimulation(
                     _canvasManager.GetDetectorPlacements(),
                     detectorTable,

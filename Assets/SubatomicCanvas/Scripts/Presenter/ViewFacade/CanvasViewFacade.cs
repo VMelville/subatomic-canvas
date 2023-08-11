@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace SubatomicCanvas.Presenter
 {
-    public class CanvasViewFacade : IInitializable
+    public class CanvasViewFacade : ControllerBase, IInitializable
     {
         [Inject] private CanvasView _view;
         
@@ -17,25 +17,40 @@ namespace SubatomicCanvas.Presenter
         public void Initialize()
         {
             _canvasManager.CanvasSize
-                .Subscribe(canvasSize => _view.BuildCanvas(canvasSize, _canvasManager.CellSize.Value));
+                .Subscribe(canvasSize => _view.BuildCanvas(canvasSize, _canvasManager.CellSize.Value))
+                .AddTo(this);
+            
             _canvasManager.CellSize
-                .Subscribe(cellSize=> _view.BuildCanvas(_canvasManager.CanvasSize.Value, cellSize));
+                .Subscribe(cellSize=> _view.BuildCanvas(_canvasManager.CanvasSize.Value, cellSize))
+                .AddTo(this);
+            
             _canvasManager.InstalledDetectorPositionAndKeys.ObserveAdd()
-                .Subscribe(addEvent => _view.PutDetector(addEvent.Key, addEvent.Value, _canvasManager.CellSize.Value));
+                .Subscribe(addEvent => _view.PutDetector(addEvent.Key, addEvent.Value, _canvasManager.CellSize.Value))
+                .AddTo(this);
+            
             _canvasManager.InstalledDetectorPositionAndKeys.ObserveReplace()
                 .Subscribe(replaceEvent =>
                 {
                     _view.RemoveDetector(replaceEvent.Key);
                     _view.PutDetector(replaceEvent.Key, replaceEvent.NewValue, _canvasManager.CellSize.Value);
-                });
+                })
+                .AddTo(this);
+            
             _canvasManager.InstalledDetectorPositionAndKeys.ObserveRemove()
-                .Subscribe(removeEvent => _view.RemoveDetector(removeEvent.Key));
+                .Subscribe(removeEvent => _view.RemoveDetector(removeEvent.Key))
+                .AddTo(this);
+            
             _canvasManager.InstalledDetectorPositionAndKeys.ObserveReset()
-                .Subscribe(_ => _view.RemoveDetectorAll());
+                .Subscribe(_ => _view.RemoveDetectorAll())
+                .AddTo(this);
+            
             _lastSimulationConditionManager.Result
-                .Subscribe(_view.ApplySimulationResult);
+                .Subscribe(_view.ApplySimulationResult)
+                .AddTo(this);
+            
             _timeManager.NowTime
-                .Subscribe(_view.SeekTime);
+                .Subscribe(_view.SeekTime)
+                .AddTo(this);
         }
     }
 }

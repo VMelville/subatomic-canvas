@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace SubatomicCanvas.Presenter
 {
-    public class ParticleShelfViewFacade : IStartable
+    public class ParticleShelfViewFacade : ControllerBase, IStartable
     {
         [Inject] private ParticleShelfView _view;
         
@@ -20,9 +20,17 @@ namespace SubatomicCanvas.Presenter
                 _view.AddNewToggle(particle);
             }
 
-            _canvasManager.UsingParticleKeys.ObserveAdd().Subscribe(addEvent => _view.SetIsOn(addEvent.Value, true));
-            _canvasManager.UsingParticleKeys.ObserveRemove().Subscribe(removeEvent => _view.SetIsOn(removeEvent.Value, false));
-            _canvasManager.UsingParticleKeys.ObserveReset().Subscribe(_ => _view.SetOnParticles(_canvasManager.GetUsingParticleKeys()));
+            _canvasManager.UsingParticleKeys.ObserveAdd()
+                .Subscribe(addEvent => _view.SetIsOn(addEvent.Value, true))
+                .AddTo(this);
+            
+            _canvasManager.UsingParticleKeys.ObserveRemove()
+                .Subscribe(removeEvent => _view.SetIsOn(removeEvent.Value, false))
+                .AddTo(this);
+            
+            _canvasManager.UsingParticleKeys.ObserveReset()
+                .Subscribe(_ => _view.SetOnParticles(_canvasManager.GetUsingParticleKeys()))
+                .AddTo(this);
         }
     }
 }

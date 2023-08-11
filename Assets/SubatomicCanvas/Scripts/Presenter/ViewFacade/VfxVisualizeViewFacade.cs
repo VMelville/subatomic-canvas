@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace SubatomicCanvas.Presenter
 {
-    public class VfxVisualizeViewFacade : IStartable
+    public class VfxVisualizeViewFacade : ControllerBase, IStartable
     {
         [Inject] private VfxVisualizeView _view;
         
@@ -19,9 +19,12 @@ namespace SubatomicCanvas.Presenter
                 .Select(resultTuple => resultTuple.Item1)
                 .Where(result => result != null)
                 .Select(result => result.LinearTrajectory)
-                .Subscribe(_view.PlayVfx);
+                .Subscribe(_view.PlayVfx)
+                .AddTo(this);
             
-            _timeManager.NowTime.Subscribe(_view.OnPassesTime);
+            _timeManager.NowTime
+                .Subscribe(_view.OnPassesTime)
+                .AddTo(this);
         }
     }
 }

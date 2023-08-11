@@ -6,8 +6,7 @@ using VContainer.Unity;
 
 namespace SubatomicCanvas.Presenter
 {
-    // ToDo: もっとシンプルに制御できるような気もします。。。
-    public class UiVisibleViewFacade : IStartable
+    public class UiVisibleViewFacade : ControllerBase, IStartable
     {
         [Inject] private UiVisibleView _view;
         
@@ -17,6 +16,7 @@ namespace SubatomicCanvas.Presenter
             _snapshotManager.State
                 .Where(state => state is SnapshotStateType.PrePare or SnapshotStateType.Took)
                 .Select(state => state == SnapshotStateType.Took)
-                .Subscribe(_view.SetIsVisible);
+                .Subscribe(_view.SetIsVisible)
+                .AddTo(this);
     }
 }
