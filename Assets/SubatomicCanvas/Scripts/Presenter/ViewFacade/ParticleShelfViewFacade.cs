@@ -17,7 +17,7 @@ namespace SubatomicCanvas.Presenter
         {
             foreach (var particle in _availableParticlesManager.GetParticles())
             {
-                _view.AddNewToggle(particle);
+                _view.AddNewToggle(particle.pdgName, particle.displayName);
             }
 
             _canvasManager.UsingParticleKeys.ObserveAdd()

@@ -7,9 +7,9 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace SubatomicCanvas.LifetimeScope
+namespace SubatomicCanvas
 {
-    public class MainLifetimeScope : VContainer.Unity.LifetimeScope
+    public class MainLifetimeScope : LifetimeScope
     {
         // Memo: アルファベット順に並べてください　追加し忘れているものがある場合に気づきやすいので
         

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using SubatomicCanvas.Model;
 using SubatomicCanvas.Util;
 using UniRx;
 using UnityEngine;
@@ -33,7 +32,7 @@ namespace SubatomicCanvas.View
         public Button.ButtonClickedEvent OnClickSaveButton => saveButton.onClick;
         public InputField.OnChangeEvent OnChangeFileName => dataNameInputField.onValueChanged;
 
-        public void AddDataContent(string filePath, CanvasDataFileInfo info, bool isActive, bool isDisplayTrashButton)
+        public void AddDataContent(string filePath, string title, string saveDate, bool isActive, bool isDisplayTrashButton)
         {
             var view = Instantiate(dataContentPrefab, dataShelf);
 
@@ -41,22 +40,22 @@ namespace SubatomicCanvas.View
             view.OnClickLoadButton.AddListener(() => OnClickLoadFileButton.Invoke(filePath));
             view.OnClickView.Subscribe(_ => OnClickView.Invoke(filePath));
             
-            view.SetTitleText(info.title);
-            view.SetDateText(info.saveDate);
+            view.SetTitleText(title);
+            view.SetDateText(saveDate);
             view.SetActiveColor(isActive);
             view.DisplayTrashButton(isDisplayTrashButton, true);
 
             _dataContents[filePath] = view;
         }
 
-        public void ReplaceDataContent(string filePath, CanvasDataFileInfo info)
+        public void ReplaceDataContent(string filePath, string saveDate)
         {
             var view = _dataContents[filePath];
 
-            view.SetDateText(info.saveDate);
+            view.SetDateText(saveDate);
         }
 
-        public void RemoveDataContent(string filePath, CanvasDataFileInfo info)
+        public void RemoveDataContent(string filePath)
         {
             _dataContents.Remove(filePath);
         }

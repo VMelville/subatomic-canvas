@@ -1,0 +1,20 @@
+{
+    "name": "SubatomicCanvas",
+    "rootNamespace": "",
+    "references": [
+        "GUID:341d2c106d7e571418865bbecad0461f",
+        "GUID:88dd1e62055374a489d179f59aef1c97",
+        "GUID:e0504d0f0ce159e439d5bc3429be3b13",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:62c2ff7c1786c664ab3499dae2b3f2d2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

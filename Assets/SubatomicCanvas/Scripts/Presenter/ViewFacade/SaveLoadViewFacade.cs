@@ -23,7 +23,7 @@ namespace SubatomicCanvas.Presenter
                     var fileInfo = addEvent.Value;
                     var isActive = fileInfo.title == _saveLoadManager.FileNameCandidate.Value;
                     var isDisplayTrashButton = _saveLoadManager.IsDisplayTrashButton.Value;
-                    _view.AddDataContent(filePath, fileInfo, isActive, isDisplayTrashButton);
+                    _view.AddDataContent(filePath, fileInfo.title, fileInfo.saveDate, isActive, isDisplayTrashButton);
                 })
                 .AddTo(this);
 
@@ -33,7 +33,7 @@ namespace SubatomicCanvas.Presenter
                 {
                     var filePath = replaceEvent.Key;
                     var fileInfo = replaceEvent.NewValue;
-                    _view.ReplaceDataContent(filePath, fileInfo);
+                    _view.ReplaceDataContent(filePath, fileInfo.saveDate);
                 })
                 .AddTo(this);
             
@@ -44,7 +44,7 @@ namespace SubatomicCanvas.Presenter
             
             _saveLoadManager.CanvasDataFiles
                 .ObserveRemove()
-                .Subscribe(removeEvent => _view.RemoveDataContent(removeEvent.Key, removeEvent.Value))
+                .Subscribe(removeEvent => _view.RemoveDataContent(removeEvent.Key))
                 .AddTo(this);
             
             _saveLoadManager.IsDisplayTrashButton

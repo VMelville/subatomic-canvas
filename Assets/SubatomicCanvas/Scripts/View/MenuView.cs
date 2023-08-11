@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace SubatomicCanvas.View
@@ -13,7 +14,7 @@ namespace SubatomicCanvas.View
         [SerializeField] private List<GameObject> contents;
 
         public Button.ButtonClickedEvent OnClickMenuButton => menuButton.onClick;
-        public TMP_Dropdown.DropdownEvent OnChangePage => menuDropdown.onValueChanged;
+        public UnityEvent<int> OnChangePage => menuDropdown.onValueChanged;
         
         public void SetOpenCloseState(bool isOpen, float duration)
         {
