@@ -1,9 +1,10 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
 using UnityEngine;
 
 namespace SubatomicCanvas.Model
 {
-    public class CameraManager
+    public class CameraManager : IDisposable
     {
         public IReadOnlyReactiveProperty<Vector2> Position => _position;
         public IReadOnlyReactiveProperty<float> ZoomLevel => _zoomLevel;
@@ -21,6 +22,13 @@ namespace SubatomicCanvas.Model
         public void Zoom(float zoom)
         {
             _zoomLevel.Value *= 1f + zoom * 0.1f;
+        }
+
+        public void Dispose()
+        {
+            _position?.Dispose();
+            _zoomLevel?.Dispose();
+            _is2dView?.Dispose();
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
 
 namespace SubatomicCanvas.Model
 {
-    public class MenuManager
+    public class MenuManager : IDisposable
     {
         public IReadOnlyReactiveProperty<int> PageIndex => _pageIndex;
         public IReadOnlyReactiveProperty<bool> IsOpen => _isOpen;
@@ -15,5 +16,12 @@ namespace SubatomicCanvas.Model
         public void SetPageIndex(int pageIndex) => _pageIndex.Value = pageIndex;
         public void ToggleOpen() => _isOpen.Value ^= true;
         public void SetDuration(float duration) => _easingDuration.Value = duration;
+
+        public void Dispose()
+        {
+            _pageIndex?.Dispose();
+            _isOpen?.Dispose();
+            _easingDuration?.Dispose();
+        }
     }
 }

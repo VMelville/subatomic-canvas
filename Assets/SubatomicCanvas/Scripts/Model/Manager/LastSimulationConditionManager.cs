@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ParticleSim.Result;
 using UniRx;
 
 namespace SubatomicCanvas.Model
 {
-    public class LastSimulationConditionManager
+    public class LastSimulationConditionManager : IDisposable
     {
         public IReadOnlyReactiveProperty<(SimulationResult, Dictionary<string, (int, int)>)> Result => _result;
         public IReadOnlyReactiveProperty<string> ParticleKey => _particleKey;
@@ -17,6 +18,12 @@ namespace SubatomicCanvas.Model
         {
             _result.Value = (result, new Dictionary<string, (int, int)>(table));
             _particleKey.Value = particleKey;
+        }
+
+        public void Dispose()
+        {
+            _result?.Dispose();
+            _particleKey?.Dispose();
         }
     }
 }

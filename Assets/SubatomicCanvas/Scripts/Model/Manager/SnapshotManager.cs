@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
 using UnityEngine;
 
 namespace SubatomicCanvas.Model
@@ -6,7 +7,7 @@ namespace SubatomicCanvas.Model
     /// <summary>
     /// スナップショットにまつわる状態管理
     /// </summary>
-    public class SnapshotManager
+    public class SnapshotManager : IDisposable
     {
         public IReadOnlyReactiveProperty<SnapshotStateType> State => _state;
         
@@ -62,6 +63,11 @@ namespace SubatomicCanvas.Model
             {
                 Debug.LogError("「Standby」状態にないにも関わらずスナップショットが撮影されました。制御フローに誤りがある可能性があります。");
             }
+        }
+
+        public void Dispose()
+        {
+            _state?.Dispose();
         }
     }
 }

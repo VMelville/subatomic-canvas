@@ -1,9 +1,10 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
 using UnityEngine;
 
 namespace SubatomicCanvas.Model
 {
-    public class TimeManager
+    public class TimeManager : IDisposable
     {
         public IReadOnlyReactiveProperty<float> NowTime => _nowTime;
         public IReadOnlyReactiveProperty<float> Speed => _speed;
@@ -27,6 +28,12 @@ namespace SubatomicCanvas.Model
             {
                 SetSpeed(0.1f);
             }
+        }
+
+        public void Dispose()
+        {
+            _nowTime?.Dispose();
+            _speed?.Dispose();
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
 
 namespace SubatomicCanvas.Model
 {
-    public class GlobalSettingManager
+    public class GlobalSettingManager : IDisposable
     {
         public IReadOnlyReactiveProperty<bool> IsDisplayParticleName => _isDisplayParticleName;
         public IReadOnlyReactiveProperty<bool> IsDisplayLineVisualizer => _isDisplayLineVisualizer;
@@ -12,5 +13,11 @@ namespace SubatomicCanvas.Model
 
         public void SetIsDisplayParticleName(bool isOn) => _isDisplayParticleName.Value = isOn;
         public void SetIsDisplayLineVisualizer(bool isOn) => _isDisplayLineVisualizer.Value = isOn;
+
+        public void Dispose()
+        {
+            _isDisplayParticleName?.Dispose();
+            _isDisplayLineVisualizer?.Dispose();
+        }
     }
 }

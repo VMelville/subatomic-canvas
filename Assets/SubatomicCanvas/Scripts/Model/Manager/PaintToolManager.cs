@@ -1,8 +1,9 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
 
 namespace SubatomicCanvas.Model
 {
-    public class PaintToolManager
+    public class PaintToolManager : IDisposable
     {
         public IReadOnlyReactiveProperty<string> ActiveDetectorKey => _activeDetectorKey;
         public IReadOnlyReactiveProperty<bool> IsActiveSymmetry => _isActiveSymmetry;
@@ -15,5 +16,11 @@ namespace SubatomicCanvas.Model
 
         public void SetActiveDetectorKey(string activeDetectorKey) => _activeDetectorKey.Value = activeDetectorKey;
         public void ToggleActiveSymmetry() => _isActiveSymmetry.Value ^= true;
+
+        public void Dispose()
+        {
+            _activeDetectorKey?.Dispose();
+            _isActiveSymmetry?.Dispose();
+        }
     }
 }

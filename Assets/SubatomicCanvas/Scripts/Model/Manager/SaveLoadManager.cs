@@ -1,11 +1,12 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using SubatomicCanvas.Utility;
 using UniRx;
 using UnityEngine;
 
 namespace SubatomicCanvas.Model
 {
-    public class SaveLoadManager
+    public class SaveLoadManager : IDisposable
     {
         public IReadOnlyReactiveDictionary<string, CanvasDataFileInfo> CanvasDataFiles => _canvasDataFiles;
         public IReadOnlyReactiveProperty<string> FileNameCandidate => _fileNameCandidate;
@@ -70,6 +71,13 @@ namespace SubatomicCanvas.Model
         {
             FileIOUtil.DeleteJsonFile(filePath);
             ReloadFiles();
+        }
+
+        public void Dispose()
+        {
+            _canvasDataFiles?.Dispose();
+            _fileNameCandidate?.Dispose();
+            _isDisplayTrashButton?.Dispose();
         }
     }
 }

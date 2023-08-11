@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SubatomicCanvas.Utility;
 using UniRx;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace SubatomicCanvas.Model
 {
-    public class CanvasManager
+    public class CanvasManager : IDisposable
     {
         public IReadOnlyReactiveCollection<string> UsingParticleKeys => _usingParticleKeys;
         public IReadOnlyReactiveDictionary<(int, int), string> InstalledDetectorPositionAndKeys => _installedDetectorPositionAndKeys;
@@ -165,6 +166,18 @@ namespace SubatomicCanvas.Model
         public List<string> GetUsingParticleKeys()
         {
             return _usingParticleKeys.ToList();
+        }
+
+        public void Dispose()
+        {
+            _usingParticleKeys?.Dispose();
+            _installedDetectorPositionAndKeys?.Dispose();
+            _magneticFieldVector?.Dispose();
+            _simulationWorldDepth?.Dispose();
+            _cellSize?.Dispose();
+            _canvasSize?.Dispose();
+            _particleEnergyMin?.Dispose();
+            _particleEnergyMax?.Dispose();
         }
     }
 }
