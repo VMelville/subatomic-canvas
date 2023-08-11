@@ -17,18 +17,18 @@ namespace SubatomicCanvas.Presenter
         public void Initialize()
         {
             _canvasManager.CanvasSize
-                .Subscribe(canvasSize => _view.BuildCanvas(canvasSize, _canvasManager.CellSize.Value))
+                .Subscribe(canvasSize => _view.BuildCanvas(canvasSize, _canvasManager.CellSize.Value, _canvasManager.DetectorPlacements))
                 .AddTo(this);
             
             _canvasManager.CellSize
-                .Subscribe(cellSize=> _view.BuildCanvas(_canvasManager.CanvasSize.Value, cellSize))
+                .Subscribe(cellSize=> _view.BuildCanvas(_canvasManager.CanvasSize.Value, cellSize, _canvasManager.DetectorPlacements))
                 .AddTo(this);
             
-            _canvasManager.InstalledDetectorPositionAndKeys.ObserveAdd()
+            _canvasManager.DetectorPlacements.ObserveAdd()
                 .Subscribe(addEvent => _view.PutDetector(addEvent.Key, addEvent.Value, _canvasManager.CellSize.Value))
                 .AddTo(this);
             
-            _canvasManager.InstalledDetectorPositionAndKeys.ObserveReplace()
+            _canvasManager.DetectorPlacements.ObserveReplace()
                 .Subscribe(replaceEvent =>
                 {
                     _view.RemoveDetector(replaceEvent.Key);
@@ -36,11 +36,11 @@ namespace SubatomicCanvas.Presenter
                 })
                 .AddTo(this);
             
-            _canvasManager.InstalledDetectorPositionAndKeys.ObserveRemove()
+            _canvasManager.DetectorPlacements.ObserveRemove()
                 .Subscribe(removeEvent => _view.RemoveDetector(removeEvent.Key))
                 .AddTo(this);
             
-            _canvasManager.InstalledDetectorPositionAndKeys.ObserveReset()
+            _canvasManager.DetectorPlacements.ObserveReset()
                 .Subscribe(_ => _view.RemoveDetectorAll())
                 .AddTo(this);
             

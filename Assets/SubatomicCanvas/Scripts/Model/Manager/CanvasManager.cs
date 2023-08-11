@@ -10,7 +10,7 @@ namespace SubatomicCanvas.Model
     public class CanvasManager : IDisposable
     {
         public IReadOnlyReactiveCollection<string> UsingParticleKeys => _usingParticleKeys;
-        public IReadOnlyReactiveDictionary<(int, int), string> InstalledDetectorPositionAndKeys => _installedDetectorPositionAndKeys;
+        public IReadOnlyReactiveDictionary<(int, int), string> DetectorPlacements => _detectorPlacements;
         public IReadOnlyReactiveProperty<Vector3> MagneticFieldVector => _magneticFieldVector;
         public IReadOnlyReactiveProperty<float> SimulationWorldDepth => _simulationWorldDepth;
         public IReadOnlyReactiveProperty<float> CellSize => _cellSize;
@@ -19,7 +19,7 @@ namespace SubatomicCanvas.Model
         public IReadOnlyReactiveProperty<float> ParticleEnergyMax => _particleEnergyMax;
 
         private readonly ReactiveCollection<string> _usingParticleKeys = new();
-        private readonly ReactiveDictionary<(int, int), string> _installedDetectorPositionAndKeys = new();
+        private readonly ReactiveDictionary<(int, int), string> _detectorPlacements = new();
         private readonly Vector3ReactiveProperty _magneticFieldVector = new(new Vector3(0f, 0f, 0.5f));
         private readonly FloatReactiveProperty _simulationWorldDepth = new(10f); // 単位は m
         private readonly FloatReactiveProperty _cellSize = new(0.1f); // 単位は m
@@ -27,43 +27,41 @@ namespace SubatomicCanvas.Model
         private readonly FloatReactiveProperty _particleEnergyMin = new(100.0f); // 単位は MeV
         private readonly FloatReactiveProperty _particleEnergyMax = new(300.0f); // 単位は MeV
 
-        public void SetCellSize(float cellSize)
-        {
-            _cellSize.Value = cellSize;
-            ClearDetectors();
-        }
+        public void SetCellSize(float cellSize) => _cellSize.SetValueAndForceNotify(cellSize);
 
         public void SetCanvasSize(int canvasSize)
         {
-            _canvasSize.Value = canvasSize;
-            ClearDetectors();
+            _canvasSize.SetValueAndForceNotify(canvasSize);
+            
+            foreach (var (position, _) in _detectorPlacements)
+            {
+                _detectorPlacements.Remove(position);
+            }
         }
 
-        public void SetSimulationWorldDepth(float simulationWorldDepth) => _simulationWorldDepth.Value = simulationWorldDepth;
-        private void SetMagneticFieldVector(Vector3 magneticField) =>_magneticFieldVector.Value = magneticField;
-        private void ClearDetectors() => _installedDetectorPositionAndKeys.Clear();
+        public void SetSimulationWorldDepth(float simulationWorldDepth) => _simulationWorldDepth.SetValueAndForceNotify(simulationWorldDepth);
+        private void SetMagneticFieldVector(Vector3 magneticField) =>_magneticFieldVector.SetValueAndForceNotify(magneticField);
 
-        private void RegisterDetector((int, int) position, string key) => _installedDetectorPositionAndKeys[position] = key;
-        private void UnregisterDetector((int, int) position)=>_installedDetectorPositionAndKeys.Remove(position);
-        public Dictionary<(int, int), string> GetDetectorPlacements() => new(_installedDetectorPositionAndKeys);
+        private void RegisterDetector((int, int) position, string key) => _detectorPlacements[position] = key;
+        private void UnregisterDetector((int, int) position)=>_detectorPlacements.Remove(position);
+        public Dictionary<(int, int), string> GetDetectorPlacements() => new(_detectorPlacements);
 
         private void SetParticleEnergyRangeWithValidation(float min, float max)
         {
-            max = Mathf.Max(min, max, 0f);
-            min = Mathf.Max(Mathf.Min(min, max), 0f);
+            max = Mathf.Max(min, max);
 
-            _particleEnergyMin.Value = min;
-            _particleEnergyMax.Value = max;
+            _particleEnergyMin.SetValueAndForceNotify(min);
+            _particleEnergyMax.SetValueAndForceNotify(max);
         }
 
         public void TrySetParticleEnergyMin(float particleEnergyMin)
         {
-            _particleEnergyMin.Value = Mathf.Max(Mathf.Min(particleEnergyMin, _particleEnergyMax.Value), 0f);
+            _particleEnergyMin.SetValueAndForceNotify(Mathf.Min(particleEnergyMin, _particleEnergyMax.Value));
         }
         
         public void TrySetParticleEnergyMax(float particleEnergyMax)
         {
-            _particleEnergyMax.Value = Mathf.Max(particleEnergyMax, _particleEnergyMin.Value, 0f);
+            _particleEnergyMax.SetValueAndForceNotify(Mathf.Max(particleEnergyMax, _particleEnergyMin.Value));
         }
 
         private void SetUsingParticleKeys(List<string> usingParticleKeys)
@@ -77,12 +75,13 @@ namespace SubatomicCanvas.Model
         }
 
         // ToDo: 現状ファイルロード時しかこのメソッド使ってないからいいけど、本来はDictionary<(int, int), string>を受け取るのが適切
-        private void SetInstalledDetectorPositionAndKeys(Dictionary<string, string> table)
+        private void SetDetectorPlacements(Dictionary<string, string> table)
         {
-            _installedDetectorPositionAndKeys.Clear();
+            _detectorPlacements.Clear();
+            
             foreach (var (key, value) in table)
             {
-                _installedDetectorPositionAndKeys[key.ToTuple()]= value;
+                _detectorPlacements[key.ToTuple()]= value;
             }
         }
 
@@ -90,21 +89,21 @@ namespace SubatomicCanvas.Model
         {
             var vec = _magneticFieldVector.Value;
             vec.x = magneticFieldX;
-            _magneticFieldVector.Value = vec;
+            _magneticFieldVector.SetValueAndForceNotify(vec);
         }
         
         public void SetMagneticFieldY(float magneticFieldY)
         {
             var vec = _magneticFieldVector.Value;
             vec.y = magneticFieldY;
-            _magneticFieldVector.Value = vec;
+            _magneticFieldVector.SetValueAndForceNotify(vec);
         }
 
         public void SetMagneticFieldZ(float magneticFieldZ)
         {
             var vec = _magneticFieldVector.Value;
             vec.z = magneticFieldZ;
-            _magneticFieldVector.Value = vec;
+            _magneticFieldVector.SetValueAndForceNotify(vec);
         }
 
         public void SetParticleState(string particle, bool isOn)
@@ -132,7 +131,7 @@ namespace SubatomicCanvas.Model
             SetParticleEnergyRangeWithValidation(data.particleEnergyMin, data.particleEnergyMax);
             SetMagneticFieldVector(data.magneticFieldVector.ToVector3());
             SetUsingParticleKeys(data.usingParticleKeys);
-            SetInstalledDetectorPositionAndKeys(data.installedDetectorPositionAndKeys);
+            SetDetectorPlacements(data.installedDetectorPositionAndKeys);
         }
 
         public void PutDetector((int, int) position, string detectorKey, bool isActiveSymmetry)
@@ -171,7 +170,7 @@ namespace SubatomicCanvas.Model
         public void Dispose()
         {
             _usingParticleKeys?.Dispose();
-            _installedDetectorPositionAndKeys?.Dispose();
+            _detectorPlacements?.Dispose();
             _magneticFieldVector?.Dispose();
             _simulationWorldDepth?.Dispose();
             _cellSize?.Dispose();

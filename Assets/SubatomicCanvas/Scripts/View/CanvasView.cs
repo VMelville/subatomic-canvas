@@ -2,6 +2,7 @@
 using System.Linq;
 using ParticleSim.Result;
 using SubatomicCanvas.Utility;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -80,7 +81,7 @@ namespace SubatomicCanvas.View
             }
         }
 
-        public void BuildCanvas(int canvasSize, float cellSize)
+        public void BuildCanvas(int canvasSize, float cellSize, IEnumerable<KeyValuePair<(int, int), string>> detectorPlacements)
         {
             Debug.LogWarning("ToDo: CanvasSizeとCellSizeの変更を行うと2回実行されてしまう");
             
@@ -114,6 +115,11 @@ namespace SubatomicCanvas.View
 
                     OnAddCellView.Invoke(position, cell);
                 }
+            }
+
+            foreach (var (position, detectorKey) in detectorPlacements)
+            {
+                PutDetector(position, detectorKey, cellSize);
             }
         }
     }

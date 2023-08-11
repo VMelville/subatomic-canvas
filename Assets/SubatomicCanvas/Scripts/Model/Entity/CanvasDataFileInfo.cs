@@ -34,7 +34,7 @@ namespace SubatomicCanvas.Model
             this.title = title;
 
             usingParticleKeys = new List<string>(canvasManager.UsingParticleKeys);
-            installedDetectorPositionAndKeys = canvasManager.InstalledDetectorPositionAndKeys
+            installedDetectorPositionAndKeys = canvasManager.DetectorPlacements
                 .ToDictionary(
                     kvp => kvp.Key.ToString(),
                     kvp => kvp.Value
