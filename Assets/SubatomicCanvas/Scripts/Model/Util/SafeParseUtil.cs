@@ -1,6 +1,6 @@
 ﻿namespace SubatomicCanvas.Model
 {
-    public abstract class SafeParseUtil
+    public static class SafeParseUtil
     {
         public static int SafeParseInt(string str, int defaultValue)
         {

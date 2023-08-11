@@ -6,24 +6,22 @@ using VContainer.Unity;
 
 namespace SubatomicCanvas.Presenter
 {
-    public class VfxVisualizePresenter : IStartable
+    public class VfxVisualizeViewFacade : IStartable
     {
-        // Model
+        [Inject] private VfxVisualizeView _view;
+        
         [Inject] private LastSimulationConditionManager _lastSimulationConditionManager;
         [Inject] private TimeManager _timeManager;
         
-        // View
-        [Inject] private VfxVisualizeView _vfxVisualizeView;
-
         public void Start()
         {
             _lastSimulationConditionManager.Result
                 .Select(resultTuple => resultTuple.Item1)
                 .Where(result => result != null)
                 .Select(result => result.LinearTrajectory)
-                .Subscribe(_vfxVisualizeView.PlayVfx);
+                .Subscribe(_view.PlayVfx);
             
-            _timeManager.NowTime.Subscribe(_vfxVisualizeView.OnPassesTime);
+            _timeManager.NowTime.Subscribe(_view.OnPassesTime);
         }
     }
 }

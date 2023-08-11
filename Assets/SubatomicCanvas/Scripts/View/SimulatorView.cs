@@ -12,7 +12,7 @@ namespace SubatomicCanvas.View
 
         public void SetText(string text)
         {
-            simulatorText.text = text;
+            simulatorText.text = text != "" ? text : "Please select at least one particle.";
         }
 
         public void SetDisplayParticleName(bool isDisplayParticleName)

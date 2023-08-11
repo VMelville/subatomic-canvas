@@ -39,17 +39,17 @@ namespace SubatomicCanvas.Model
         }
 
         public void SetSimulationWorldDepth(float simulationWorldDepth) => _simulationWorldDepth.Value = simulationWorldDepth;
-        public void SetMagneticFieldVector(Vector3 magneticField) =>_magneticFieldVector.Value = magneticField;
-        public void ClearDetectors() => _installedDetectorPositionAndKeys.Clear();
+        private void SetMagneticFieldVector(Vector3 magneticField) =>_magneticFieldVector.Value = magneticField;
+        private void ClearDetectors() => _installedDetectorPositionAndKeys.Clear();
 
-        public void RegisterDetector((int, int) position, string key) => _installedDetectorPositionAndKeys[position] = key;
-        public void UnregisterDetector((int, int) position)=>_installedDetectorPositionAndKeys.Remove(position);
+        private void RegisterDetector((int, int) position, string key) => _installedDetectorPositionAndKeys[position] = key;
+        private void UnregisterDetector((int, int) position)=>_installedDetectorPositionAndKeys.Remove(position);
         public Dictionary<(int, int), string> GetDetectorPlacements() => new(_installedDetectorPositionAndKeys);
 
-        public void SetParticleEnergyRangeWithValidation(float min, float max)
+        private void SetParticleEnergyRangeWithValidation(float min, float max)
         {
             max = Mathf.Max(min, max, 0f);
-            min = Mathf.Min(min, max);
+            min = Mathf.Max(Mathf.Min(min, max), 0f);
 
             _particleEnergyMin.Value = min;
             _particleEnergyMax.Value = max;
@@ -57,15 +57,15 @@ namespace SubatomicCanvas.Model
 
         public void TrySetParticleEnergyMin(float particleEnergyMin)
         {
-            _particleEnergyMin.Value = Mathf.Min(particleEnergyMin, _particleEnergyMax.Value);
+            _particleEnergyMin.Value = Mathf.Max(Mathf.Min(particleEnergyMin, _particleEnergyMax.Value), 0f);
         }
         
         public void TrySetParticleEnergyMax(float particleEnergyMax)
         {
-            _particleEnergyMax.Value = Mathf.Min(particleEnergyMax, _particleEnergyMin.Value);
+            _particleEnergyMax.Value = Mathf.Max(particleEnergyMax, _particleEnergyMin.Value, 0f);
         }
 
-        public void SetUsingParticleKeys(List<string> usingParticleKeys)
+        private void SetUsingParticleKeys(List<string> usingParticleKeys)
         {
             _usingParticleKeys.Clear();
             
@@ -76,7 +76,7 @@ namespace SubatomicCanvas.Model
         }
 
         // ToDo: 現状ファイルロード時しかこのメソッド使ってないからいいけど、本来はDictionary<(int, int), string>を受け取るのが適切
-        public void SetInstalledDetectorPositionAndKeys(Dictionary<string, string> table)
+        private void SetInstalledDetectorPositionAndKeys(Dictionary<string, string> table)
         {
             _installedDetectorPositionAndKeys.Clear();
             foreach (var (key, value) in table)

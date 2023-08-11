@@ -6,6 +6,7 @@ using ParticleSim.Result;
 using ParticleSim.Volume;
 using SubatomicCanvas.Utility;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace SubatomicCanvas.Model
 {
@@ -14,7 +15,9 @@ namespace SubatomicCanvas.Model
         private const string WorldName = "World";
         private const int WorldCopyNo = 0;
 
-        public (SimulationResult, Dictionary<string, (int, int)>) RunSimulation
+        public UnityEvent<SimulationResult, Dictionary<string, (int, int)>, string> OnSimulationCompleted = new();
+
+        public void RunSimulation
         (
             Dictionary<(int, int), string> installedDetectors,
             Dictionary<string, LogicalVolume> logicalVolumes,
@@ -70,7 +73,9 @@ namespace SubatomicCanvas.Model
                 copyNo++;
             }
 
-            return (Simulator.RunSimulation(particleGun, worldPvp), pathPositionTable);
+            var result = Simulator.RunSimulation(particleGun, worldPvp);
+            
+            OnSimulationCompleted.Invoke(result, pathPositionTable, particleGun.ParticleName);
         }
     }
 }

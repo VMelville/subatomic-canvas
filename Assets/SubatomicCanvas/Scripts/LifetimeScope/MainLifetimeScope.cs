@@ -2,7 +2,6 @@ using System.IO;
 using System.Runtime.InteropServices;
 using SubatomicCanvas.Model;
 using SubatomicCanvas.Presenter;
-using SubatomicCanvas.Utility;
 using SubatomicCanvas.View;
 using UnityEngine;
 using VContainer;
@@ -42,10 +41,10 @@ namespace SubatomicCanvas.LifetimeScope
 
             ParticleSim.Simulator.Init();
             
-            // Model - ReactiveEntity
+            // Model - Manager
             builder.Register<SaveLoadManager>(Lifetime.Singleton);
-            builder.Register<AvailableDetectors>(Lifetime.Singleton);
-            builder.Register<AvailableParticles>(Lifetime.Singleton);
+            builder.Register<AvailableDetectorsManager>(Lifetime.Singleton);
+            builder.Register<AvailableParticlesManager>(Lifetime.Singleton);
             builder.Register<CameraManager>(Lifetime.Singleton);
             builder.Register<CanvasManager>(Lifetime.Singleton);
             builder.Register<GlobalSettingManager>(Lifetime.Singleton);
@@ -55,11 +54,10 @@ namespace SubatomicCanvas.LifetimeScope
             builder.Register<SnapshotManager>(Lifetime.Singleton);
             builder.Register<TimeManager>(Lifetime.Singleton);
             
+            // Model - Service
             builder.Register<SimulationService>(Lifetime.Singleton);
             builder.Register<SnapshotService>(Lifetime.Singleton);
             
-            builder.RegisterEntryPoint<TimeTicker>();
-
             // View
             builder.RegisterComponent(cameraView);
             builder.RegisterComponent(canvasView);
@@ -78,23 +76,40 @@ namespace SubatomicCanvas.LifetimeScope
             builder.RegisterComponent(uiVisibleView);
             builder.RegisterComponent(vfxVisualizeView);
             
-            // Presenter
-            builder.RegisterEntryPoint<CameraPresenter>();
-            builder.RegisterEntryPoint<CanvasPresenter>();
-            builder.RegisterEntryPoint<CursorPresenter>();
-            builder.RegisterEntryPoint<DefaultSettingsPresenter>();
-            builder.RegisterEntryPoint<LineVisualizePresenter>();
-            builder.RegisterEntryPoint<MenuPresenter>();
-            builder.RegisterEntryPoint<PaintToolPresenter>();
-            builder.RegisterEntryPoint<ParticleShelfPresenter>();
-            builder.RegisterEntryPoint<SaveLoadPresenter>();
-            builder.RegisterEntryPoint<SettingPresenter>();
-            builder.RegisterEntryPoint<SimulationPresenter>();
-            builder.RegisterEntryPoint<SnapshotPresenter>();
-            builder.RegisterEntryPoint<TimePresenter>();
-            builder.RegisterEntryPoint<VfxVisualizePresenter>();
+            // Presenter - ManagerFacade
+            builder.RegisterEntryPoint<AvailableDetectorsManagerFacade>();
+            builder.RegisterEntryPoint<AvailableParticlesManagerFacade>();
+            builder.RegisterEntryPoint<CameraManagerFacade>();
+            builder.RegisterEntryPoint<CanvasManagerFacade>();
+            builder.RegisterEntryPoint<GlobalSettingManagerFacade>();
+            builder.RegisterEntryPoint<LastSimulationConditionManagerFacade>();
+            builder.RegisterEntryPoint<MenuManagerFacade>();
+            builder.RegisterEntryPoint<PaintToolManagerFacade>();
+            builder.RegisterEntryPoint<SaveLoadManagerFacade>();
+            builder.RegisterEntryPoint<SnapshotManagerFacade>();
+            builder.RegisterEntryPoint<TimeManagerFacade>();
+            
+            // Presenter - ServiceFacade
+            builder.RegisterEntryPoint<SimulationServiceFacade>();
+            builder.RegisterEntryPoint<SnapshotServiceFacade>();
+            
+            // Presenter - ViewFacade
+            builder.RegisterEntryPoint<CameraViewFacade>();
+            builder.RegisterEntryPoint<CanvasViewFacade>();
+            builder.RegisterEntryPoint<CursorViewFacade>();
+            builder.RegisterEntryPoint<LineVisualizeViewFacade>();
+            builder.RegisterEntryPoint<MenuViewFacade>();
+            builder.RegisterEntryPoint<PaintToolViewFacade>();
+            builder.RegisterEntryPoint<ParticleShelfViewFacade>();
+            builder.RegisterEntryPoint<SaveLoadViewFacade>();
+            builder.RegisterEntryPoint<ScreenViewFacade>();
+            builder.RegisterEntryPoint<SettingViewFacade>();
+            builder.RegisterEntryPoint<SimulatorViewFacade>();
+            builder.RegisterEntryPoint<TimeViewFacade>();
+            builder.RegisterEntryPoint<UiVisibleViewFacade>();
+            builder.RegisterEntryPoint<VfxVisualizeViewFacade>();
         }
-        
+
         private static string GetParentPath(string path)
         {
             return new DirectoryInfo(path).Parent?.FullName;

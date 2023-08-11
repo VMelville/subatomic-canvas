@@ -16,6 +16,8 @@ namespace SubatomicCanvas.Model
             _nowTime.Value = Mathf.Max(_nowTime.Value + _speed.Value * Time.deltaTime, 0.0f);
         }
         
+        public void SetSpeed(float speed) => _speed.Value = speed;
+        
         public void OnSimulationCompleted()
         {
             _nowTime.Value = 0.0f;
@@ -25,11 +27,6 @@ namespace SubatomicCanvas.Model
             {
                 SetSpeed(0.1f);
             }
-        }
-
-        public void SetSpeed(float speed)
-        {
-            _speed.Value = speed;
         }
     }
 }

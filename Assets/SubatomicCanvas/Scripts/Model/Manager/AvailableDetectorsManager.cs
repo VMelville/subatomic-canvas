@@ -2,7 +2,7 @@
 
 namespace SubatomicCanvas.Model
 {
-    public class AvailableDetectors
+    public class AvailableDetectorsManager
     {
         public IReadOnlyDictionary<string, Detector> DetectorDict => _detectorDict;
 
