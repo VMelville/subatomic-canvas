@@ -13,8 +13,6 @@ namespace SubatomicCanvas.Model
         private readonly ReactiveProperty<(SimulationResult, Dictionary<string, (int, int)>)> _result = new();
         private readonly ReactiveProperty<string> _particleKey = new("");
 
-        public void SetResult(SimulationResult result, Dictionary<string, (int, int)> table) => _result.Value = (result, new Dictionary<string, (int, int)>(table));
-
         public void SetResult(SimulationResult result, Dictionary<string, (int, int)> table, string particleKey)
         {
             _result.Value = (result, new Dictionary<string, (int, int)>(table));
