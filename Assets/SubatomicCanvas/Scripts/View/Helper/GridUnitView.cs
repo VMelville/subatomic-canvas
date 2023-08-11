@@ -9,16 +9,6 @@ namespace SubatomicCanvas.View
         [SerializeField] private RectTransform lineB;
         [SerializeField] private RectTransform lineC;
         
-        // ToDo: Setといいつつ、別に保持はしてない…　命名を見直すべきか、保持すべきか
-        // public void SetViewModel(GridUnitViewModel viewModel)
-        // {
-        //     SetActive(viewModel.IsActive);
-        //
-        //     var rt = (RectTransform) transform;
-        //     var (x, y) = viewModel.Position;
-        //     rt.anchoredPosition = HoneycombCoordinate.GetPosition(x + 2.0f / 3.0f, y + 1.0f / 3.0f) * 1000f;
-        // }
-
         public void SetActive((bool, bool, bool) isActive)
         {
             var (a, b, c) = isActive;

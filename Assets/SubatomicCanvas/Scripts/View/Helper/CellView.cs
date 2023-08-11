@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ParticleSim.Result;
-using SubatomicCanvas.Model;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
