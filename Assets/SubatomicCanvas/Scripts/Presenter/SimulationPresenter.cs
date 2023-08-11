@@ -24,47 +24,48 @@ namespace SubatomicCanvas.Presenter
         
         public void Start()
         {
-            _simulatorView.OnClick.AddListener(OnClickRunButton);
-            _globalSettingState.IsDisplayParticleName.Subscribe(_simulatorView.SetDisplayParticleName);
-        }
-
-        private void OnClickRunButton()
-        {
-            // Detector
-            var detectorTable = _sampleDetectors.GetDetectorLogicalVolumeTable(_canvasState.CellSize.Value, _canvasState.SimulationWorldDepth.Value);
-
-            // Particle
-            var randomParticleKey = ParticleUtil.GetPickedUpParticleKey(_canvasState.UsingParticleKeys);
-            if (randomParticleKey == "")
+            _simulatorView.OnClick.AddListener(() =>
             {
-                _simulatorView.SetText("Please select at least one particle.");
-                return;
-            }
-            
-            var randomEnergy = ParticleUtil.GetPickedUpEnergy(_canvasState.ParticleEnergyMin.Value, _canvasState.ParticleEnergyMax.Value);
-            
-            var particleGun = ParticleUtil.MakeParticleGun(randomParticleKey, randomEnergy);
-            
-            var particleName = _availableParticles.ParticleDict[randomParticleKey].displayName;
-            _simulatorView.SetText(particleName);
-            
-            // シミュレーション実行
-            var (result, positionPathDict) = _simulationService.RunSimulation(
-                _canvasState.GetDetectorPlacements(),
-                detectorTable,
-                particleGun,
-                _canvasState.SimulationWorldDepth.Value,
-                _canvasState.MagneticFieldVector.Value,
-                _canvasState.CanvasSize.Value,
-                _canvasState.CellSize.Value
+                // Detector
+                var detectorTable = _sampleDetectors.GetDetectorLogicalVolumeTable(_canvasState.CellSize.Value,
+                    _canvasState.SimulationWorldDepth.Value);
+
+                // Particle
+                var randomParticleKey = ParticleUtil.GetPickedUpParticleKey(_canvasState.UsingParticleKeys);
+                if (randomParticleKey == "")
+                {
+                    _simulatorView.SetText("Please select at least one particle.");
+                    return;
+                }
+
+                var randomEnergy = ParticleUtil.GetPickedUpEnergy(_canvasState.ParticleEnergyMin.Value,
+                    _canvasState.ParticleEnergyMax.Value);
+
+                var particleGun = ParticleUtil.MakeParticleGun(randomParticleKey, randomEnergy);
+
+                var particleName = _availableParticles.ParticleDict[randomParticleKey].displayName;
+                _simulatorView.SetText(particleName);
+
+                // シミュレーション実行
+                var (result, positionPathDict) = _simulationService.RunSimulation(
+                    _canvasState.GetDetectorPlacements(),
+                    detectorTable,
+                    particleGun,
+                    _canvasState.SimulationWorldDepth.Value,
+                    _canvasState.MagneticFieldVector.Value,
+                    _canvasState.CanvasSize.Value,
+                    _canvasState.CellSize.Value
                 );
 
-            // 結果を記録
-            _lastSimulationCondition.SetResult(result, positionPathDict);
-            _lastSimulationCondition.SetParticleKey(randomParticleKey);
-            _lastSimulationCondition.SetDetectorKeyDict(_canvasState.InstalledDetectorPositionAndKeys);
+                // 結果を記録
+                _lastSimulationCondition.SetResult(result, positionPathDict);
+                _lastSimulationCondition.SetParticleKey(randomParticleKey);
+                _lastSimulationCondition.SetDetectorKeyDict(_canvasState.InstalledDetectorPositionAndKeys);
 
-            _timeState.OnSimulationCompleted();
+                _timeState.OnSimulationCompleted();
+            });
+            
+            _globalSettingState.IsDisplayParticleName.Subscribe(_simulatorView.SetDisplayParticleName);
         }
     }
 }

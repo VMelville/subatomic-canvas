@@ -8,7 +8,10 @@ namespace SubatomicCanvas.Presenter
 {
     public class TimePresenter : IStartable
     {
+        // Model
         [Inject] private TimeState _timeState;
+        
+        // View
         [Inject] private TimeView _timeView;
 
         public void Start()
