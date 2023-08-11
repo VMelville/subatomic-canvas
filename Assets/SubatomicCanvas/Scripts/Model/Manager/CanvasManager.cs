@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SubatomicCanvas.Model
 {
-    public class CanvasState
+    public class CanvasManager
     {
         public IReadOnlyReactiveCollection<string> UsingParticleKeys => _usingParticleKeys;
         public IReadOnlyReactiveDictionary<(int, int), string> InstalledDetectorPositionAndKeys => _installedDetectorPositionAndKeys;

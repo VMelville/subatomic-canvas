@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SubatomicCanvas.Model
 {
-    public class CameraState
+    public class CameraManager
     {
         public IReadOnlyReactiveProperty<Vector2> Position => _position;
         public IReadOnlyReactiveProperty<float> ZoomLevel => _zoomLevel;

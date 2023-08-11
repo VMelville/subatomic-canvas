@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SubatomicCanvas.Model
 {
-    public class TimeState
+    public class TimeManager
     {
         public IReadOnlyReactiveProperty<float> NowTime => _nowTime;
         public IReadOnlyReactiveProperty<float> Speed => _speed;

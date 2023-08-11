@@ -9,14 +9,14 @@ namespace SubatomicCanvas.Presenter
     public class LineVisualizePresenter : IStartable
     {
         // Model
-        [Inject] private LastSimulationCondition _lastSimulationCondition;
-        [Inject] private GlobalSettingState _globalSettingState;
+        [Inject] private LastSimulationConditionManager _lastSimulationConditionManager;
+        [Inject] private GlobalSettingManager _globalSettingManager;
         
         [Inject] private LineVisualizeView _lineVisualizeView;
         
         public void Start()
         {
-            _lastSimulationCondition.Result
+            _lastSimulationConditionManager.Result
                 .Select(resultTuple => resultTuple.Item1)
                 .Where(result => result != null)
                 .Subscribe(result =>
@@ -24,7 +24,7 @@ namespace SubatomicCanvas.Presenter
                     _lineVisualizeView.ClearLine();
                     _lineVisualizeView.DrawLine(result.Trajectories);
                 });
-            _globalSettingState.IsDisplayLineVisualizer.Subscribe(_lineVisualizeView.gameObject.SetActive);
+            _globalSettingManager.IsDisplayLineVisualizer.Subscribe(_lineVisualizeView.gameObject.SetActive);
         }
     }
 }

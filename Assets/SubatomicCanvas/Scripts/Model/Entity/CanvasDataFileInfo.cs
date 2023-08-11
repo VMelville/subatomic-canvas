@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using SubatomicCanvas.Utility;
-using UniRx;
-using Vector3 = UnityEngine.Vector3;
 
 namespace SubatomicCanvas.Model
 {
@@ -27,7 +24,7 @@ namespace SubatomicCanvas.Model
         public float particleEnergyMin;
         public float particleEnergyMax;
         
-        public CanvasDataFileInfo(string title, CanvasState canvasState)
+        public CanvasDataFileInfo(string title, CanvasManager canvasManager)
         {
             version = UnityEngine.Application.version;
             saveDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -36,18 +33,18 @@ namespace SubatomicCanvas.Model
 
             this.title = title;
 
-            usingParticleKeys = new List<string>(canvasState.UsingParticleKeys);
-            installedDetectorPositionAndKeys = canvasState.InstalledDetectorPositionAndKeys
+            usingParticleKeys = new List<string>(canvasManager.UsingParticleKeys);
+            installedDetectorPositionAndKeys = canvasManager.InstalledDetectorPositionAndKeys
                 .ToDictionary(
                     kvp => kvp.Key.ToString(),
                     kvp => kvp.Value
                     );
-            magneticFieldVector = new SerializableVector3(canvasState.MagneticFieldVector.Value);
-            simulationWorldDepth = canvasState.SimulationWorldDepth.Value;
-            canvasSize = canvasState.CanvasSize.Value;
-            cellSize = canvasState.CellSize.Value;
-            particleEnergyMin = canvasState.ParticleEnergyMin.Value;
-            particleEnergyMax = canvasState.ParticleEnergyMax.Value;
+            magneticFieldVector = new SerializableVector3(canvasManager.MagneticFieldVector.Value);
+            simulationWorldDepth = canvasManager.SimulationWorldDepth.Value;
+            canvasSize = canvasManager.CanvasSize.Value;
+            cellSize = canvasManager.CellSize.Value;
+            particleEnergyMin = canvasManager.ParticleEnergyMin.Value;
+            particleEnergyMax = canvasManager.ParticleEnergyMax.Value;
         }
     }
 }

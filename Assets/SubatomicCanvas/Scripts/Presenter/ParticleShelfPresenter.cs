@@ -10,14 +10,14 @@ namespace SubatomicCanvas.Presenter
     {
         // Model
         [Inject] private AvailableParticles _availableParticles;
-        [Inject] private CanvasState _canvasState;
+        [Inject] private CanvasManager _canvasManager;
         
         // View
         [Inject] private ParticleShelfView _particleShelfView;
 
         public void Initialize()
         {
-            _particleShelfView.OnValueChanged.AddListener(_canvasState.SetParticleState);
+            _particleShelfView.OnValueChanged.AddListener(_canvasManager.SetParticleState);
         }
         
         public void Start()
@@ -27,14 +27,14 @@ namespace SubatomicCanvas.Presenter
                 _particleShelfView.AddNewToggle(particle);
             }
 
-            _canvasState.UsingParticleKeys.ObserveAdd()
+            _canvasManager.UsingParticleKeys.ObserveAdd()
                 .Subscribe(addEvent => _particleShelfView.SetIsOn(addEvent.Value, true));
             
-            _canvasState.UsingParticleKeys.ObserveRemove()
+            _canvasManager.UsingParticleKeys.ObserveRemove()
                 .Subscribe(removeEvent => _particleShelfView.SetIsOn(removeEvent.Value, false));
 
-            _canvasState.UsingParticleKeys.ObserveReset()
-                .Subscribe(_ => _particleShelfView.SetOnParticles(_canvasState.GetUsingParticleKeys()));
+            _canvasManager.UsingParticleKeys.ObserveReset()
+                .Subscribe(_ => _particleShelfView.SetOnParticles(_canvasManager.GetUsingParticleKeys()));
         }
     }
 }

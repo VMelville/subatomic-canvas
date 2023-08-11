@@ -11,9 +11,9 @@ namespace SubatomicCanvas.Presenter
     public class SnapshotPresenter : IStartable
     {
         // Model - ReactiveEntity
-        [Inject] private SnapshotState _snapshotState;
-        [Inject] private LastSimulationCondition _lastSimulationCondition;
-        [Inject] private TimeState _timeState;
+        [Inject] private SnapshotManager _snapshotManager;
+        [Inject] private LastSimulationConditionManager _lastSimulationConditionManager;
+        [Inject] private TimeManager _timeManager;
         
         // Model - Service
         [Inject] private SnapshotService _snapshotService;
@@ -24,7 +24,7 @@ namespace SubatomicCanvas.Presenter
         
         public void Start()
         {
-            _snapshotState.State.Subscribe(state =>
+            _snapshotManager.State.Subscribe(state =>
             {
                 switch (state)
                 {
@@ -34,8 +34,8 @@ namespace SubatomicCanvas.Presenter
                         _uiVisibleView.SetIsVisible(false);
                         break;
                     case SnapshotStateType.Standby:
-                        _snapshotService.TakeSnapshot(_lastSimulationCondition.ParticleKey.Value,
-                            _timeState.NowTime.Value);
+                        _snapshotService.TakeSnapshot(_lastSimulationConditionManager.ParticleKey.Value,
+                            _timeManager.NowTime.Value);
                         break;
                     case SnapshotStateType.Took:
                         _uiVisibleView.SetIsVisible(true);
@@ -45,9 +45,9 @@ namespace SubatomicCanvas.Presenter
                 }
             });
             
-            _snapshotButtonView.OnClick.AddListener(_snapshotState.DoSnapshot);
-            _uiVisibleView.onSetActive.AddListener(_snapshotState.OnSetActiveUi);
-            _snapshotService.onTookSnapshot.AddListener(_snapshotState.OnTookSnapshot);
+            _snapshotButtonView.OnClick.AddListener(_snapshotManager.DoSnapshot);
+            _uiVisibleView.onSetActive.AddListener(_snapshotManager.OnSetActiveUi);
+            _snapshotService.onTookSnapshot.AddListener(_snapshotManager.OnTookSnapshot);
         }
     }
 }

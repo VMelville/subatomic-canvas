@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SubatomicCanvas.Model
 {
-    public class SaveLoadState
+    public class SaveLoadManager
     {
         public IReadOnlyReactiveDictionary<string, CanvasDataFileInfo> CanvasDataFiles => _canvasDataFiles;
         public IReadOnlyReactiveProperty<string> FileNameCandidate => _fileNameCandidate;
@@ -35,12 +35,12 @@ namespace SubatomicCanvas.Model
             }
         }
 
-        public void SaveFile(CanvasState state)
+        public void SaveFile(CanvasManager manager)
         {
             Debug.LogWarning("ToDo: CanvasStateごと渡してるの大掛かりすぎるかな");
             
             // json データを準備
-            var data = new CanvasDataFileInfo(_fileNameCandidate.Value, state);
+            var data = new CanvasDataFileInfo(_fileNameCandidate.Value, manager);
 
             var jsonData = FileIOUtil.FormatToJsonData(data);
             

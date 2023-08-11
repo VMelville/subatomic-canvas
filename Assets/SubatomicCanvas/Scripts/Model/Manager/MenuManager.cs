@@ -2,7 +2,7 @@
 
 namespace SubatomicCanvas.Model
 {
-    public class MenuState
+    public class MenuManager
     {
         public IReadOnlyReactiveProperty<int> PageIndex => _pageIndex;
         public IReadOnlyReactiveProperty<bool> IsOpen => _isOpen;

@@ -11,10 +11,10 @@ namespace SubatomicCanvas.Presenter
         // Model
         [Inject] private AvailableDetectors _availableDetectors;
         [Inject] private AvailableParticles _availableParticles;
-        [Inject] private CanvasState _canvasState;
-        [Inject] private GlobalSettingState _globalSettingState;
-        [Inject] private LastSimulationCondition _lastSimulationCondition;
-        [Inject] private TimeState _timeState;
+        [Inject] private CanvasManager _canvasManager;
+        [Inject] private GlobalSettingManager _globalSettingManager;
+        [Inject] private LastSimulationConditionManager _lastSimulationConditionManager;
+        [Inject] private TimeManager _timeManager;
 
         [Inject] private SampleDetectors _sampleDetectors;
         [Inject] private SimulationService _simulationService;
@@ -27,19 +27,19 @@ namespace SubatomicCanvas.Presenter
             _simulatorView.OnClick.AddListener(() =>
             {
                 // Detector
-                var detectorTable = _sampleDetectors.GetDetectorLogicalVolumeTable(_canvasState.CellSize.Value,
-                    _canvasState.SimulationWorldDepth.Value);
+                var detectorTable = _sampleDetectors.GetDetectorLogicalVolumeTable(_canvasManager.CellSize.Value,
+                    _canvasManager.SimulationWorldDepth.Value);
 
                 // Particle
-                var randomParticleKey = ParticleUtil.GetPickedUpParticleKey(_canvasState.UsingParticleKeys);
+                var randomParticleKey = ParticleUtil.GetPickedUpParticleKey(_canvasManager.UsingParticleKeys);
                 if (randomParticleKey == "")
                 {
                     _simulatorView.SetText("Please select at least one particle.");
                     return;
                 }
 
-                var randomEnergy = ParticleUtil.GetPickedUpEnergy(_canvasState.ParticleEnergyMin.Value,
-                    _canvasState.ParticleEnergyMax.Value);
+                var randomEnergy = ParticleUtil.GetPickedUpEnergy(_canvasManager.ParticleEnergyMin.Value,
+                    _canvasManager.ParticleEnergyMax.Value);
 
                 var particleGun = ParticleUtil.MakeParticleGun(randomParticleKey, randomEnergy);
 
@@ -48,24 +48,24 @@ namespace SubatomicCanvas.Presenter
 
                 // シミュレーション実行
                 var (result, positionPathDict) = _simulationService.RunSimulation(
-                    _canvasState.GetDetectorPlacements(),
+                    _canvasManager.GetDetectorPlacements(),
                     detectorTable,
                     particleGun,
-                    _canvasState.SimulationWorldDepth.Value,
-                    _canvasState.MagneticFieldVector.Value,
-                    _canvasState.CanvasSize.Value,
-                    _canvasState.CellSize.Value
+                    _canvasManager.SimulationWorldDepth.Value,
+                    _canvasManager.MagneticFieldVector.Value,
+                    _canvasManager.CanvasSize.Value,
+                    _canvasManager.CellSize.Value
                 );
 
                 // 結果を記録
-                _lastSimulationCondition.SetResult(result, positionPathDict);
-                _lastSimulationCondition.SetParticleKey(randomParticleKey);
-                _lastSimulationCondition.SetDetectorKeyDict(_canvasState.InstalledDetectorPositionAndKeys);
+                _lastSimulationConditionManager.SetResult(result, positionPathDict);
+                _lastSimulationConditionManager.SetParticleKey(randomParticleKey);
+                _lastSimulationConditionManager.SetDetectorKeyDict(_canvasManager.InstalledDetectorPositionAndKeys);
 
-                _timeState.OnSimulationCompleted();
+                _timeManager.OnSimulationCompleted();
             });
             
-            _globalSettingState.IsDisplayParticleName.Subscribe(_simulatorView.SetDisplayParticleName);
+            _globalSettingManager.IsDisplayParticleName.Subscribe(_simulatorView.SetDisplayParticleName);
         }
     }
 }

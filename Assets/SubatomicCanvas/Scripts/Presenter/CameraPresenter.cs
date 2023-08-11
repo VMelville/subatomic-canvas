@@ -9,7 +9,7 @@ namespace SubatomicCanvas.Presenter
     public class CameraPresenter : IStartable
     {
         // Model
-        [Inject] private CameraState _cameraState;
+        [Inject] private CameraManager _cameraManager;
         
         // View
         [Inject] private RaycastTargetView _raycastTargetView;
@@ -19,25 +19,25 @@ namespace SubatomicCanvas.Presenter
         
         public void Start()
         {
-            _cameraState.Position.Subscribe(position =>
+            _cameraManager.Position.Subscribe(position =>
             {
-                _cameraView.UpdateCamera(position, _cameraState.ZoomLevel.Value);
-                _screenView.UpdateScreen(position, _cameraState.ZoomLevel.Value);
+                _cameraView.UpdateCamera(position, _cameraManager.ZoomLevel.Value);
+                _screenView.UpdateScreen(position, _cameraManager.ZoomLevel.Value);
             });
-            _cameraState.ZoomLevel.Subscribe(zoomLevel =>
+            _cameraManager.ZoomLevel.Subscribe(zoomLevel =>
             {
-                _cameraView.UpdateCamera(_cameraState.Position.Value, zoomLevel);
-                _screenView.UpdateScreen(_cameraState.Position.Value, zoomLevel);
+                _cameraView.UpdateCamera(_cameraManager.Position.Value, zoomLevel);
+                _screenView.UpdateScreen(_cameraManager.Position.Value, zoomLevel);
             });
-            _cameraState.Is2dView.Subscribe(_cameraView.SetOrthographic);
+            _cameraManager.Is2dView.Subscribe(_cameraView.SetOrthographic);
             
-            _raycastTargetView.OnMiddleDrag.AddListener(_cameraState.Grab);
-            _raycastTargetView.OnScrollView.AddListener(_cameraState.Zoom);
+            _raycastTargetView.OnMiddleDrag.AddListener(_cameraManager.Grab);
+            _raycastTargetView.OnScrollView.AddListener(_cameraManager.Zoom);
             
             _canvasView.OnAddCellView.AddListener((_, cellView) =>
             {
-                cellView.OnMiddleDrag.AddListener(eventData => _cameraState.Grab(eventData.delta));
-                cellView.OnScroll.AddListener(eventData => _cameraState.Zoom(eventData.scrollDelta.y));
+                cellView.OnMiddleDrag.AddListener(eventData => _cameraManager.Grab(eventData.delta));
+                cellView.OnScroll.AddListener(eventData => _cameraManager.Zoom(eventData.scrollDelta.y));
             });
         }
     }

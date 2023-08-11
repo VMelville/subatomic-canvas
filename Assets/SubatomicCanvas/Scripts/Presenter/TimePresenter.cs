@@ -9,17 +9,17 @@ namespace SubatomicCanvas.Presenter
     public class TimePresenter : IStartable
     {
         // Model
-        [Inject] private TimeState _timeState;
+        [Inject] private TimeManager _timeManager;
         
         // View
         [Inject] private TimeView _timeView;
 
         public void Start()
         {
-            _timeState.NowTime.Subscribe(_timeView.SetTime);
-            _timeState.Speed.Subscribe(_timeView.SetSpeed);
+            _timeManager.NowTime.Subscribe(_timeView.SetTime);
+            _timeManager.Speed.Subscribe(_timeView.SetSpeed);
 
-            _timeView.OnSpeedChanged.AddListener(_timeState.SetSpeed);
+            _timeView.OnSpeedChanged.AddListener(_timeManager.SetSpeed);
         }
     }
 }

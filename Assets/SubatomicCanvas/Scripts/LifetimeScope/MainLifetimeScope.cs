@@ -43,17 +43,17 @@ namespace SubatomicCanvas.LifetimeScope
             ParticleSim.Simulator.Init();
             
             // Model - ReactiveEntity
-            builder.Register<SaveLoadState>(Lifetime.Singleton);
+            builder.Register<SaveLoadManager>(Lifetime.Singleton);
             builder.Register<AvailableDetectors>(Lifetime.Singleton);
             builder.Register<AvailableParticles>(Lifetime.Singleton);
-            builder.Register<CameraState>(Lifetime.Singleton);
-            builder.Register<CanvasState>(Lifetime.Singleton);
-            builder.Register<GlobalSettingState>(Lifetime.Singleton);
-            builder.Register<LastSimulationCondition>(Lifetime.Singleton);
-            builder.Register<MenuState>(Lifetime.Singleton);
-            builder.Register<PaintToolState>(Lifetime.Singleton);
-            builder.Register<SnapshotState>(Lifetime.Singleton);
-            builder.Register<TimeState>(Lifetime.Singleton);
+            builder.Register<CameraManager>(Lifetime.Singleton);
+            builder.Register<CanvasManager>(Lifetime.Singleton);
+            builder.Register<GlobalSettingManager>(Lifetime.Singleton);
+            builder.Register<LastSimulationConditionManager>(Lifetime.Singleton);
+            builder.Register<MenuManager>(Lifetime.Singleton);
+            builder.Register<PaintToolManager>(Lifetime.Singleton);
+            builder.Register<SnapshotManager>(Lifetime.Singleton);
+            builder.Register<TimeManager>(Lifetime.Singleton);
             
             builder.Register<SampleDetectors>(Lifetime.Singleton);
             builder.Register<SimulationService>(Lifetime.Singleton);

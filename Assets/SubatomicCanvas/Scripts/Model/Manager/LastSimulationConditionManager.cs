@@ -4,7 +4,7 @@ using UniRx;
 
 namespace SubatomicCanvas.Model
 {
-    public class LastSimulationCondition
+    public class LastSimulationConditionManager
     {
         public IReadOnlyReactiveProperty<(SimulationResult, Dictionary<string, (int, int)>)> Result => _result;
         public IReadOnlyReactiveProperty<string> ParticleKey => _particleKey;

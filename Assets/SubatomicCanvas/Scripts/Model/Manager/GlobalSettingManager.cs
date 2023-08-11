@@ -2,7 +2,7 @@
 
 namespace SubatomicCanvas.Model
 {
-    public class GlobalSettingState
+    public class GlobalSettingManager
     {
         public IReadOnlyReactiveProperty<bool> IsDisplayParticleName => _isDisplayParticleName;
         public IReadOnlyReactiveProperty<bool> IsDisplayLineVisualizer => _isDisplayLineVisualizer;

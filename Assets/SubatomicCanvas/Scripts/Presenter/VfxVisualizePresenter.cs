@@ -9,21 +9,21 @@ namespace SubatomicCanvas.Presenter
     public class VfxVisualizePresenter : IStartable
     {
         // Model
-        [Inject] private LastSimulationCondition _lastSimulationCondition;
-        [Inject] private TimeState _timeState;
+        [Inject] private LastSimulationConditionManager _lastSimulationConditionManager;
+        [Inject] private TimeManager _timeManager;
         
         // View
         [Inject] private VfxVisualizeView _vfxVisualizeView;
 
         public void Start()
         {
-            _lastSimulationCondition.Result
+            _lastSimulationConditionManager.Result
                 .Select(resultTuple => resultTuple.Item1)
                 .Where(result => result != null)
                 .Select(result => result.LinearTrajectory)
                 .Subscribe(_vfxVisualizeView.PlayVfx);
             
-            _timeState.NowTime.Subscribe(_vfxVisualizeView.OnPassesTime);
+            _timeManager.NowTime.Subscribe(_vfxVisualizeView.OnPassesTime);
         }
     }
 }

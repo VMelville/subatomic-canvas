@@ -9,44 +9,44 @@ namespace SubatomicCanvas.Presenter
     public class SaveLoadPresenter : IStartable
     {
         // Model
-        [Inject] private SaveLoadState _saveLoadState;
-        [Inject] private CanvasState _canvasState;
+        [Inject] private SaveLoadManager _saveLoadManager;
+        [Inject] private CanvasManager _canvasManager;
         
         // View
         [Inject] private SaveLoadView _saveLoadView;
         
         public void Start()
         {
-            _saveLoadState.CanvasDataFiles.ObserveAdd().Subscribe(addEvent =>
+            _saveLoadManager.CanvasDataFiles.ObserveAdd().Subscribe(addEvent =>
             {
                 var filePath = addEvent.Key;
                 var fileInfo = addEvent.Value;
-                var isActive = fileInfo.title == _saveLoadState.FileNameCandidate.Value;
-                var isDisplayTrashButton = _saveLoadState.IsDisplayTrashButton.Value;
+                var isActive = fileInfo.title == _saveLoadManager.FileNameCandidate.Value;
+                var isDisplayTrashButton = _saveLoadManager.IsDisplayTrashButton.Value;
                 _saveLoadView.AddDataContent(filePath, fileInfo, isActive, isDisplayTrashButton);
             });
 
-            _saveLoadState.CanvasDataFiles.ObserveReplace().Subscribe(replaceEvent =>
+            _saveLoadManager.CanvasDataFiles.ObserveReplace().Subscribe(replaceEvent =>
             {
                 var filePath = replaceEvent.Key;
                 var fileInfo = replaceEvent.NewValue;
                 _saveLoadView.ReplaceDataContent(filePath, fileInfo);
             });
             
-            _saveLoadState.CanvasDataFiles.ObserveReset().Subscribe(_ => _saveLoadView.ClearDataContent());
-            _saveLoadState.CanvasDataFiles.ObserveRemove().Subscribe(removeEvent => _saveLoadView.RemoveDataContent(removeEvent.Key, removeEvent.Value));
-            _saveLoadState.IsDisplayTrashButton.Subscribe(_saveLoadView.DisplayTrashButton);
-            _saveLoadState.FileNameCandidate.Subscribe(_saveLoadView.ChangeFileNameCandidate);
+            _saveLoadManager.CanvasDataFiles.ObserveReset().Subscribe(_ => _saveLoadView.ClearDataContent());
+            _saveLoadManager.CanvasDataFiles.ObserveRemove().Subscribe(removeEvent => _saveLoadView.RemoveDataContent(removeEvent.Key, removeEvent.Value));
+            _saveLoadManager.IsDisplayTrashButton.Subscribe(_saveLoadView.DisplayTrashButton);
+            _saveLoadManager.FileNameCandidate.Subscribe(_saveLoadView.ChangeFileNameCandidate);
             
-            _saveLoadView.OnClickDisplayTrashButton.AddListener(_saveLoadState.ToggleDisplayTrashButton);
-            _saveLoadView.OnClickReloadButton.AddListener(_saveLoadState.ReloadFiles);
-            _saveLoadView.OnClickSaveButton.AddListener(() => _saveLoadState.SaveFile(_canvasState));
-            _saveLoadView.OnChangeFileName.AddListener(_saveLoadState.SetFileNameCandidate);
-            _saveLoadView.OnClickLoadFileButton.AddListener(_canvasState.LoadFile);
-            _saveLoadView.OnClickTrashFileButton.AddListener(_saveLoadState.DeleteFile);
-            _saveLoadView.OnClickView.AddListener(_saveLoadState.SetFileNameCandidate);
+            _saveLoadView.OnClickDisplayTrashButton.AddListener(_saveLoadManager.ToggleDisplayTrashButton);
+            _saveLoadView.OnClickReloadButton.AddListener(_saveLoadManager.ReloadFiles);
+            _saveLoadView.OnClickSaveButton.AddListener(() => _saveLoadManager.SaveFile(_canvasManager));
+            _saveLoadView.OnChangeFileName.AddListener(_saveLoadManager.SetFileNameCandidate);
+            _saveLoadView.OnClickLoadFileButton.AddListener(_canvasManager.LoadFile);
+            _saveLoadView.OnClickTrashFileButton.AddListener(_saveLoadManager.DeleteFile);
+            _saveLoadView.OnClickView.AddListener(_saveLoadManager.SetFileNameCandidate);
             
-            _saveLoadState.ReloadFiles();
+            _saveLoadManager.ReloadFiles();
         }
     }
 }

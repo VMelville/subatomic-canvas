@@ -2,7 +2,7 @@
 
 namespace SubatomicCanvas.Model
 {
-    public class PaintToolState
+    public class PaintToolManager
     {
         public IReadOnlyReactiveProperty<string> ActiveDetectorKey => _activeDetectorKey;
         public IReadOnlyReactiveProperty<bool> IsActiveSymmetry => _isActiveSymmetry;

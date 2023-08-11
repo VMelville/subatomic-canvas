@@ -6,7 +6,7 @@ namespace SubatomicCanvas.Model
     /// <summary>
     /// スナップショットにまつわる状態管理
     /// </summary>
-    public class SnapshotState
+    public class SnapshotManager
     {
         public IReadOnlyReactiveProperty<SnapshotStateType> State => _state;
         

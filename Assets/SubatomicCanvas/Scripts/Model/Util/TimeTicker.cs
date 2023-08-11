@@ -5,11 +5,11 @@ namespace SubatomicCanvas.Model
 {
     public class TimeTicker : ITickable
     {
-        [Inject] private TimeState _state;
+        [Inject] private TimeManager _manager;
         
         public void Tick()
         {
-            _state.Tick();
+            _manager.Tick();
         }
     }
 }
