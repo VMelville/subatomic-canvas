@@ -55,7 +55,6 @@ namespace SubatomicCanvas.LifetimeScope
             builder.Register<SnapshotManager>(Lifetime.Singleton);
             builder.Register<TimeManager>(Lifetime.Singleton);
             
-            builder.Register<SampleDetectors>(Lifetime.Singleton);
             builder.Register<SimulationService>(Lifetime.Singleton);
             builder.Register<SnapshotService>(Lifetime.Singleton);
             

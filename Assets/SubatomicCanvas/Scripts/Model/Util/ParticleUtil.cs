@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SubatomicCanvas.Model
 {
-    public class ParticleUtil
+    public static class ParticleUtil
     {
         public static string GetPickedUpParticleKey(IReadOnlyReactiveCollection<string> usingParticleKeys)
         {

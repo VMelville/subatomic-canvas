@@ -16,7 +16,6 @@ namespace SubatomicCanvas.Presenter
         [Inject] private LastSimulationConditionManager _lastSimulationConditionManager;
         [Inject] private TimeManager _timeManager;
 
-        [Inject] private SampleDetectors _sampleDetectors;
         [Inject] private SimulationService _simulationService;
 
         // View
@@ -27,8 +26,7 @@ namespace SubatomicCanvas.Presenter
             _simulatorView.OnClick.AddListener(() =>
             {
                 // Detector
-                var detectorTable = _sampleDetectors.GetDetectorLogicalVolumeTable(_canvasManager.CellSize.Value,
-                    _canvasManager.SimulationWorldDepth.Value);
+                var detectorTable = SampleDetectors.GetDetectorLogicalVolumeTable(_canvasManager.CellSize.Value, _canvasManager.SimulationWorldDepth.Value);
 
                 // Particle
                 var randomParticleKey = ParticleUtil.GetPickedUpParticleKey(_canvasManager.UsingParticleKeys);

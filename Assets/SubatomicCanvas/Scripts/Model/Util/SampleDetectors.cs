@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace SubatomicCanvas.Model
 {
-    public class SampleDetectors
+    public static class SampleDetectors
     {
-        public Dictionary<string, LogicalVolume> GetDetectorLogicalVolumeTable(float cellSize, float worldDepth)
+        public static Dictionary<string, LogicalVolume> GetDetectorLogicalVolumeTable(float cellSize, float worldDepth)
         {
             var diameter = 0.8f * cellSize; // memo: 六角形に内接するには、0.866、つまり √3 / 2 をかけるとぴったりですが、それより若干内側にしています。なんとなくそうしているだけで、ピッタリでも問題ありません。
             var standardTubsSize = new Vector3(diameter, worldDepth * 0.5f, diameter); // Yが円柱の高さの半分の長さ。XとZは直径。単位は m
