@@ -8,24 +8,21 @@ namespace SubatomicCanvas.Presenter
 {
     public class MenuPresenter : IStartable
     {
+        // Model
         [Inject] private MenuState _menuState;
+        
+        // State
         [Inject] private MenuView _menuView;
 
         public void Start()
         {
-            _menuState.isOpen.Subscribe(SetOpenClose);
-            _menuState.pageIndex.Subscribe(_menuView.SetPageIndex);
+            _menuState.IsOpen.Subscribe(isOpen => _menuView.SetOpenCloseState(isOpen, _menuState.EasingDuration.Value));
+            _menuState.PageIndex.Subscribe(_menuView.SetPageIndex);
 
-            _menuView.OnClickMenuButton.AddListener(OnClickMenuButton);
-            _menuView.OnChangePage.AddListener(OnChangePage);
+            _menuView.OnClickMenuButton.AddListener(_menuState.ToggleOpen);
+            _menuView.OnChangePage.AddListener(_menuState.SetPageIndex);
 
-            _menuState.easingDuration.Value = 0.3f;
+            _menuState.SetDuration(0.3f);
         }
-
-        private void SetOpenClose(bool isOpen) => _menuView.SetOpenCloseState(isOpen, _menuState.easingDuration.Value);
-
-        private void OnClickMenuButton() => _menuState.isOpen.Value ^= true;
-
-        private void OnChangePage(int pageIndex) => _menuState.pageIndex.Value = pageIndex;
     }
 }

@@ -4,7 +4,13 @@ namespace SubatomicCanvas.Model
 {
     public class GlobalSettingState
     {
-        public readonly BoolReactiveProperty isDisplayParticleName = new(true);
-        public readonly BoolReactiveProperty isDisplayLineVisualizer = new(false);
+        public IReadOnlyReactiveProperty<bool> IsDisplayParticleName => _isDisplayParticleName;
+        public IReadOnlyReactiveProperty<bool> IsDisplayLineVisualizer => _isDisplayLineVisualizer;
+
+        private readonly BoolReactiveProperty _isDisplayParticleName = new(true);
+        private readonly BoolReactiveProperty _isDisplayLineVisualizer = new(false);
+
+        public void SetIsDisplayParticleName(bool isOn) => _isDisplayParticleName.Value = isOn;
+        public void SetIsDisplayLineVisualizer(bool isOn) => _isDisplayLineVisualizer.Value = isOn;
     }
 }

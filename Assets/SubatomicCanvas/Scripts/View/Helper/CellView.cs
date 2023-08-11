@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ParticleSim.Result;
+using SubatomicCanvas.Model;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -18,9 +20,12 @@ namespace SubatomicCanvas.View
         private DetectorViewBase _detector;
         
         public UnityEvent<PointerEventData> OnMiddleDrag;
-        public UnityEvent<PointerEventData> OnPointerDown;
+        // public UnityEvent<PointerEventData> OnPointerDown;
         public UnityEvent<PointerEventData> OnPointerEnter;
         public UnityEvent<PointerEventData> OnScroll;
+
+        public UnityEvent OnBeDrawed;
+        public UnityEvent OnBeElased;
         
         private void Start()
         {
@@ -29,8 +34,37 @@ namespace SubatomicCanvas.View
                 target.OnDragAsObservable()
                     .Where(e=>e.button == PointerEventData.InputButton.Middle)
                     .Subscribe(OnMiddleDrag.Invoke);
-                target.OnPointerDownAsObservable().Subscribe(OnPointerDown.Invoke);
-                target.OnPointerEnterAsObservable().Subscribe(OnPointerEnter.Invoke);
+                
+                target.OnPointerDownAsObservable().Subscribe(data =>
+                {
+                    switch (data.button)
+                    {
+                        case PointerEventData.InputButton.Left:
+                            OnBeDrawed.Invoke();
+                            break;
+                        case PointerEventData.InputButton.Right:
+                            OnBeElased.Invoke();
+                            break;
+                        case PointerEventData.InputButton.Middle:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                });
+
+                target.OnPointerEnterAsObservable().Subscribe(data =>
+                {
+                    OnPointerEnter.Invoke(data);
+
+                    if (data.dragging)
+                    {
+                        OnBeDrawed.Invoke();
+                    }
+                    else if (Input.GetMouseButton(1))
+                    {
+                        OnBeElased.Invoke();
+                    }
+                });
                 target.OnScrollAsObservable().Subscribe(OnScroll.Invoke);
             }
         }

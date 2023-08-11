@@ -8,27 +8,20 @@ namespace SubatomicCanvas.Presenter
 {
     public class PaintToolPresenter : IStartable
     {
+        // Model
         [Inject] private PaintToolState _paintToolState;
-        [Inject] private PaintToolView _paintToolView;
         [Inject] private AvailableDetectors _availableDetectors;
+        
+        // View
+        [Inject] private PaintToolView _paintToolView;
         
         public void Start()
         {
-            _paintToolState.activeDetectorKey.Subscribe(_paintToolView.SetDetectorKey);
-            _paintToolState.isActiveSymmetry.Subscribe(_paintToolView.SetActiveSymmetry);
+            _paintToolState.ActiveDetectorKey.Subscribe(_paintToolView.SetDetectorKey);
+            _paintToolState.IsActiveSymmetry.Subscribe(_paintToolView.SetActiveSymmetry);
             
-            _paintToolView.OnClickPaintToolButton.AddListener(OnClickPaintTool);
-            _paintToolView.OnClickSymmetryModeButton.AddListener(OnClickSymmetryToolButton);
-        }
-
-        private void OnClickPaintTool(string toolKey)
-        {
-            _paintToolState.activeDetectorKey.Value = toolKey;
-        }
-
-        private void OnClickSymmetryToolButton()
-        {
-            _paintToolState.isActiveSymmetry.Value ^= true;
+            _paintToolView.OnClickPaintToolButton.AddListener(_paintToolState.SetActiveDetectorKey);
+            _paintToolView.OnClickSymmetryModeButton.AddListener(_paintToolState.ToggleActiveSymmetry);
         }
     }
 }

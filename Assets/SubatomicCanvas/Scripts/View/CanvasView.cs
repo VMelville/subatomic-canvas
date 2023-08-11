@@ -17,37 +17,6 @@ namespace SubatomicCanvas.View
 
         public UnityEvent<(int, int), CellView> OnAddCellView = new();
 
-        public void ClearCanvas()
-        {
-            honeycombGridView.ClearGrid();
-            
-            foreach (var (_, cell) in _cellTable)
-            {
-                cell.DoDestroy();
-            }
-            _cellTable.Clear();
-        }
-        
-        public void ReloadCanvas(int canvasSize, float cellSize)
-        {
-            honeycombGridView.DrawGrid(canvasSize, cellSize);
-        }
-        
-        public void AddCell((int, int) position, float cellSize)
-        {
-            if (_cellTable.ContainsKey(position))
-            {
-                Debug.LogError("同じ座標にセルを生成しようとしました。");
-            }
-
-            var cell = Instantiate(cellPrefab, transform);
-            _cellTable[position] = cell;
-            cell.SetSize(cellSize);
-            ((RectTransform)cell.transform).anchoredPosition = HoneycombCoordinate.GetPosition(position, cellSize) * 1000f;
-            
-            OnAddCellView.Invoke(position, cell);
-        }
-
         public void PutDetector((int, int) position, string key, float cellSize)
         {
             foreach (var detectorPrefab in detectorPrefabs.Where(detectorPrefab => key == detectorPrefab.DetectorKey))
@@ -70,8 +39,10 @@ namespace SubatomicCanvas.View
             }
         }
         
-        public void ApplySimulationResult(SimulationResult result, Dictionary<string, (int, int)> pathPositionTable)
+        public void ApplySimulationResult((SimulationResult, Dictionary<string, (int, int)>) resultTuple)
         {
+            var (result, pathPositionTable) = resultTuple;
+            
             if (result == null) return;
             
             foreach (var cell in _cellTable.Values)
@@ -106,6 +77,43 @@ namespace SubatomicCanvas.View
             foreach (var cell in _cellTable.Values)
             {
                 cell.SeekTime(time);
+            }
+        }
+
+        public void BuildCanvas(int canvasSize, float cellSize)
+        {
+            Debug.LogWarning("ToDo: CanvasSizeとCellSizeの変更を行うと2回実行されてしまう");
+            
+            // Clear
+            honeycombGridView.ClearGrid();
+            foreach (var (_, cell) in _cellTable)
+            {
+                cell.DoDestroy();
+            }
+            _cellTable.Clear();
+            
+            // Build
+            honeycombGridView.DrawGrid(canvasSize, cellSize);
+            
+            for (var i = 1 - canvasSize; i < canvasSize; i++)
+            {
+                for (var j = 1 - canvasSize + Mathf.Max(i, 0); j < canvasSize + Mathf.Min(i, 0); j++)
+                {
+                    var position = (j, i);
+
+                    if (_cellTable.ContainsKey(position))
+                    {
+                        Debug.LogError("同じ座標にセルを生成しようとしました。");
+                    }
+
+                    var cell = Instantiate(cellPrefab, transform);
+                    _cellTable[position] = cell;
+                    cell.SetSize(cellSize);
+                    ((RectTransform)cell.transform).anchoredPosition =
+                        HoneycombCoordinate.GetPosition(position, cellSize) * 1000f;
+
+                    OnAddCellView.Invoke(position, cell);
+                }
             }
         }
     }

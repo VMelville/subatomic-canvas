@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using SubatomicCanvas.Model;
+﻿using SubatomicCanvas.Model;
 using SubatomicCanvas.View;
 using UniRx;
 using VContainer;
@@ -18,39 +17,24 @@ namespace SubatomicCanvas.Presenter
 
         public void Initialize()
         {
-            _particleShelfView.OnValueChanged.AddListener(OnValueChanged);
+            _particleShelfView.OnValueChanged.AddListener(_canvasState.SetParticleState);
         }
         
         public void Start()
         {
-            foreach (var particle in _availableParticles.particleDict.Values)
+            foreach (var particle in _availableParticles.GetParticles())
             {
                 _particleShelfView.AddNewToggle(particle);
             }
 
-            _canvasState.usingParticleKeys.ObserveAdd()
+            _canvasState.UsingParticleKeys.ObserveAdd()
                 .Subscribe(addEvent => _particleShelfView.SetIsOn(addEvent.Value, true));
             
-            _canvasState.usingParticleKeys.ObserveRemove()
+            _canvasState.UsingParticleKeys.ObserveRemove()
                 .Subscribe(removeEvent => _particleShelfView.SetIsOn(removeEvent.Value, false));
 
-            _canvasState.usingParticleKeys.ObserveReset()
-                .Subscribe(_ => _particleShelfView.SetOnParticles(new List<string>(_canvasState.usingParticleKeys)));
-        }
-
-        private void OnValueChanged(string particle, bool isOn)
-        {
-            if (isOn)
-            {
-                if (!_canvasState.usingParticleKeys.Contains(particle))
-                {
-                    _canvasState.usingParticleKeys.Add(particle);
-                }
-            }
-            else
-            {
-                _canvasState.usingParticleKeys.Remove(particle);
-            }
+            _canvasState.UsingParticleKeys.ObserveReset()
+                .Subscribe(_ => _particleShelfView.SetOnParticles(_canvasState.GetUsingParticleKeys()));
         }
     }
 }

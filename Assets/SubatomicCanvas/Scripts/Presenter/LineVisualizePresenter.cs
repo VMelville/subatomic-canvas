@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using ParticleSim.Result;
-using SubatomicCanvas.Model;
+﻿using SubatomicCanvas.Model;
 using SubatomicCanvas.View;
 using UniRx;
 using VContainer;
@@ -10,24 +8,23 @@ namespace SubatomicCanvas.Presenter
 {
     public class LineVisualizePresenter : IStartable
     {
+        // Model
         [Inject] private LastSimulationCondition _lastSimulationCondition;
-        [Inject] private LineVisualizeView _lineVisualizeView;
         [Inject] private GlobalSettingState _globalSettingState;
+        
+        [Inject] private LineVisualizeView _lineVisualizeView;
         
         public void Start()
         {
-            _lastSimulationCondition.result.Subscribe(OnCompletedSimulation);
-            _globalSettingState.isDisplayLineVisualizer.Subscribe(_lineVisualizeView.gameObject.SetActive);
-        }
-        
-        private void OnCompletedSimulation((SimulationResult, Dictionary<string, (int, int)>) result)
-        {
-            var (simulationResult, _) = result;
-            
-            if (simulationResult == null) return;
-            
-            _lineVisualizeView.ClearLine();
-            _lineVisualizeView.DrawLine(simulationResult.Trajectories);
+            _lastSimulationCondition.Result
+                .Select(resultTuple => resultTuple.Item1)
+                .Where(result => result != null)
+                .Subscribe(result =>
+                {
+                    _lineVisualizeView.ClearLine();
+                    _lineVisualizeView.DrawLine(result.Trajectories);
+                });
+            _globalSettingState.IsDisplayLineVisualizer.Subscribe(_lineVisualizeView.gameObject.SetActive);
         }
     }
 }

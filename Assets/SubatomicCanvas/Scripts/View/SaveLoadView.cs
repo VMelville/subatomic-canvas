@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using SubatomicCanvas.Model;
+using SubatomicCanvas.Utility;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Events;
@@ -32,8 +34,6 @@ namespace SubatomicCanvas.View
         public Button.ButtonClickedEvent OnClickSaveButton => saveButton.onClick;
         public InputField.OnChangeEvent OnChangeFileName => dataNameInputField.onValueChanged;
 
-        public void SetSaveButtonInteractable(bool interactable) => saveButton.interactable = interactable;
-        
         public void AddDataContent(string filePath, CanvasDataFileInfo info, bool isActive, bool isDisplayTrashButton)
         {
             var view = Instantiate(dataContentPrefab, dataShelf);
@@ -66,16 +66,6 @@ namespace SubatomicCanvas.View
         {
             _dataContents[filePath].PlaySaveEffect();
         }
-        
-        public void ChangeActiveFilePath(string filePath)
-        {
-            dataNameInputField.text = Path.GetFileNameWithoutExtension(filePath);
-            
-            foreach (var (path, view) in _dataContents)
-            {
-                view.SetActiveColor(path == filePath);
-            }
-        }
 
         public void DisplayTrashButton(bool isDisplay)
         {
@@ -95,6 +85,21 @@ namespace SubatomicCanvas.View
             }
             
             _dataContents.Clear();
+        }
+
+        public void ChangeFileNameCandidate(string fileName)
+        {
+            saveButton.interactable = FileIOUtil.CouldSaveTitle(fileName);
+            
+            var directoryPath = Path.Combine(Application.dataPath, "SceneData");
+            var filePath = Path.Combine(directoryPath, fileName + ".json");
+            
+            dataNameInputField.text = Path.GetFileNameWithoutExtension(filePath);
+            
+            foreach (var (path, view) in _dataContents)
+            {
+                view.SetActiveColor(path == filePath);
+            }
         }
     }
 }

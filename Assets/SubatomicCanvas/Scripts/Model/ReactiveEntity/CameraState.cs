@@ -1,14 +1,26 @@
 ﻿using UniRx;
+using UnityEngine;
 
 namespace SubatomicCanvas.Model
 {
     public class CameraState
     {
-        // public Vector3ReactiveProperty position = new(new Vector3(0f, 0f, -10f));
-        // public QuaternionReactiveProperty rotation = new();
-        public Vector2ReactiveProperty position = new();
-        public FloatReactiveProperty zoomLevel = new(1.0f);
-        public BoolReactiveProperty is2dView = new(true);
-        // public FloatReactiveProperty orthographicSize = new(0.25f);
+        public IReadOnlyReactiveProperty<Vector2> Position => _position;
+        public IReadOnlyReactiveProperty<float> ZoomLevel => _zoomLevel;
+        public IReadOnlyReactiveProperty<bool> Is2dView => _is2dView;
+
+        private readonly Vector2ReactiveProperty _position = new();
+        private readonly FloatReactiveProperty _zoomLevel = new(1.0f);
+        private readonly BoolReactiveProperty _is2dView = new(true);
+
+        public void Grab(Vector2 delta)
+        {
+            _position.Value += delta * 0.001f / _zoomLevel.Value;
+        }
+
+        public void Zoom(float zoom)
+        {
+            _zoomLevel.Value *= 1f + zoom * 0.1f;
+        }
     }
 }

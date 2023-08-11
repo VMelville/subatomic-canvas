@@ -4,14 +4,11 @@ namespace SubatomicCanvas.View
 {
     public class ScreenView : MonoBehaviour
     {
-        public void SetAnchoredPosition(Vector2 anchoredPosition)
+        public void UpdateScreen(Vector2 position, float zoomLevel)
         {
-            ((RectTransform)transform).anchoredPosition = anchoredPosition;
-        }
-
-        public void SetLocalScale(Vector3 localScale)
-        {
-            ((RectTransform)transform).localScale = localScale;
+            var rt = (RectTransform)transform;
+            rt.anchoredPosition = 1000f * zoomLevel * position;
+            rt.localScale = zoomLevel * Vector3.one;
         }
     }
 }

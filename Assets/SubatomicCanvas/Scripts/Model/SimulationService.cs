@@ -4,10 +4,10 @@ using ParticleSim;
 using ParticleSim.CSGSolid;
 using ParticleSim.Result;
 using ParticleSim.Volume;
-using UniRx;
+using SubatomicCanvas.Utility;
 using UnityEngine;
 
-namespace SubatomicCanvas.Utility
+namespace SubatomicCanvas.Model
 {
     public class SimulationService
     {
@@ -16,7 +16,7 @@ namespace SubatomicCanvas.Utility
 
         public (SimulationResult, Dictionary<string, (int, int)>) RunSimulation
         (
-            ReactiveDictionary<(int, int), string> installedDetectors,
+            Dictionary<(int, int), string> installedDetectors,
             Dictionary<string, LogicalVolume> logicalVolumes,
             ParticleGun particleGun,
             float worldDepth,

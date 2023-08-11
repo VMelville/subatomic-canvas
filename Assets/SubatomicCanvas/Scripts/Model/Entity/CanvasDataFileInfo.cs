@@ -36,18 +36,18 @@ namespace SubatomicCanvas.Model
 
             this.title = title;
 
-            usingParticleKeys = new List<string>(canvasState.usingParticleKeys);
-            installedDetectorPositionAndKeys = canvasState.installedDetectorPositionAndKeys
+            usingParticleKeys = new List<string>(canvasState.UsingParticleKeys);
+            installedDetectorPositionAndKeys = canvasState.InstalledDetectorPositionAndKeys
                 .ToDictionary(
                     kvp => kvp.Key.ToString(),
                     kvp => kvp.Value
                     );
-            magneticFieldVector = new SerializableVector3(canvasState.magneticFieldVector.Value);
-            simulationWorldDepth = canvasState.simulationWorldDepth.Value;
-            canvasSize = canvasState.canvasSize.Value;
-            cellSize = canvasState.cellSize.Value;
-            particleEnergyMin = canvasState.particleEnergyMin.Value;
-            particleEnergyMax = canvasState.particleEnergyMax.Value;
+            magneticFieldVector = new SerializableVector3(canvasState.MagneticFieldVector.Value);
+            simulationWorldDepth = canvasState.SimulationWorldDepth.Value;
+            canvasSize = canvasState.CanvasSize.Value;
+            cellSize = canvasState.CellSize.Value;
+            particleEnergyMin = canvasState.ParticleEnergyMin.Value;
+            particleEnergyMax = canvasState.ParticleEnergyMax.Value;
         }
     }
 }

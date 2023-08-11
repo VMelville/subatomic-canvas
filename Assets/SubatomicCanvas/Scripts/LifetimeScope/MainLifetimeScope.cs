@@ -51,15 +51,16 @@ namespace SubatomicCanvas.LifetimeScope
             builder.Register<GlobalSettingState>(Lifetime.Singleton);
             builder.Register<LastSimulationCondition>(Lifetime.Singleton);
             builder.Register<MenuState>(Lifetime.Singleton);
-            builder.Register<ModeState>(Lifetime.Singleton);
             builder.Register<PaintToolState>(Lifetime.Singleton);
             builder.Register<SnapshotState>(Lifetime.Singleton);
             builder.Register<TimeState>(Lifetime.Singleton);
             
-            // Util
+            builder.Register<SampleDetectors>(Lifetime.Singleton);
             builder.Register<SimulationService>(Lifetime.Singleton);
             builder.Register<SnapshotService>(Lifetime.Singleton);
             
+            builder.RegisterEntryPoint<TimeTicker>();
+
             // View
             builder.RegisterComponent(cameraView);
             builder.RegisterComponent(canvasView);
