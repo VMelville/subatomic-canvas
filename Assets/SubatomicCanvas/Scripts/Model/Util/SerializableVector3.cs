@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace SubatomicCanvas.Utility
+namespace SubatomicCanvas.Model
 {
     [Serializable]
     public class SerializableVector3

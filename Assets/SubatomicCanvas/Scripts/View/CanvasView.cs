@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ParticleSim.Result;
-using SubatomicCanvas.Utility;
+using SubatomicCanvas.Util;
 using UnityEngine;
 using UnityEngine.Events;
 

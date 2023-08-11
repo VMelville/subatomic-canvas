@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SubatomicCanvas.Utility.Tween
+namespace SubatomicCanvas.View
 {
     public static class CoroutineHandler
     {

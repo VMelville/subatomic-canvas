@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SubatomicCanvas.Utility
+namespace SubatomicCanvas.Util
 {
     public static class HoneycombCoordinate
     {

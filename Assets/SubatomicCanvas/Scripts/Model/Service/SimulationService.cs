@@ -4,7 +4,7 @@ using ParticleSim;
 using ParticleSim.CSGSolid;
 using ParticleSim.Result;
 using ParticleSim.Volume;
-using SubatomicCanvas.Utility;
+using SubatomicCanvas.Util;
 using UnityEngine;
 using UnityEngine.Events;
 

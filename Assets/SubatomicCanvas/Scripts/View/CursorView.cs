@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using SubatomicCanvas.Utility;
-using SubatomicCanvas.Utility.Tween;
+using SubatomicCanvas.Util;
 using UnityEngine;
 
 namespace SubatomicCanvas.View

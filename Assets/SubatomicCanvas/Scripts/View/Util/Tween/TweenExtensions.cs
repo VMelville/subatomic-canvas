@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SubatomicCanvas.Utility.Tween
+namespace SubatomicCanvas.View
 {
-    // もうちょっといい感じにできそうな気がします。
+    // ToDo: もうちょっといい感じにできそうな気がします。
     
     public static class TweenExtensions
     {

@@ -1,5 +1,4 @@
 ﻿using System;
-using SubatomicCanvas.Utility.Tween;
 using TMPro;
 using UniRx.Triggers;
 using UnityEngine;

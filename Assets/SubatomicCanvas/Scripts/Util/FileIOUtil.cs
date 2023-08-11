@@ -4,9 +4,9 @@ using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace SubatomicCanvas.Utility
+namespace SubatomicCanvas.Util
 {
-    public class FileIOUtil
+    public static class FileIOUtil
     {
         public static bool CouldSaveTitle(string title)
         {

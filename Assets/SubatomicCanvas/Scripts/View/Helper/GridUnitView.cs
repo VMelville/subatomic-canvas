@@ -1,4 +1,4 @@
-﻿using SubatomicCanvas.Utility;
+﻿using SubatomicCanvas.Util;
 using UnityEngine;
 
 namespace SubatomicCanvas.View

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SubatomicCanvas.Utility;
+using SubatomicCanvas.Util;
 using UniRx;
 using UnityEngine;
 

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace SubatomicCanvas.Utility
+namespace SubatomicCanvas.Model
 {
     public static class PositionTupleExtension
     {
