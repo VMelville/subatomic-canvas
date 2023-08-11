@@ -3,6 +3,7 @@ using System.IO;
 using SubatomicCanvas.Util;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace SubatomicCanvas.Model
 {
@@ -15,6 +16,8 @@ namespace SubatomicCanvas.Model
         private readonly ReactiveDictionary<string, CanvasDataFileInfo> _canvasDataFiles = new();
         private readonly StringReactiveProperty _fileNameCandidate = new();
         private readonly BoolReactiveProperty _isDisplayTrashButton = new();
+
+        public readonly UnityEvent<string> OnSaved = new();
 
         public void ToggleDisplayTrashButton() => _isDisplayTrashButton.Value ^= true;
         
@@ -36,13 +39,9 @@ namespace SubatomicCanvas.Model
             }
         }
 
-        public void SaveFile(CanvasManager manager)
+        public void SaveFile(CanvasDataFileInfo data)
         {
-            Debug.LogWarning("ToDo: CanvasStateごと渡してるの大掛かりすぎるかな");
-            
             // json データを準備
-            var data = new CanvasDataFileInfo(_fileNameCandidate.Value, manager);
-
             var jsonData = FileIOUtil.FormatToJsonData(data);
             
             // 保存したいファイルパスを準備
@@ -63,8 +62,8 @@ namespace SubatomicCanvas.Model
             // State に登録
             _canvasDataFiles[filePath] = data;
             
-            Debug.LogWarning("ToDo: セーブしたときにエフェクトを追加");
-            // _saveLoadView.PlaySaveEffect(filePath);
+            // エフェクト用のイベントを発行
+            OnSaved.Invoke(filePath);
         }
 
         public void DeleteFile(string filePath)

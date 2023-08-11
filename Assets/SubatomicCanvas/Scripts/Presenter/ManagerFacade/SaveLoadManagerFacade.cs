@@ -16,7 +16,7 @@ namespace SubatomicCanvas.Presenter
         {
             _saveLoadView.OnClickDisplayTrashButton.AddListener(_manager.ToggleDisplayTrashButton);
             _saveLoadView.OnClickReloadButton.AddListener(_manager.ReloadFiles);
-            _saveLoadView.OnClickSaveButton.AddListener(() => _manager.SaveFile(_canvasManager));
+            _saveLoadView.OnClickSaveButton.AddListener(() => _manager.SaveFile(new CanvasDataFileInfo(_manager.FileNameCandidate.Value, _canvasManager)));
             _saveLoadView.OnChangeFileName.AddListener(_manager.SetFileNameCandidate);
             _saveLoadView.OnClickLoadFileButton.AddListener(_canvasManager.LoadFile);
             _saveLoadView.OnClickTrashFileButton.AddListener(_manager.DeleteFile);

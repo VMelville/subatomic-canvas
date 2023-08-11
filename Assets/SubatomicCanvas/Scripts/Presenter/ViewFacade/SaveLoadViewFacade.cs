@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using SubatomicCanvas.Model;
+﻿using SubatomicCanvas.Model;
 using SubatomicCanvas.View;
 using UniRx;
 using VContainer;
@@ -55,6 +54,8 @@ namespace SubatomicCanvas.Presenter
             _saveLoadManager.FileNameCandidate
                 .Subscribe(_view.ChangeFileNameCandidate)
                 .AddTo(this);
+            
+            _saveLoadManager.OnSaved.AddListener(_view.PlaySaveEffect);
         }
     }
 }
