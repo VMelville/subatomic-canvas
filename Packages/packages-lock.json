@@ -191,11 +191,10 @@
       "url": "https://package.openupm.com"
     },
     "jp.vmelville.particle-sim-unity": {
-      "version": "https://github.com/VMelville/particle-sim-unity.git",
+      "version": "file:../particle-sim-unity",
       "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "2675e113a4295d721561a3a97db97191af2bc6a0"
+      "source": "local",
+      "dependencies": {}
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
